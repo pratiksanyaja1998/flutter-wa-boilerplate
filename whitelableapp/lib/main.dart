@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whitelableapp/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Whitelable App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: kPrimaryColor,
+        // scaffoldBackgroundColor: kSecondaryColor,
+        appBarTheme: AppBarTheme(
+          backgroundColor: kPrimaryColor,
+        )
       ),
       home: const HomePage(title: 'Flutter Demo Home Page'),
     );
@@ -42,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: kPrimaryColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -51,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          child: Text(
+          child: const Text(
             "Welcome to whitelable app",
             style: TextStyle(
               color: Colors.white,

@@ -1,6 +1,7 @@
 const fs = require("fs");
 const envfile = require("envfile");
 const axios = require("axios");
+const { exec, execSync } = require("child_process");
 
 require("dotenv").config();
 
@@ -97,6 +98,19 @@ axios
           process.exit();
         });
     }
+
+    // update package name and app name
+    let cmdStatus = "";
+
+    cmdStatus = execSync(
+      `cd ./whitelableapp && flutter pub global run rename --appname ${response.data?.data?.appName}`
+    );
+    cmdStatus = execSync(
+      `cd ./whitelableapp && flutter pub run change_app_package_name:main ${response.data?.data?.androidPackageName}`
+    );
+    cmdStatus = execSync(
+      `cd ./whitelableapp && flutter pub global run rename --bundleId ${response.data?.data?.iosBundleIdentifier} -t ios`
+    );
   })
   .catch((error) => {
     console.log("error", error?.response?.data || error);

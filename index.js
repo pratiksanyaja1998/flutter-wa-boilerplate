@@ -106,7 +106,7 @@ axios
       `cd ./whitelableapp && flutter pub global run rename --appname "${response.data?.data?.appName}"`
     );
     cmdStatus = execSync(
-      `cd ./whitelableapp && flutter pub run change_app_package_name:main "${response.data?.data?.androidPackageName}"`
+      `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.androidPackageName}" -t android`
     );
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.iosBundleIdentifier}" -t ios`

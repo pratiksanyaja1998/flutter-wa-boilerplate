@@ -32,6 +32,24 @@ axios
     parsedFile.THEME_COLOR = response.data?.data?.theme.themeColor;
     fs.writeFileSync("./.env", envfile.stringify(parsedFile));
 
+    //update theme.dart file in lib
+
+    let theme = `import 'package:flutter/material.dart';
+    const kPrimaryColor = Color(0xff${response.data?.data?.theme.primaryColor.replace(
+      "#",
+      ""
+    )});
+    const kSecondaryColor = Color(0xff${response.data?.data?.theme.secondaryColor.replace(
+      "#",
+      ""
+    )});
+    const kThemeColor = Color(0xff${response.data?.data?.theme.themeColor.replace(
+      "#",
+      ""
+    )});
+    `;
+    fs.writeFileSync("./whitelableapp/lib/theme.dart", theme);
+
     // update google service file and info plist file
     if (
       response.data?.data?.google_android_file &&

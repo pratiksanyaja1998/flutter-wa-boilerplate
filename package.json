@@ -1,0 +1,26 @@
+{
+  "name": "flutter-wa-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratiksanyaja1998/flutter-wa-boilerplate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pratiksanyaja1998/flutter-wa-boilerplate/issues"
+  },
+  "homepage": "https://github.com/pratiksanyaja1998/flutter-wa-boilerplate#readme",
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "envfile": "^6.18.0"
+  },
+  "dependencies": {
+    "axios": "^1.1.3"
+  }
+}

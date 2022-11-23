@@ -104,6 +104,11 @@ axios
     }
 
     let cmdStatus = "";
+    // active rename app
+    cmdStatus = execSync(
+      `cd ./whitelableapp && flutter pub global activate rename`
+    );
+
     // rename app name
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --appname "${response.data?.data?.appName}"`

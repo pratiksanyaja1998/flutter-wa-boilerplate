@@ -1,4 +1,4 @@
-package com.example.whitelableapp
+package com.spyhunteritsolution.demo_retail
 
 import io.flutter.embedding.android.FlutterActivity
 

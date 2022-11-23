@@ -14,23 +14,23 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  firebase_core: ^2.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_name: any
-  flutter_launcher_icons: any
-  change_app_package_name: any
+#  flutter_launcher_name: any
+  rename: ^2.0.1
+  flutter_launcher_icons: ^0.11.0
+  change_app_package_name: ^1.1.0
 
   flutter_lints: ^2.0.0
-
-flutter_launcher_name:
-  name: "Whitelable App"
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/whitelable_app_logo.png"
+  image_path: "assets/images/logo.png"
 #  web:
 #    generate: true
 #    image_path: "path/to/image.png"

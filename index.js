@@ -103,22 +103,33 @@ axios
         });
     }
 
-    // update package name and app name
     let cmdStatus = "";
-
+    // rename app name
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --appname "${response.data?.data?.appName}"`
     );
+    // update app android package name
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.androidPackageName}" -t android`
     );
+    // update ios bundle identifier
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.iosBundleIdentifier}" -t ios`
     );
+    // update app icon
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub run flutter_launcher_icons`
     );
+    // check if firebase_option.dart exist then remove
+    if (fs.existsSync("./whitelableapp/lib/firebase_options.dart")) {
+      fs.rmSync("./whitelableapp/lib/firebase_options.dart");
+    }
+    // update firebase_option.dart file for firebase
+    cmdStatus = execSync(
+      `cd ./whitelableapp && flutterfire configure -p wa-apps-28f9a`
+    );
   })
+
   .catch((error) => {
     console.log("error", error?.response?.data || error);
   });

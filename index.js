@@ -90,6 +90,10 @@ axios
         .then(async (res) => {
           try {
             fs.writeFileSync("./logo.png", res.data);
+            fs.writeFileSync(
+              "./whitelableapp/assets/images/logo.png",
+              res.data
+            );
           } catch (error) {
             console.log("error update logo", error);
           }
@@ -110,6 +114,9 @@ axios
     );
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.iosBundleIdentifier}" -t ios`
+    );
+    cmdStatus = execSync(
+      `cd ./whitelableapp && flutter pub run flutter_launcher_icons`
     );
   })
   .catch((error) => {

@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:whitelableapp/config.dart';
 import 'package:whitelableapp/model/business_app_config_model.dart';
 import 'package:whitelableapp/screens/home.dart';
 import 'package:whitelableapp/service/api.dart';
 import 'package:whitelableapp/service/shared_preference.dart';
-import 'package:whitelableapp/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

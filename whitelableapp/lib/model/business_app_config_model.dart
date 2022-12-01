@@ -16,6 +16,7 @@ class BusinessAppConfigModel {
     required this.businessDescription,
     required this.logo,
     required this.version,
+    required this.authenticationType,
     required this.appName,
     required this.theme,
     required this.order,
@@ -35,6 +36,7 @@ class BusinessAppConfigModel {
     required this.subscription,
     required this.restaurant,
     required this.env,
+    required this.fcmServerKey,
     required this.paymentKey,
     required this.paymentType,
   });
@@ -48,6 +50,7 @@ class BusinessAppConfigModel {
   String businessDescription;
   String logo;
   String version;
+  String authenticationType;
   String appName;
   BusinessTheme theme;
   BusinessOrder order;
@@ -67,40 +70,43 @@ class BusinessAppConfigModel {
   Map<dynamic, dynamic> subscription;
   Map<dynamic, dynamic> restaurant;
   String env;
+  String fcmServerKey;
   String paymentKey;
   String paymentType;
 
   factory BusinessAppConfigModel.fromJson(Map<String, dynamic> json) => BusinessAppConfigModel(
-    businessId: json["businessId"],
-    type: json["type"],
-    slug: json["slug"],
-    domain: json["domain"],
-    businessName: json["businessName"],
-    businessLocation: BusinessLocation.fromJson(json["businessLocation"]),
-    businessDescription: json["businessDescription"],
-    logo: json["logo"],
-    version: json["version"],
-    appName: json["appName"],
-    theme: BusinessTheme.fromJson(json["theme"]),
-    order: BusinessOrder.fromJson(json["order"]),
-    delivery: BusinessDelivery.fromJson(json["delivery"]),
-    invoice: json["invoice"],
-    contactUs: BusinessContactUs.fromJson(json["contactUs"]),
-    product: BusinessProduct.fromJson(json["product"]),
-    activeTime: json["activeTime"],
-    androidPackageName: json["androidPackageName"],
-    iosBundleIdentifier: json["iosBundleIdentifier"],
-    enableAppCoin: json["enableAppCoin"],
-    appHomePage: json["appHomePage"],
-    activeTheme: json["activeTheme"],
-    socialLink: json["social_link"],
-    googleAndroidFile: json["google_android_file"],
-    googleIosFile: json["google_ios_file"],
-    subscription: json["subscription"],
-    restaurant: json["restaurant"],
-    env: json["ENV"],
-    paymentKey: json["paymentKey"],
-    paymentType: json["paymentType"],
+    businessId: json["businessId"] ?? 0,
+    type: json["type"] ?? "",
+    slug: json["slug"] ?? "",
+    domain: json["domain"] ?? "",
+    businessName: json["businessName"] ?? "",
+    businessLocation: BusinessLocation.fromJson(json["businessLocation"] ?? {}),
+    businessDescription: json["businessDescription"] ?? "",
+    logo: json["logo"] ?? "",
+    version: json["version"] ?? "",
+    authenticationType: json["authentication_type"] ?? "",
+    appName: json["appName"] ?? "",
+    theme: BusinessTheme.fromJson(json["theme"] ?? {}),
+    order: BusinessOrder.fromJson(json["order"] ?? {}),
+    delivery: BusinessDelivery.fromJson(json["delivery"] ?? {}),
+    invoice: json["invoice"] ?? {},
+    contactUs: BusinessContactUs.fromJson(json["contactUs"] ?? {}),
+    product: BusinessProduct.fromJson(json["product"] ?? {}),
+    activeTime: json["activeTime"] ?? {},
+    androidPackageName: json["androidPackageName"] ?? "",
+    iosBundleIdentifier: json["iosBundleIdentifier"] ?? "",
+    enableAppCoin: json["enableAppCoin"] ?? false,
+    appHomePage: json["appHomePage"] ?? {},
+    activeTheme: json["activeTheme"] ?? 0,
+    socialLink: json["social_link"] ?? {},
+    googleAndroidFile: json["google_android_file"] ?? "",
+    googleIosFile: json["google_ios_file"] ?? "",
+    subscription: json["subscription"] ?? {},
+    restaurant: json["restaurant"] ?? {},
+    env: json["ENV"] ?? "",
+    fcmServerKey: json["fcm_server_key"] ?? "",
+    paymentKey: json["paymentKey"] ?? "",
+    paymentType: json["paymentType"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -113,6 +119,7 @@ class BusinessAppConfigModel {
     "businessDescription": businessDescription,
     "logo": logo,
     "version": version,
+    "authentication_type": authenticationType,
     "appName": appName,
     "theme": theme.toJson(),
     "order": order.toJson(),
@@ -132,6 +139,7 @@ class BusinessAppConfigModel {
     "subscription": subscription,
     "restaurant": restaurant,
     "ENV": env,
+    "fcm_server_key": fcmServerKey,
     "paymentKey": paymentKey,
     "paymentType": paymentType,
   };
@@ -153,11 +161,11 @@ class BusinessLocation {
   String pincode;
 
   factory BusinessLocation.fromJson(Map<String, dynamic> json) => BusinessLocation(
-    street: json["street"],
-    area: json["area"],
-    city: json["country"] == null ? null : json["city"],
-    country: json["country"],
-    pincode: json["pincode"],
+    street: json["street"] ?? "",
+    area: json["area"] ?? "",
+    city: json["city"] ?? "",
+    country: json["country"] ?? "",
+    pincode: json["pincode"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -189,13 +197,13 @@ class BusinessTheme {
   String screenBackground;
 
   factory BusinessTheme.fromJson(Map<String, dynamic> json) => BusinessTheme(
-    dark: json["dark"],
-    showTabBar: json["showTabBar"],
-    themeColor: json["themeColor"],
-    primaryColor: json["primaryColor"],
-    secondaryColor: json["secondaryColor"],
-    isLoginRequired: json["isLoginRequired"],
-    screenBackground: json["screenBackground"],
+    dark: json["dark"] ?? false,
+    showTabBar: json["showTabBar"] ?? false,
+    themeColor: json["themeColor"] ?? "",
+    primaryColor: json["primaryColor"] ?? "",
+    secondaryColor: json["secondaryColor"] ?? "",
+    isLoginRequired: json["isLoginRequired"] ?? false,
+    screenBackground: json["screenBackground"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -227,21 +235,21 @@ class BusinessOrder {
   bool autoAccept;
   bool cancelFromUser;
   List<dynamic> cashOnDelivery;
-  String orderDeliveryCharge;
+  double orderDeliveryCharge;
   int orderPreparationTime;
   String orderDeliveryChargeType;
   String orderDeliveryChargeOnMinAmount;
 
   factory BusinessOrder.fromJson(Map<String, dynamic> json) => BusinessOrder(
-    pickup: json["pickup"],
-    delivery: json["delivery"],
-    autoAccept: json["autoAccept"],
-    cancelFromUser: json["cancelFromUser"],
-    cashOnDelivery: json["cashOnDelivery"],
-    orderDeliveryCharge: json["orderDeliveryCharge"],
-    orderPreparationTime: json["orderPreparartionTime"],
-    orderDeliveryChargeType: json["orderDeliveryChargeType"],
-    orderDeliveryChargeOnMinAmount: json["orderDeliveryChargeOnMinAmount"],
+    pickup: json["pickup"] ?? false,
+    delivery: json["delivery"] ?? false,
+    autoAccept: json["autoAccept"] ?? false,
+    cancelFromUser: json["cancelFromUser"] ?? false,
+    cashOnDelivery: json["cashOnDelivery"] ?? [],
+    orderDeliveryCharge: json["orderDeliveryCharge"] ?? 0.0,
+    orderPreparationTime: json["orderPreparartionTime"] ?? 0,
+    orderDeliveryChargeType: json["orderDeliveryChargeType"] ?? "",
+    orderDeliveryChargeOnMinAmount: json["orderDeliveryChargeOnMinAmount"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -259,17 +267,46 @@ class BusinessOrder {
 
 class BusinessDelivery {
   BusinessDelivery({
+    required this.pickUp,
+    required this.delivery,
+    required this.autoAccept,
+    required this.cancelFromUser,
+    required this.cashOnDelivery,
     required this.availableLocation,
+    required this.orderPreparationTime,
   });
 
+  bool pickUp;
+  bool delivery;
+  bool autoAccept;
+  bool cancelFromUser;
+  List<dynamic> cashOnDelivery;
   AvailableLocation availableLocation;
+  int orderPreparationTime;
 
   factory BusinessDelivery.fromJson(Map<String, dynamic> json) => BusinessDelivery(
-    availableLocation: AvailableLocation.fromJson(json["availableLocation"]),
+    pickUp: json["pickup"] ?? false,
+    delivery: json["delivery"] ?? false,
+    autoAccept: json["autoAccept"] ?? false,
+    cancelFromUser: json["cancelFromUser"] ?? false,
+    cashOnDelivery: json["cashOnDelivery"] ?? [],
+    availableLocation: AvailableLocation.fromJson(json["availableLocation"] ?? {
+      "city": [],
+      "state": [],
+      "country": [],
+      "pincode": [],
+    }),
+    orderPreparationTime: json["orderPreparartionTime"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
-    "availableLocation": availableLocation
+    "pickup": pickUp,
+    "delivery": delivery,
+    "autoAccept": autoAccept,
+    "cancelFromUser": cancelFromUser,
+    "cashOnDelivery": cashOnDelivery,
+    "availableLocation": availableLocation,
+    "orderPreparartionTime": orderPreparationTime,
   };
 }
 
@@ -287,10 +324,10 @@ class AvailableLocation {
   List<dynamic> pinCode;
 
   factory AvailableLocation.fromJson(Map<String, dynamic> json) => AvailableLocation(
-    city: json["city"],
-    state: json["state"],
-    country: json["country"],
-    pinCode: json["pincode"],
+    city: json["city"] ?? [],
+    state: json["state"] ?? [],
+    country: json["country"] ?? [],
+    pinCode: json["pincode"] ?? [],
   );
 
   Map<String, dynamic> toJson() => {
@@ -315,10 +352,10 @@ class BusinessContactUs {
   String bussinessName;
 
   factory BusinessContactUs.fromJson(Map<String, dynamic> json) => BusinessContactUs(
-    email: json["email"],
-    mobile: json["mobile"],
-    address: json["address"],
-    bussinessName: json["bussinessName"],
+    email: json["email"] ?? "",
+    mobile: json["mobile"] ?? "",
+    address: json["address"] ?? "",
+    bussinessName: json["bussinessName"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -349,13 +386,13 @@ class BusinessProduct {
   bool availableForSubscription;
 
   factory BusinessProduct.fromJson(Map<String, dynamic> json) => BusinessProduct(
-    hidePrice: json["hidePrice"],
-    showReview: json["showReview"],
-    aspectRatio: json["aspectRatio"],
-    showCategory: json["showCategory"],
-    showVariants: json["showVariants"],
-    showSubCategory: json["showSubCategory"],
-    availableForSubscription: json["availableForSubscription"],
+    hidePrice: json["hidePrice"] ?? false,
+    showReview: json["showReview"] ?? false,
+    aspectRatio: json["aspectRatio"] ?? [],
+    showCategory: json["showCategory"] ?? false,
+    showVariants: json["showVariants"] ?? false,
+    showSubCategory: json["showSubCategory"] ?? false,
+    availableForSubscription: json["availableForSubscription"] ?? false,
   );
 
   Map<String, dynamic> toJson() => {

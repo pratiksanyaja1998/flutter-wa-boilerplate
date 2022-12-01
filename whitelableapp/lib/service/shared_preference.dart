@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whitelableapp/model/business_app_config_model.dart';
 import 'package:whitelableapp/model/user_model.dart';
@@ -16,6 +17,15 @@ class SharedPreference {
     }else{
       return _prefsInstance!;
     }
+  }
+
+  static Future<bool> setLocale(String languageCode) async {
+    return await _prefsInstance!.setString("languageCode", languageCode) ?? false;
+  }
+
+  static String getLocale(){
+    String languageCode = _prefsInstance!.getString("languageCode") ?? "en";
+    return languageCode;
   }
 
   static Future<bool> setBusinessConfig(BusinessAppConfigModel? businessAppConfigModel) async{

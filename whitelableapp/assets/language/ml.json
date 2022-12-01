@@ -1,0 +1,698 @@
+{
+	"PromotionListScreen": {
+		"promotions": "Promotions",
+		"left": "Left",
+		"downloaded": "Downloaded",
+		"bought": "Bought"
+	},
+	"aboutScreen": {
+		"about": "About",
+		"version": "Version",
+		"stringCopied": "Copied to clipboard!",
+		"deviceId": "Device Id"
+	},
+	"actionSheet": {
+		"takePhoto": "Mengambil gambar",
+		"choosePhoto": "Pilih dari Perpustakaan",
+		"removePhoto": "Buang Gambar",
+		"cancel": "Cancel"
+	},
+	"addNewAddressScreen": {
+		"addNewAddress": "Add New Address",
+		"workPlace": "Work Place",
+		"home": "Rumah",
+		"placeHolder": {
+			"contact": "Enter Your First Or Full Name",
+			"phone": "Mobile Number",
+			"address1": "Enter Your First Address",
+			"address2": "Enter Your Second Address",
+			"city": "Bandar",
+			"state": "Negeri",
+			"country": "Negara",
+			"postcode": "Postcode"
+		},
+		"title": {
+			"name": "Nama",
+			"contact": "Contact Person",
+			"phone": "Mobile No.",
+			"address1": "Address Line 1",
+			"address2": "Address Line 2",
+			"city": "Bandar",
+			"state": "Negeri",
+			"country": "Negara",
+			"postcode": "Postcode"
+		},
+		"cancel": "Cancel",
+		"add": "Add",
+		"confirm": "Confirm",
+		"editAddress": "Edit Address Details"
+	},
+	"addNewAnniversaryScreen": {
+		"anniversary": "Anniversary",
+		"date": "Tarikh",
+		"confirm": "Confirm"
+	},
+	"alert": {
+		"updateTitle": "Please Update",
+		"updateDescription": "You will have to update your app to the latest version to continue using.",
+		"disconnectFB": "Do you want to disconnect with facebook account",
+		"disconnectApple": "Do you want to disconnect with apple account"
+	},
+	"changePinScreen": {
+		"changePin": "Tetapan PIN",
+		"enterOldPin": "Masukkan PIN lama anda",
+		"enterNewPin": "Masukkan Nombor PIN Baru",
+		"placeHolder": {
+			"oldPin": "Nombor PIN sekarang",
+			"newPin": "nombor PIN"
+		},
+		"whatIsPinForDesc": "PIN keizinan anda diperlukan untuk mengakses dompet anda dan melakukan transaksi. Atas sebab keselamatan, anda perlu menyediakan nombor PIN atau ID sentuh atau ID wajah (jika peranti anda dapat menyokong ciri ini)",
+		"forgotPin": "Lupa PIN?"
+	},
+	"common": {
+		"ok": "OK",
+		"cancel": "Cancel",
+		"apply": "Apply",
+		"emptyDesc": "Your wallet is currently empty, go ahead and check out our promotions!",
+		"connectFBSuccess": "Successfully connected with your Facebook account",
+		"backToLogin": "Back to login",
+		"back": "Back",
+		"skip": "Skip",
+		"next": "Next",
+		"letExplore": "Let's Explore",
+		"description": "Description",
+		"deleteMessage": "Delete message",
+		"leftQuantity": "left",
+		"noMatchFound": "No match found!",
+		"noResultFound": "No results found!",
+		"quantity": "Quantity",
+		"soldOut": "Sold out",
+		"search": "Search",
+		"forceUpdateTitle": "We are launching a few interesting features",
+		"yes": "Yes",
+		"no": "No",
+		"hour": "Hour",
+		"minute": "Minute",
+		"forceUpdateDesc": "Please update the app to use them"
+	},
+	"contactUsScreen": {
+		"feedBack": "Feedback",
+		"attachPhoto": "Attach your photos here",
+		"placeHolder": {
+			"name": "Nama",
+			"email": "Alamat Email",
+			"phone": "Mobile Number",
+			"message": "Message"
+		},
+		"send": "Send"
+	},
+	"editProfileScreen": {
+		"profileEditing": "Ubah Profil",
+		"disconnect": "Putuskan sambungan",
+		"connect": "Sambungkan",
+		"save": "Simpan"
+	},
+	"faqScreen": {
+		"faq": "FAQ"
+	},
+	"forceLoginScreen": {
+		"login": "Log In",
+		"description1": "You are currently logged into another device.",
+		"description2": "Do you wish to terminate that session?",
+		"continueLogin": "Continue to Login"
+	},
+	"forgotPasswordScreen": {
+		"resetYourPassword": "Reset your password",
+		"enterYourEmail": "Enter your email",
+		"sendEmail": "Send Email",
+		"sendLinkSuccess": "Successfully sent link to your email"
+	},
+	"forgotPinScreen": {
+		"setupPin": "Set Member PIN",
+		"information": "Information",
+		"description": "An email with details on resetting Member Authorization PIN has been sent to {{email}}. Please follow the instructions to reset your PIN. Kindly contact Support if email is wrong.",
+		"ok": "OK"
+	},
+	"giftingReferralScreen": {
+		"inviteFriends": "Share",
+		"quantity": "Quantity :",
+		"transactionHistory": "Transaction History",
+		"deleteGifting": "Do you want to remove this gifting?",
+		"segment": {
+			"gifting": "Gifting",
+			"inviteFriends": "Jemput Rakan"
+		},
+		"clicks": "Clicks",
+		"rewards": "Rewards",
+		"gifting": "Gifting"
+	},
+	"guide": {
+		"inviteFriend": "Get rewarded when\nyour friend and family\nbecome a member",
+		"promotion": "Promotions that are\npersonalized to you",
+		"wallet": "Secured wallet having\nall your personal\nassets and transaction info",
+		"notification": "Keeping you updated\nand your personalized messages",
+		"location": "Our outlets that are\nnearest to you",
+		"descriptionHome": "Welcome! Do you want us to take a tour of the app?",
+		"attachImages": "Add supporting image when contacting us!",
+		"descriptionContactUs": "Do you want us to help?",
+		"sendVoucher": "Send your Vouchers\nor Coupons to your friend\nas a gift!",
+		"redeemVoucher": "Send your Vouchers\nor Coupons",
+		"sendCashBack": "Send your Cashback to\nyour friend as a gift",
+		"payCashback": "Pay with your cashback",
+		"profileDetail": "Your\nprofile\ndetails",
+		"memberShipDetail": "Your membership\ndetails",
+		"assetForRedeem": "Your assets for\nredemptions &\npayments"
+	},
+	"homeScreen": {
+		"topOffer": "Tawaran Terhebat Kami",
+		"memberGetMember": "Ajak rakan-rakan anda",
+		"inviteFriendsDesc": "Dan dapatkan ganjaran",
+		"learnMore": "Ketahui Lagi",
+		"joinUs": "Sertai Kami/Log Masuk",
+		"cashback": "Cashback",
+		"cashVouchersCoupons": "Cash Vouchers & Coupons",
+		"productVouchersCoupons": "Product Vouchers & Coupons",
+		"storeCredit": "Store Credit",
+		"latestOffer": "Latest Offer"
+	},
+	"inviteFriendScreen": {
+		"inviteFriend": "Jemput Rakan",
+		"share": "Share"
+	},
+	"locationDetailScreen": {
+		"promotions": "Promotions",
+		"away": "jauh",
+		"direction": "Arah",
+		"businessHours": "Business Hours",
+		"noPromotions": "Promotions are not available at this outlet",
+		"ok": "OK"
+	},
+	"locationMapScreen": {
+		"ourLocations": "Our Locations",
+		"distance": "Distance"
+	},
+	"locationScreen": {
+		"ourLocations": "Our Locations",
+		"search": "Search"
+	},
+	"loginScreen": {
+		"login": "Log In",
+		"loginViaFB": "Login via Facebook",
+		"or": "OR",
+		"register": "Daftar",
+		"forgotPassword": "Forgot your password?",
+		"placeHolder": {
+			"phone": "Mobile Number",
+			"password": "Password"
+		}
+	},
+	"membershipListScreen": {
+		"title": "Membership",
+		"memberSince": "Member since",
+		"amountToNextTier": "Amount to next tier",
+		"amountSpent": "Amount Spent",
+		"greaterThan": "Greater than",
+		"lowerThan": "Lower than",
+		"cashbackRate": "Cashback Rate"
+	},
+	"menu": {
+		"poweredBy1": "Powered by",
+		"poweredBy2": "Spyhunter IT Solution",
+		"home": "Rumah",
+		"login": "Log In",
+		"logout": "Keluar",
+		"order": "Pesan",
+		"settings": "Settings",
+		"termPolicy": "Terma & Dasar",
+		"support": "Support",
+		"promotions": "Promotions",
+		"wallet": "Dompet",
+		"notifications": "Notifications",
+		"locations": "Lokasi",
+		"myQR": "My QR"
+	},
+	"message": {
+		"registerSuccess": "Register Successful",
+		"phoneExist": "Nombor telefon anda wujud",
+		"failToVerify": "Fail to verify your mobile number",
+		"logoutSuccess": "Logout successfully",
+		"resendSuccess": "Verification code have resent successfully",
+		"pinValid": "PIN digit must be between 4 to 6!",
+		"setPinSuccess": "PIN is set successfully",
+		"failToVerifyPin": "Fail to verify your PIN",
+		"pinNotMatch": "Old PIN number does not match with current PIN",
+		"uploadAvatarSuccess": "Change profile picture successfully",
+		"removeAvatarSuccess": "Remove profile picture successfully",
+		"addressNameExist": "Address name is already exist",
+		"contactNameRequire": "Contact person is required",
+		"phoneRequire": "Phone number is required",
+		"address1Require": "Street address line 2 is required",
+		"address2Require": "Street address line 2 is required",
+		"cityRequire": "City/Town is required",
+		"stateRequire": "State/Province is required",
+		"countryRequire": "Country is required",
+		"postCodeRequire": "Post code is required",
+		"anniversaryNameExist": "Anniversary name is already exist",
+		"anniversaryNameRequire": "Anniversary name is required",
+		"anniversaryDateRequire": "Anniversary date is required",
+		"editProfileSuccess": "Update profile successfully",
+		"loginFail": "Incorrect phone number or password",
+		"sendCodeFail": "Fail to send verify code to your phone number",
+		"sendEmailFail": "Fail to send verify email",
+		"fbConnectFail": "Fail to connect facebook on your account",
+		"fbDisconnectFail": "Fail to disconnect facebook on your account",
+		"nameEmpty": "Please enter your name",
+		"emailEmpty": "Please enter your email",
+		"phoneEmpty": "Please enter your mobile number",
+		"emailInvalid": "Please enter a valid email address",
+		"phoneInvalid": "Please enter a valid mobile number",
+		"messageEmpty": "Please enter message",
+		"sendFeedBackSuccess": "Contact support ticket sent successfully."
+	},
+	"network": {
+		"title": "You are currently offline!",
+		"description": "Please check your internet connection and try again"
+	},
+	"notificationScreen": {
+		"memberNotification": "Member Notification",
+		"newFeeds": "New Feeds",
+		"userNotification": "User Notification",
+		"deleteMessage": "Do you want to delete this notification?",
+		"deleteMultipleMessage": "Do you want to delete this list of notification?",
+		"deleteSelectMessage": "Delete selected item.",
+		"confirm": "Confirm",
+		"reject": "Reject"
+	},
+	"ordering": {
+		"payScreen": {
+			"orderPickupTimeSelect": "Sila pilih masa pengambilan anda",
+			"description": "Go cashless, pay without cash or credit card, just look for store QR code to scan and pay",
+			"showMyQR": "Show my QR Code and Barcode",
+			"youPaid": "You've paid",
+			"paidTo": "To",
+			"paymentSuccess": "Payment Success",
+			"paymentError": "Something went wrong with your payment"
+		},
+		"chooseOrderTypeScreen": {
+			"title": "Choose Your Order Type",
+			"desc": "What would you like to have today?",
+			"pickup": "Pickup",
+			"dinein": "Dine-in",
+			"delivery": "Delivery"
+		},
+		"checkInOrderScreen": {
+			"title": "Ordering",
+			"scan": "Scan QR code on the table to begin order",
+			"qrCodeUnknown": "Unknown QR Code. Try again?",
+			"tryAgain": "Try again",
+			"cancel": "Cancel",
+			"goToTestOutlets": "Go to test outlets",
+			"flashMode": "Flash Mode"
+		},
+		"checkInOrderTestOutletsScreen": {
+			"title": "Test Outlets",
+			"testerOnly": "For testers only",
+			"searchPlaceholder": "Search outlets"
+		},
+		"pickUpOrderScreen": {
+			"title": "Pickup",
+			"warningOutlet": "You need to choose pickup outlet",
+			"warningLocation": "You need to choose pickup location",
+			"warningDate": "You need to choose pickup date",
+			"warningTime": "You need to choose pickup time",
+			"setDate": "Set pickup date",
+			"setTime": "Set pickup time",
+			"pickupOutlet": "Pickup outlet",
+			"pickupLocation": "Pickup location",
+			"pickupSpecial": "Special instruction",
+			"cancelButton": "Cancel",
+			"placeOrderButton": "Place Order",
+			"instruction": "Should you have any special instructions, please enter in the box above.",
+			"pickupTimeLabel": "When do you want to pick up?",
+			"theEarliestPickupTime": "The Earliest Pickup Time Is",
+			"selectAndPay": "Select And Pay Now",
+			"pickupTime": "Pickup Time"
+		},
+		"placeOrderScreen": {
+			"title": "Place Order",
+			"exit": "Do you want to exit order section?",
+			"yes": "Yes",
+			"no": "No",
+			"searchHint": "What are you looking for...?",
+			"viewAll": "View All",
+			"hideAll": "Hide All",
+			"addToCart": "  item(s) in cart",
+			"outOfStock": "Out of stock"
+		},
+		"orderHistoryScreen": {
+			"title": "Orders History",
+			"reorderSuccessful": "Add item(s) to the existing order successfully",
+			"searchHint": "Search by order product name",
+			"dateFilter": "Search by order date",
+			"orderingDate": "Ordering Date",
+			"orderRefNo": "Ref No",
+			"button": "Reorder All",
+			"checkStatus": "Check Status",
+			"currentOrder": "Current order",
+			"previousOrders": "Previous orders",
+			"dineIn": "Dine-in",
+			"pickUp": "Pick up"
+		},
+		"orderHistoryDetailScreen": {
+			"title": "Order Detail History",
+			"reorderSuccessful": "Add item(s) to the existing order successfully",
+			"searchHint": "Search by order product name",
+			"dateFilter": "Search by order date",
+			"orderingDate": "Ordering Date",
+			"orderRefNo": "Order Ref No",
+			"button": "See Order Detail",
+			"checkStatus": "Check Status",
+			"currentOrder": "Current order",
+			"previousOrders": "Previous orders"
+		},
+		"myDiningCart": {
+			"title": "My Dining Cart",
+			"totalAmount": "Sub Total (RM)",
+			"totalQuantity": "Total Quantity",
+			"selected": "selected",
+			"checkout": "Check out",
+			"orderMore": "Order more",
+			"voucherRedeemed": "Voucher",
+			"couponRedeemed": "Coupon",
+			"addMoreConfirmation1": "Are you sure you want to add more than",
+			"addMoreConfirmation2": "items?",
+			"yes": "Yes",
+			"no": "No",
+			"deleteConfirmation": "Are you sure you want to delete",
+			"maxQuantityAlert": "You have reached the maximum quantity of product"
+		},
+		"productDetail": {
+			"addToCart": "Add to cart",
+			"updateItem": "Update item",
+			"noDesc": "No description",
+			"pickOne": "Pick One",
+			"choose": "Please choose",
+			"chooseAny": "Please choose any",
+			"chooseMin": "Please choose a min of",
+			"chooseMax": "Please choose a max of",
+			"chooseMinMax1": "Please choose a min of",
+			"chooseMinMax2": "and a max of",
+			"items": "item(s)",
+			"specialRequest": "Special Request",
+			"addSpecialRequest": "Add your special request if needed"
+		},
+		"checkOutOrder": {
+			"title": "Check out",
+			"redeemFromWallet": "Redeem from your wallet",
+			"payFromWallet": "Pay from your wallet",
+			"payment": "Payment",
+			"payNow": "Pay now",
+			"orderNow": "Order now",
+			"subTotal": "Sub Total",
+			"grandTotal": "Grand Total",
+			"billTotal": "Bill Total",
+			"balancePayment": "Balance Payment",
+			"saleTax": "Tax",
+			"serviceTax": "Service Charge",
+			"redeemCashVC": "Redeem Cash Vouchers/Coupons",
+			"paymentMsg": "Your payment is complete",
+			"paymentDone": "OK",
+			"confirmError": "OK",
+			"membershipDiscount": "Membership discount",
+			"cashbackAmount": "Cashback",
+			"storeCredit": "Store Credit",
+			"completeAmmount": "Complete payment from Store Credit",
+			"exceedCreditAmount": "Amount entered cannot exceed the store credit balance.",
+			"exceedBillTotal": "Amount entered cannot exceed the bill total.",
+			"exceedTotalAmount": "Amount entered cannot exceed the balance payment.",
+			"exceedCashAmount": "Amount entered cannot exceed available cashback.",
+			"totalPaymentGreaterBillTotal": "The total cash voucher added is greater than bill amount. Do you want to proceed?",
+			"totalBillPaymentGreaterBillTotal": "The total payment added is greater than bill amount. You need to remove extra amount to proceed order.",
+			"totalPayment": "Total Payment"
+		},
+		"orderStatusPending": {
+			"cancelOrder": "Cancel Order",
+			"pendingMerchantToAccept": "Pending Merchant to accept",
+			"cancelOrderAlert": "Are you sure, you want to cancel the order?",
+			"accepted": "Accepted",
+			"preparing": "Preparing",
+			"ready": "Ready",
+			"completed": "Completed",
+			"orderNote": "Your order will be served shortly.\nShould you have any questions, please present your order number to our service staff"
+		},
+		"orderHistoryDetail": {
+			"orderItems": "Order Items",
+			"orderDate": "Order Date",
+			"orderNo": "Order No.",
+			"tableNo": "Table No.",
+			"contactNumber": "Contact Number",
+			"memberName": "Member name",
+			"memberTier": "Member tier"
+		}
+	},
+	"pinSettingScreen": {
+		"pinSettings": "Tetapan PIN",
+		"whatIsPinFor": "Penjelasan tentang PIN",
+		"whatIsPinForDesc": "PIN keizinan anda diperlukan untuk mengakses dompet anda dan melakukan transaksi. Atas sebab keselamatan, anda perlu menyediakan nombor PIN atau ID sentuh atau ID wajah (jika peranti anda dapat menyokong ciri ini)",
+		"changePin": "Tetapan PIN",
+		"requiredAfter": "Aktifkan Selepas",
+		"time": {
+			"always": "Sentiasa Perlu",
+			"1min": "1 Minute",
+			"5mins": "5 Minutes",
+			"15mins": "15 Minutes",
+			"60mins": "60 Minutes"
+		},
+		"activeTouchId": "Aktifkan ID Sentuh",
+		"indicateTouchId": "Indicate if Touch ID should be",
+		"indicate1": "Any fingerprints registered with Touch ID on this device WILL have access tp your Wallet.",
+		"indicate2": "After enabling Touch ID, transactions can be authorized with the fingerprint scanner or by entering your Authorization PIN.",
+		"indicate3": "If you tap cancel at the Touch ID prompt, you can still authorize transactions with your Authorization PIN."
+	},
+	"profileScreen": {
+		"profileSettings": "Tetapan Profil",
+		"profileStrength": "Status Profil",
+		"nickName": "Nama Nick",
+		"firstName": "Nama Pertama",
+		"lastName": "Nama Akhir",
+		"gender": "Jantina",
+		"dob": "Date of Birth",
+		"phone": "Mobile Number",
+		"email": "Alamat Email",
+		"linkThirdParty": "Pautan Pihak Ketiga",
+		"connected": "Connected",
+		"connect": "Sambungkan",
+		"listAddress": "List of Address",
+		"anniversary": "Anniversary",
+		"segment": {
+			"address": "Address(es)",
+			"anniversary": "Anniversary"
+		}
+	},
+	"promotionDetailScreen": {
+		"loading": "",
+		"free": "FREE",
+		"title": "Promotions Details",
+		"offerPeriod": "Offer Period",
+		"validAt": "Valid at",
+		"outlets": "outlets",
+		"outlet": "outlet",
+		"termOfThisDeal": "Term Of This Deal",
+		"BUY_NOW": "Buy Now!",
+		"DOWNLOAD_NOW": "Download Now!",
+		"selectPayment": "Select Payment Method",
+		"paymentDone": "OK",
+		"onlinePayment": "Online Payment is not available",
+		"validTill": "Campaign Ends"
+	},
+	"registerLoginScreen": {
+		"registration": "Registration",
+		"headerMessage": "Your mobile number have been registered with us!",
+		"message": "Please kindly login with Cloud9 single Sign-on password last used with the {{brand}} ",
+		"forgotPassword": "Forgot your password?",
+		"login": "Login"
+	},
+	"registerScreen": {
+		"registration": "Pendaftaran",
+		"placeHolder": {
+			"referral": "Referral Code (Optional)",
+			"phone": "Mobile Number",
+			"name": "Nama",
+			"email": "Alamat Email",
+			"password": "Password",
+			"gender": "Jantina (Optional)"
+		},
+		"minAge": "(min. age 12 - optional)",
+		"gender": {
+			"male": "Male",
+			"female": "Female"
+		},
+		"register": "Daftar",
+		"agree": "dengan mengetik Daftar, saya bersetuju dengan ",
+		"termsAndConditions": "Terms & Conditions",
+		"validate": {
+			"phone": "Sila masukkan nombor phone anda yang sah",
+			"name": "Please enter your name",
+			"email": "Please enter a valid email address",
+			"date": "Sila masukkan tarikh lahir anda yang sah",
+			"password": "Password must be at least 6 characters",
+			"age": "Umur minimum mestilah berumur {{age}}"
+		}
+	},
+	"setNewPinScreen": {
+		"createPin": "Daftar PIN"
+	},
+	"settingScreen": {
+		"settings": "Settings",
+		"about": "About",
+		"pinSettings": "Tetapan PIN",
+		"logout": "Keluar",
+		"logoutMessage": "Are you sure you want to log out?",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"env": "Environment",
+		"guideScreen": "Guide Screen",
+		"language": "Language"
+	},
+	"storeCredit": {
+		"title": "Store Credit",
+		"blockAndOrder": "In Transit For Ordering",
+		"block": "In Order For Redemption",
+		"creditBalance": "Credit Balance",
+		"storeCreditHistory": "Store Credit History",
+		"orderRefNo": "Order Ref No",
+		"trxDate": "Date & Time",
+		"storeCredit": "Store Credit",
+		"creditTrxName": "Credit Type",
+		"serviceRefId": "Service Ref No",
+		"outletName": "Outlet Name",
+		"transactionHistory": "Transaction History",
+		"pay": "Pay",
+		"topUp": "Top-Up",
+		"topUpDesc": "Select a preferred top-up amount",
+		"topUpTitleInput": "Enter preferred amount"
+	},
+	"supportScreen": {
+		"support": "Support",
+		"faq": "FAQ",
+		"cannotFindAnswer": "Can't find your answer in FAQ? Reach out to us directly",
+		"freeToContact": "Please feel free to contact us directly",
+		"contactUs": "Hubungi Kami"
+	},
+	"termAndPolicyScreen": {
+		"termAndPolicy": "Terma & Dasar",
+		"segment": {
+			"termOfUse": "Terms of Use",
+			"privacy": "Privacy Policy"
+		}
+	},
+	"transactionHistoryScreen": {
+		"transactionHistory": "Transaction History",
+		"search": "Search for history",
+		"noFilter": "No filter",
+		"transactionNo": "Reference No.",
+		"description": "Description",
+		"dateTime": "Date & Time",
+		"filterByDate": "Filter by date",
+		"outlet": "Outlet",
+		"amountPaid": "Amount Paid",
+		"brandName": "Brand",
+		"brand&Outlet": "Brand and Outlet.",
+		"billNumber": "Bill Number",
+		"billAmount": "Bill Amount",
+		"otherReferenceNumber": "Other Reference No",
+		"totalAvailableCashback": "Total Available Cashback",
+		"cashBackRedeemed": "Cashback Redeemed",
+		"balanceCashback": "Balance Cashback",
+		"eligibleAmount": "Eligible Amount",
+		"cashbackRate": "Cashback Rate",
+		"cashbackRewarded": "Cashback Rewarded",
+		"cashBackExpired": "Cashback Expired",
+		"cashbackTransferred": "Cashback Sent",
+		"cashbackTransferredTo": "Receiver",
+		"cashbackReceived": "Cashback Received",
+		"cashbackReceivedFrom": "Sender",
+		"transactionAt": "Outlet Name",
+		"transactionDesc": "Transaction Desc",
+		"referenceNo": "Reference No."
+	},
+	"updateEmailScreen": {
+		"updateEmail": "Update Email Address",
+		"confirm": "Confirm",
+		"placeHolder": {
+			"email": "ex: youridname@gmail.com"
+		}
+	},
+	"updatePhoneScreen": {
+		"updatePhone": "Update Mobile No.",
+		"enterPhone": "Sila masukkan no phone anda dan tap butang next",
+		"next": "Next",
+		"placeHolder": {
+			"phone": "Mobile Number"
+		}
+	},
+	"verifyCodeScreen": {
+		"verify": "Hantar Kod Pengesahan",
+		"verifyPhone": "Sahkan Nombor Telefon Anda",
+		"pleaseEnterCode": "Sila masukkan kod pengesahan anda dibawah",
+		"resendMessage": "Kadangkala penerimaan SMS memerlukan beberapa minit. Jika anda telah menunggu lebih dari 3 minit, sila ketik Hantar Sekali Lagi untuk kami menghantar semula SMS",
+		"resend": "Hantar Sekali Lagi"
+	},
+	"verifyScreen": {
+		"verify": "Sahkan",
+		"placeHolder": {
+			"pin": "Member Authorization PIN"
+		},
+		"trouble": "Mempunyai masalah?",
+		"forgotPin": "Lupa PIN?",
+		"unlockWallet": "or Unlock Your Wallet with Fingerprint Scanner",
+		"enterPin": "Masukkan PIN Kebenaran Anda"
+	},
+	"voucherDetailScreen": {
+		"loading": "",
+		"validity": "Validity Period",
+		"gift": "Gifting",
+		"redeem": "Redeem",
+		"voucherGifting": "The {{serviceName}} Gifting",
+		"transactionId": "Transaction ID",
+		"CASH_VOUCHER": "Cash Voucher",
+		"DISCOUNT_VOUCHER": "Discount Voucher",
+		"CASH_COUPON": "Cash Coupon",
+		"DISCOUNT_COUPON": "Discount Coupon",
+		"PRODUCT_VOUCHER": "Product Voucher",
+		"PRODUCT_COUPON": "Product Coupon",
+		"EVENT_TICKET": "Event Ticket",
+		"voucherDetails": "Voucher Details",
+		"quantity": "Kuantiti",
+		"offerPeriod": "Offer Period",
+		"validAt": "Valid at",
+		"outlets": "Kedai-kedai"
+	},
+	"voucherListScreen": {
+		"vouchers": "Vouchers",
+		"free": "FREE"
+	},
+	"walletScreen": {
+		"storeCreditHistory": "Store Credit",
+		"availableCashback": "Available Cashback",
+		"membershipTier": "Membership Tier",
+		"cashbackRate": "Cashback Rate",
+		"totalSavings": "Total Savings",
+		"expiringCashback": "Expiring Cashback",
+		"expiringOn": "Expiring On",
+		"amount": "Amount",
+		"amountPlaceholder": "Please enter amount to transfer or redeem",
+		"cashbackHistory": "Cashback History",
+		"cashback": "Cashback",
+		"maximunValue": "You have reach the maximum value",
+		"wallet": "Dompet",
+		"memberSince": "Ahli sejak: ",
+		"vouchers": "Vouchers",
+		"transactionHistory": "Transaction History",
+		"giftingReferral": "Rekod Hadiah",
+		"orderHistory": "Sejarah Pesanan",
+		"status": "Status",
+		"cancelled": "Dibatalkan",
+		"success": "Kejayaan"
+	}
+}

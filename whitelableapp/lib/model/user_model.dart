@@ -46,26 +46,26 @@ class UserModel {
   int id;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    userName: json["username"],
-    email: json["email"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    isActive: json["is_active"],
-    type: json["type"],
-    phone: json["phone"],
-    business: json["business"],
-    photo: json["photo"],
-    franchise: json["franchise"],
-    approved: json["approved"],
-    isTester: json["is_tester"],
-    coin: json["coin"],
-    telegramUserName: json["telegram_username"],
+    userName: json["username"] ?? "",
+    email: json["email"] ?? "",
+    firstName: json["first_name"] ?? "",
+    lastName: json["last_name"] ?? "",
+    isActive: json["is_active"] ?? false,
+    type: json["type"] ?? "",
+    phone: json["phone"] ?? "",
+    business: json["business"] ?? 0,
+    photo: json["photo"] ?? "",
+    franchise: json["franchise"] ?? 0,
+    approved: json["approved"] ?? false,
+    isTester: json["is_tester"] ?? false,
+    coin: json["coin"] ?? "",
+    telegramUserName: json["telegram_username"] ?? "",
     referralCode: json["referral_code"],
     referBy: json["refer_by"],
-    socialProfiles: json["social_profiles"],
+    socialProfiles: json["social_profiles"] ?? [],
     setting: UserSetting.fromJson(json["setting"]),
-    token: json["token"],
-    id: json["id"],
+    token: json["token"] ?? "",
+    id: json["id"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -107,10 +107,10 @@ class UserSetting {
   int id;
 
   factory UserSetting.fromJson(Map<String, dynamic> json) => UserSetting(
-    user: json["user"],
-    orderUpdateNotification: json["order_update_notification"],
-    promotionNotification: json["promotion_notification"],
-    id: json["id"],
+    user: json["user"] ?? 0,
+    orderUpdateNotification: json["order_update_notification"] ?? false,
+    promotionNotification: json["promotion_notification"] ?? false,
+    id: json["id"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {

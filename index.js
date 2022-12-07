@@ -88,7 +88,7 @@ axios
 
     // update logo in assets
     if (response.data?.data?.logo) {
-      axios
+      await axios
         .get(response.data?.data?.logo, { responseType: "arraybuffer" })
         .then(async (res) => {
           try {
@@ -97,12 +97,10 @@ axios
               "./whitelableapp/assets/images/logo.png",
               res.data
             );
+            console.log("--- logo updated successfully ---");
           } catch (error) {
             console.log("error update logo", error);
           }
-          setTimeout(() => {}, 1500);
-          console.log("--- Setup is done ---");
-          process.exit();
         });
     }
 
@@ -111,27 +109,39 @@ axios
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global activate rename`
     );
+    console.log("--- activate rename app done ---");
 
     // rename app name
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --appname "${response.data?.data?.appName}"`
     );
+    console.log("--- rename app done ---");
+
     // update app android package name
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.androidPackageName}" -t android`
     );
+    console.log("--- update package name done ---");
+
     // update ios bundle identifier
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.iosBundleIdentifier}" -t ios`
     );
+    console.log("--- update ios bundle name done ---");
+
     // update app icon
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub run flutter_launcher_icons`
     );
+    console.log("--- update app icon done ---");
+
     // check if firebase_option.dart exist then remove
     if (fs.existsSync("./whitelableapp/lib/firebase_options.dart")) {
       fs.rmSync("./whitelableapp/lib/firebase_options.dart");
+      fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
     }
+    console.log("--- delete option file and firebase app id file done ---");
+
     // update firebase_option.dart file for firebase
     cmdStatus = execSync(
       `cd ./whitelableapp && flutterfire configure -p wa-apps-28f9a`,
@@ -140,6 +150,12 @@ axios
         stdio: "inherit",
       }
     );
+    console.log("--- firebase config done ---");
+
+    setTimeout(() => {}, 1500);
+    console.log("--- Setup is done ---");
+    process.exit();
+
   })
 
   .catch((error) => {

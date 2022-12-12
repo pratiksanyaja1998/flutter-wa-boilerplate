@@ -1,9 +1,7 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/screens/accommodation/bookings.dart';
 import 'package:whitelabelapp/screens/contact_us.dart';
 import 'package:whitelabelapp/screens/login.dart';
 import 'package:whitelabelapp/screens/settings.dart';
@@ -33,10 +31,10 @@ class DrawerItem{
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => BookingsScreen()));
+                  Navigator.pop(context);
                 },
                 title: const Text(
-                  "Bookings",
+                  "Home",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -59,23 +57,22 @@ class DrawerItem{
                 ),
               ),
             ),
-            // if(!kIsWeb)
-              ListTile(
-                leading: const Icon(Icons.my_library_books_rounded, color: Colors.black,),
-                style: ListTileStyle.drawer,
-                horizontalTitleGap: 0,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
-                },
-                title: Text(
-                  getTranslated(context, ["menu", "termPolicy"]),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+            ListTile(
+              leading: const Icon(Icons.my_library_books_rounded, color: Colors.black,),
+              style: ListTileStyle.drawer,
+              horizontalTitleGap: 0,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
+              },
+              title: Text(
+                getTranslated(context, ["menu", "termPolicy"]),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
+            ),
             ListTile(
               leading: const Icon(Icons.contacts_rounded, color: Colors.black,),
               style: ListTileStyle.drawer,
@@ -115,9 +112,7 @@ class DrawerItem{
                           );
                         }else{
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen())).then((value) {
-                            // selectedItem = 0;
                             setState(() {});
-                            // getAccommodations();
                           });
                         }
                       },

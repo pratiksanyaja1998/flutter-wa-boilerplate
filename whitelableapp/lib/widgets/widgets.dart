@@ -244,7 +244,7 @@ class Widgets {
     );
   }
 
-  Widget textFieldOTP({
+  Widget otpField({
     required BuildContext context,
     required bool first,
     required bool last,
@@ -315,6 +315,46 @@ class Widgets {
         ),
       ),
     );
+  }
+
+  void showSuccessModal({required BuildContext context, bool success = true}){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(
+        content: Container(
+          constraints: const BoxConstraints(
+            maxHeight: 190
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(success ? Icons.done_all_rounded : Icons.close_rounded, color: success ? Colors.green : Colors.red, size: 40,),
+              Text(
+                success ? "Payment Successful" : "Payment failed",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: success ? Colors.green : Colors.red,
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15,),
+              Row(
+                children: [
+                  Expanded(
+                    child: textButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      text: getTranslated(context, ["common", "ok"])
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 
 }

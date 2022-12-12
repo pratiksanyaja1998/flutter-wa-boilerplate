@@ -6,7 +6,6 @@ import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/main.dart';
 import 'package:whitelabelapp/screens/password/change_password.dart';
-import 'package:whitelabelapp/screens/notification_settings.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
 import 'package:whitelabelapp/widgets/widgets.dart';
@@ -244,7 +243,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             getTranslated(context, ["settingScreen", "notificationSettings"]),
                           ),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationSettingsScreen()));
+
                           },
                           tileColor: kPrimaryColor,
                           shape: RoundedRectangleBorder(

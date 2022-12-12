@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class StripePg{
 
@@ -51,7 +51,9 @@ class StripePg{
       await Stripe.instance.presentPaymentSheet().then((value) async {
         var response = await ServiceApis().stripeCallback(id: orderId);
         if(response.statusCode == 200){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: id,)));
+          Widgets().showSuccessModal(context: context);
+        }else{
+          Widgets().showSuccessModal(context: context, success: false);
         }
       });
     }catch(e){

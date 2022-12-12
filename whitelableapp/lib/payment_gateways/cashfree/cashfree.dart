@@ -10,7 +10,7 @@ import 'package:flutter_cashfree_pg_sdk/api/cftheme/cftheme.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class CashFree{
 
@@ -27,30 +27,31 @@ class CashFree{
   final String orderToken;
 
   var cfPaymentGatewayService = CFPaymentGatewayService();
+  bool paymentEnd = false;
 
   Future<void> init()async{
     await cfPaymentGatewayService.setCallback(verifyPayment, onError);
     await openGateway();
+    while (!paymentEnd) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      if (paymentEnd) break;
+    }
   }
 
   CFEnvironment environment = CFEnvironment.SANDBOX;
 
   void verifyPayment(String orderId) {
     print("Verify Payment");
-    // if(response != null && response == "success") {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: id,)));
-    // }
+    Widgets().showSuccessModal(context: context);
+    paymentEnd = true;
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: id,)));
   }
 
   void onError(CFErrorResponse errorResponse, String orderid) {
-    print("Error while making payment");
-    print("orderId ${orderid}");
-    print("orderId ${orderId}");
-    print("Error while making payment : ${errorResponse}");
-    print("Error while making payment : ${errorResponse.getCode()}");
-    print("Error while making payment : ${errorResponse.getMessage()}");
-    print("Error while making payment : ${errorResponse.getStatus()}");
+    print("Error while making payment in CASHFREE");
+    Widgets().showSuccessModal(context: context, success: false);
+    paymentEnd = true;
   }
 
   CFSession? createSession() {
@@ -73,15 +74,14 @@ class CashFree{
       components.add(CFPaymentModes.UPI);
       components.add(CFPaymentModes.CARD);
       components.add(CFPaymentModes.WALLET);
+      components.add(CFPaymentModes.NETBANKING);
       var paymentComponent = CFPaymentComponentBuilder().setComponents(components).build();
 
       var theme = CFThemeBuilder().setNavigationBarBackgroundColorColor("#${kThemeColor.toString().substring(10).replaceAll(")", "")}").setPrimaryFont("Menlo").setSecondaryFont("Futura").build();
 
       var cfDropCheckoutPayment = CFDropCheckoutPaymentBuilder().setSession(session!).setPaymentComponent(paymentComponent).setTheme(theme).build();
 
-      var response = await cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
-
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => BookingsScreen()));
+      await cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
 
     } on CFException catch (e) {
       print(e.message);

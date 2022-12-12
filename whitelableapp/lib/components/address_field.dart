@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:whitelabelapp/config.dart';
 
-class AddressField extends StatelessWidget {
-  const AddressField({
+class UserSettingField extends StatelessWidget {
+  const UserSettingField({
     Key? key,
     this.enabled,
     this.textColor,

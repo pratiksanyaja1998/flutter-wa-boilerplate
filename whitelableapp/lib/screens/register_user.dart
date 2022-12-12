@@ -37,6 +37,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController referralCodeController = TextEditingController();
 
   bool showPassword = true;
 
@@ -219,6 +220,14 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           keyboardType: TextInputType.text,
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20),
+                        child: Widgets().textFormField(
+                          controller: referralCodeController,
+                          labelText: getTranslated(context, ["registerScreen", "placeHolder", "referral"]),
+                          keyboardType: TextInputType.text,
+                        ),
+                      ),
                       LoginScreenWidgets().loginFormItem(
                         child: Row(
                           children: [
@@ -240,6 +249,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                         firstName: firstNameController.text,
                                         lastName: lastNameController.text,
                                         password: passwordController.text,
+                                        referralCode: referralCodeController.text,
                                       );
                                       if(response.statusCode == 200){
                                         var data = jsonDecode(response.body);

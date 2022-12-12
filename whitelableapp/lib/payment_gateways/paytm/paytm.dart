@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
-import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class Paytm{
 
@@ -24,7 +24,7 @@ class Paytm{
       true,
     ).then((value) {
       var result = value.toString();
-      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: id,)));
+      Widgets().showSuccessModal(context: context);
       print("PAYTM PAYMENT SUCCESS : $result");
       return true;
     }).catchError((onError) {
@@ -36,7 +36,7 @@ class Paytm{
         var result = onError.toString();
         print("PAYTM PAYMENT ERROR : $result");
       }
-      Navigator.push(context, MaterialPageRoute(builder: (_) => BookingDetailScreen(id: id,)));
+      Widgets().showSuccessModal(context: context, success: false);
       return false;
     });
     return true;

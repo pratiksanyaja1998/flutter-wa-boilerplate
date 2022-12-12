@@ -2,9 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class RazorPay{
 
@@ -49,7 +49,9 @@ class RazorPay{
     _razorpay.clear();
 
     if(res.statusCode == 200){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: id,)));
+      Widgets().showSuccessModal(context: context,);
+    }else{
+      Widgets().showSuccessModal(context: context, success: false);
     }
 
     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentSuccessScreen()));

@@ -241,13 +241,13 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             ),
                           ),
                           const SizedBox(height: 20,),
-                          AddressField(
+                          UserSettingField(
                             controller: firstNameController,
                             fieldName: getTranslated(context, ["profileScreen", "firstName"]),
                             hintText: getTranslated(context, ["profileScreen", "firstName"]),
                           ),
                           const SizedBox(height: 15,),
-                          AddressField(
+                          UserSettingField(
                             controller: lastNameController,
                             fieldName: getTranslated(context, ["profileScreen", "lastName"]),
                             hintText: getTranslated(context, ["profileScreen", "lastName"]),
@@ -310,7 +310,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             ),
                           ),
                           const SizedBox(height: 15,),
-                          AddressField(
+                          UserSettingField(
                             enabled: false,
                             textColor: Colors.grey,
                             controller: emailController,

@@ -107,12 +107,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Widgets().textFieldOTP(context: context, first: true, last: false, otpController: otpController1),
-                                Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController2),
-                                Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController3),
-                                Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController4),
-                                Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController5),
-                                Widgets().textFieldOTP(context: context, first: false, last: true, otpController: otpController6),
+                                Widgets().otpField(context: context, first: true, last: false, otpController: otpController1),
+                                Widgets().otpField(context: context, first: false, last: false, otpController: otpController2),
+                                Widgets().otpField(context: context, first: false, last: false, otpController: otpController3),
+                                Widgets().otpField(context: context, first: false, last: false, otpController: otpController4),
+                                Widgets().otpField(context: context, first: false, last: false, otpController: otpController5),
+                                Widgets().otpField(context: context, first: false, last: true, otpController: otpController6),
                               ],
                             ),
                           ),

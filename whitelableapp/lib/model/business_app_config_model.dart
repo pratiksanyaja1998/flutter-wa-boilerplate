@@ -235,7 +235,7 @@ class BusinessOrder {
   bool autoAccept;
   bool cancelFromUser;
   List<dynamic> cashOnDelivery;
-  double orderDeliveryCharge;
+  dynamic orderDeliveryCharge;
   int orderPreparationTime;
   String orderDeliveryChargeType;
   String orderDeliveryChargeOnMinAmount;

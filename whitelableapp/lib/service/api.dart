@@ -2,17 +2,18 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/firebase/firebase_messaging.dart';
-import 'package:whitelableapp/model/business_app_config_model.dart';
-import 'package:whitelableapp/model/user_model.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/firebase/firebase_messaging.dart';
+import 'package:whitelabelapp/model/business_app_config_model.dart';
+import 'package:whitelabelapp/model/user_model.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 class ServiceApis {
 
   // static const String _baseUrl = "https://api.whitelabelapp.in";
   // static const String _baseUrl = "http://192.168.1.10:8000";
-  static const String _baseUrl = "http://192.168.1.15:8000";
+  // static const String _baseUrl = "http://192.168.1.15:8000";
+  static const String _baseUrl = "http://192.168.1.11:9000";
 
   static String get getBaseUrl => _baseUrl;
 
@@ -25,7 +26,6 @@ class ServiceApis {
   Future<http.Response> getAppConfig()async{
 
     Uri url = Uri.parse("$_baseUrl/business/app/config/$kDomain");
-    print("_________ $url _______");
 
     http.Response response = await http.Client().get(
         url,
@@ -251,8 +251,46 @@ class ServiceApis {
 
   }
 
-  Future<http.Response> getAccommodationList()async{
-    Uri url = Uri.parse("$_baseUrl/hospitality/accommodation/available/list");
+  Future<http.Response> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    var photo,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/user/update/profile/${SharedPreference.getUser()!.id}");
+
+    var request = http.MultipartRequest("PUT", url);
+    request.headers.addAll({
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Token ${SharedPreference.getUser()!.token}"
+    });
+    if(photo!=null){
+      request.files.add(await http.MultipartFile.fromPath("photo", photo.path));
+    }else{
+      request.fields["photo"] = "";
+    }
+    if(firstName != null){
+      request.fields["first_name"] = firstName;
+    }
+    if(lastName != null){
+      request.fields["last_name"] = lastName;
+    }
+    var response = await request.send();
+    var streamResponse = await http.Response.fromStream(response);
+    final responseData = json.decode(streamResponse.body);
+    if (response.statusCode == 200) {
+      print("UPDATE USER PROFILE RESPONSE = $responseData");
+      return streamResponse;
+    } else {
+      print("UPDATE USER PROFILE RESPONSE = ${response.statusCode}");
+      print("UPDATE USER PROFILE RESPONSE = $responseData");
+      print("ERROR");
+      return streamResponse;
+    }
+  }
+
+  Future<http.Response> getAccommodationList({String? startDate, String? endDate})async{
+    Uri url = Uri.parse("$_baseUrl/hospitality/accommodation/available/list?start_date=${startDate ?? ""}&end_date=${endDate ?? ""}");
 
     http.Response response = await http.Client().get(
         url,
@@ -264,7 +302,7 @@ class ServiceApis {
     );
 
     if(response.statusCode == 200){
-      print("GET ACCOMMODATION LIST RESPONSE = ${response.body}");
+      print("GET ACCOMMODATION LIST RESPONSE = ${response.statusCode}");
       return response;
     }else{
       print("GET ACCOMMODATION LIST RESPONSE = ${response.statusCode}");
@@ -499,6 +537,266 @@ class ServiceApis {
     }else{
       print("GET BOOKING DETAIL RESPONSE = ${response.statusCode}");
       print("GET BOOKING DETAIL RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> cancelBooking({
+    required String status,
+    required String message,
+    required int user,
+    required int bookingId,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/hospitality/cancel/booking/request");
+
+    final body = jsonEncode({
+      "statue": status,
+      "message": message,
+      "user": user,
+      "booking": bookingId,
+    });
+
+    print(body);
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CANCEL BOOKING RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("CANCEL BOOKING RESPONSE = ${response.statusCode}");
+      print("CANCEL BOOKING RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> userSettingUpdate({
+    required int userId,
+    required bool orderUpdateNotification,
+    required bool promotionNotification,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/user/setting/update/$userId");
+
+    final body = jsonEncode({
+      "order_update_notification": orderUpdateNotification,
+      "promotion_notification": promotionNotification,
+    });
+
+    http.Response response = await http.Client().put(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("UPDATE USER SETTING RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("UPDATE USER SETTING RESPONSE = ${response.statusCode}");
+      print("UPDATE USER SETTING RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> changePassword({
+    required String oldPassword,
+    required String newPassword,
+    required String confirmPassword,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/user/change-password");
+
+    final body = jsonEncode({
+      "old_password": oldPassword,
+      "new_password": newPassword,
+      "confirm_password": confirmPassword,
+    });
+
+    http.Response response = await http.Client().put(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CHANGE PASSWORD RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("CHANGE PASSWORD RESPONSE = ${response.statusCode}");
+      print("CHANGE PASSWORD RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteAccount()async{
+
+    Uri url = Uri.parse("$_baseUrl/user/delete/account/request/${SharedPreference.getUser()!.id}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("DELETE ACCOUNT RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("DELETE ACCOUNT RESPONSE = ${response.statusCode}");
+      print("DELETE ACCOUNT RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> resetPassword({
+    required String newPassword,
+    required String confirmPassword,
+    required String userName,
+    required String otp,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/user/reset-password/");
+
+    final body = jsonEncode({
+      "new_password": newPassword,
+      "confirm_password": confirmPassword,
+      "otp": otp,
+      "username": userName,
+      "business": SharedPreference.getBusinessConfig()!.businessId,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("RESET PASSWORD RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("RESET PASSWORD RESPONSE = ${response.statusCode}");
+      print("RESET PASSWORD RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getNotificationList()async{
+    Uri url = Uri.parse("$_baseUrl/notification/list/${SharedPreference.getBusinessConfig()!.businessId}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          // "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET NOTIFICATION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET NOTIFICATION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteNotification({required int notificationId})async{
+    Uri url = Uri.parse("$_baseUrl/notification/delete/$notificationId}");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("DELETE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("DELETE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteMultipleNotification({required String notificationId})async{
+    Uri url = Uri.parse("$_baseUrl/notification/delete/multiple/$notificationId}");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("DELETE MULTIPLE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("DELETE MULTIPLE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getPromotionList()async{
+    Uri url = Uri.parse("$_baseUrl/promotion/list/${SharedPreference.getBusinessConfig()!.businessId}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          // "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET PROMOTION LIST RESPONSE = ${response.statusCode}");
+      print("GET PROMOTION LIST RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("GET PROMOTION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getTopProductList({String? ids})async{
+    Uri url = Uri.parse("$_baseUrl/products/list/${SharedPreference.getBusinessConfig()!.businessId}?ids=${ids ?? ""}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET PRODUCT LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET PRODUCT LIST RESPONSE = ${response.statusCode}");
       return response;
     }
   }

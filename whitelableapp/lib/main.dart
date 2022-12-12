@@ -3,16 +3,14 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/firebase/firebase.dart';
-import 'package:whitelableapp/firebase/firebase_messaging.dart';
-import 'package:whitelableapp/localization/demo_localization.dart';
-import 'package:whitelableapp/localization/language_constants.dart';
-import 'package:whitelableapp/payment_gateways/razor_pay/razor_pay.dart';
-import 'package:whitelableapp/screens/splash.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/firebase/firebase.dart';
+import 'package:whitelabelapp/firebase/firebase_messaging.dart';
+import 'package:whitelabelapp/localization/demo_localization.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
+import 'package:whitelabelapp/screens/splash.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,13 +104,20 @@ class _MyAppState extends State<MyApp> {
           primary: kThemeColor,
           onPrimary: kPrimaryColor,
           secondary: kSecondaryColor,
-          surfaceTint: kThemeColor,
+          surfaceTint: Colors.transparent,
           surfaceVariant: kThemeColor,
           // shadow: kThemeColor,
           primaryContainer: kThemeColor,
         ),
         appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+          actionsIconTheme: IconThemeData(
+            color: Colors.white,
+          ),
           backgroundColor: kThemeColor,
+          foregroundColor: Colors.white,
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           splashColor: Colors.black.withOpacity(0.1),
@@ -121,6 +126,12 @@ class _MyAppState extends State<MyApp> {
           buttonColor: kThemeColor,
           textTheme: ButtonTextTheme.primary,
           // colorScheme: Theme.of(context).colorScheme.copyWith(secondary: Colors.white),
+        ),
+        sliderTheme: const SliderThemeData(
+          trackHeight: 1,
+          activeTrackColor: kThemeColor,
+          inactiveTrackColor: kSecondaryColor,
+          showValueIndicator: ShowValueIndicator.always,
         ),
         // applyElevationOverlayColor: true,
         // cupertinoOverrideTheme: null,

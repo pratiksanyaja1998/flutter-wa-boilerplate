@@ -2,17 +2,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:whitelableapp/config.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
 
 class Widgets {
 
   Widget textButton({
     required void Function()? onPressed,
     required String text,
+    double? elevation,
     EdgeInsetsGeometry? padding,
     Color? backgroundColor,
     Color? overlayColor,
     double? fontSize,
+    TextStyle? style,
     double? borderRadius,
     Widget? child,
   }){
@@ -23,7 +26,7 @@ class Widgets {
         surfaceTintColor: MaterialStateProperty.all(kPrimaryColor),
         foregroundColor: MaterialStateProperty.all(Colors.transparent),
         padding: MaterialStateProperty.all(padding ?? const EdgeInsets.symmetric(horizontal: 15, vertical: 6)),
-        elevation: MaterialStateProperty.all(4),
+        elevation: MaterialStateProperty.all(elevation ?? 4),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 8),
@@ -33,7 +36,7 @@ class Widgets {
       ),
       child: child ?? Text(
         text,
-        style: TextStyle(
+        style: style ?? TextStyle(
           fontSize: fontSize ?? 18,
           fontWeight: FontWeight.bold,
           color: kPrimaryColor
@@ -145,6 +148,172 @@ class Widgets {
       backgroundColor: kPrimaryColor,
       textColor: kThemeColor,
       fontSize: 16.0,
+    );
+  }
+
+  void showAlertDialog({required String alertMessage, required BuildContext context}){
+    showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Text(
+              alertMessage,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15,),
+          actionsPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          actions: [
+            Row(
+              children: [
+                Expanded(
+                  child: Widgets().textButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                      text: getTranslated(context, ["common", "ok"])
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  void showConfirmationDialog({
+    required String confirmationMessage,
+    required String confirmButtonText,
+    required String cancelButtonText,
+    required BuildContext context,
+    required void Function()? onConfirm,
+  }){
+    showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Text(
+              confirmationMessage,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15,),
+          actionsPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          actions: [
+            Row(
+              children: [
+                Expanded(
+                  child: Widgets().textButton(
+                    onPressed: onConfirm,
+                    text: confirmButtonText,
+                  ),
+                ),
+                const SizedBox(width: 10,),
+                Expanded(
+                  child: Widgets().textButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    text: cancelButtonText,
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Widget textFieldOTP({
+    required BuildContext context,
+    required bool first,
+    required bool last,
+    required TextEditingController otpController,
+  }) {
+    return Container(
+      height: 55,
+      width: 40,
+      margin: EdgeInsets.only(left: first ? 0 :5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 6
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: otpController,
+        autofocus: true,
+        onChanged: (value) {
+          if (value.length == 1 && last == false) {
+            FocusScope.of(context).nextFocus();
+          }
+          if (value.isEmpty && first == false) {
+            FocusScope.of(context).previousFocus();
+          }
+        },
+        validator: (value){
+          if(value!.isEmpty){
+            return "";
+          }else{
+            return null;
+          }
+        },
+        readOnly: false,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+        keyboardType: TextInputType.number,
+        maxLength: 1,
+        cursorColor: Colors.black,
+        decoration: InputDecoration(
+          errorStyle: const TextStyle(
+            fontSize: 0,
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+          filled: true,
+          fillColor: kPrimaryColor,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          counter: const Offstage(),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(width: 1.5, color: Colors.black.withOpacity(0.5)),
+              borderRadius: BorderRadius.circular(6)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(width: 1.5, color: Colors.black,),
+              borderRadius: BorderRadius.circular(6)),
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(width: 1.5, color: Colors.black),
+              borderRadius: BorderRadius.circular(6)),
+          errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(width: 1.5, color: Colors.black.withOpacity(0.5)),
+              borderRadius: BorderRadius.circular(6)),
+        ),
+      ),
     );
   }
 

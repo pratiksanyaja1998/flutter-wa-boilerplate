@@ -1,6 +1,4 @@
 
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cashfree_pg_sdk/api/cferrorresponse/cferrorresponse.dart';
@@ -11,9 +9,8 @@ import 'package:flutter_cashfree_pg_sdk/api/cfsession/cfsession.dart';
 import 'package:flutter_cashfree_pg_sdk/api/cftheme/cftheme.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/screens/booking_detail.dart';
-import 'package:whitelableapp/screens/bookings.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
 
 class CashFree{
 
@@ -31,9 +28,9 @@ class CashFree{
 
   var cfPaymentGatewayService = CFPaymentGatewayService();
 
-  void init(){
-    cfPaymentGatewayService.setCallback(verifyPayment, onError);
-    openGateway();
+  Future<void> init()async{
+    await cfPaymentGatewayService.setCallback(verifyPayment, onError);
+    await openGateway();
   }
 
   CFEnvironment environment = CFEnvironment.SANDBOX;

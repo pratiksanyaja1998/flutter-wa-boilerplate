@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/model/business_app_config_model.dart';
-import 'package:whitelableapp/screens/home.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/model/business_app_config_model.dart';
+import 'package:whitelabelapp/screens/dashboard.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,15 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
     BusinessAppConfigModel? businessAppConfigModel = SharedPreference.getBusinessConfig();
     if(businessAppConfigModel != null){
       displayText = "";
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+      var response = await ServiceApis().getAppConfig();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
     }else{
       displayText = "We are setting up your app...";
       setState(() {});
       var response = await ServiceApis().getAppConfig();
-      if(response.statusCode == 200){
-        displayText = "";
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
-      }
+      displayText = "";
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/localization/demo_localization.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:whitelabelapp/localization/demo_localization.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 //languages code
 const String english = 'en';

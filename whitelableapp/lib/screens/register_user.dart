@@ -6,14 +6,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/localization/language_constants.dart';
-import 'package:whitelableapp/model/user_model.dart';
-import 'package:whitelableapp/screens/otp_verification_screen.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
-import 'package:whitelableapp/widgets/login_screen_widgets.dart';
-import 'package:whitelableapp/widgets/widgets.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
+import 'package:whitelabelapp/model/user_model.dart';
+import 'package:whitelabelapp/screens/otp_verification_screen.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/login_screen_widgets.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class RegisterUserScreen extends StatefulWidget {
   const RegisterUserScreen({Key? key}) : super(key: key);
@@ -145,7 +145,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           labelText: getTranslated(context, ["registerScreen", "placeHolder", "first_name"]),
                           validator: (val) {
                             if(val!.isEmpty){
-                              LoginScreenWidgets().showAlertDialog(
+                              Widgets().showAlertDialog(
                                 alertMessage: getTranslated(context, ["registerScreen", "validate", "first_name"]), context: context,
                               );
                               return "";
@@ -164,7 +164,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           labelText: getTranslated(context, ["registerScreen", "placeHolder", "last_name"]),
                           validator: (val) {
                             if(val!.isEmpty){
-                              LoginScreenWidgets().showAlertDialog(
+                              Widgets().showAlertDialog(
                                 alertMessage: getTranslated(context, ["registerScreen", "validate", "last_name"]), context: context,
                               );
                               return "";
@@ -185,7 +185,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val!)){
                               return null;
                             }else{
-                              LoginScreenWidgets().showAlertDialog(
+                              Widgets().showAlertDialog(
                                 alertMessage: getTranslated(context, ["registerScreen", "validate", "email"]), context: context,
                               );
                               return "";
@@ -202,7 +202,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           labelText: getTranslated(context, ["registerScreen", "placeHolder", "password"]),
                           validator: (val) {
                             if(val!.length < 6){
-                              LoginScreenWidgets().showAlertDialog(
+                              Widgets().showAlertDialog(
                                 alertMessage: getTranslated(context, ["registerScreen", "validate", "password"]), context: context,
                               );
                               return "";
@@ -227,7 +227,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                 onPressed: ()async{
                                   if(phoneNumber != null) {
                                     if (phoneNumber!.number.length < 10) {
-                                      LoginScreenWidgets().showAlertDialog(
+                                      Widgets().showAlertDialog(
                                         alertMessage: getTranslated(context, ["registerScreen", "validate", "phone"]), context: context,
                                       );
                                       print("Invalid phone number");
@@ -260,7 +260,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                               setState(() {});
                                               Navigator.of(context).pop();
                                               print("Sorry you did not verified please login and verify otp.");
-                                              LoginScreenWidgets().showAlertDialog(
+                                              Widgets().showAlertDialog(
                                                 alertMessage: "Sorry you did not verified please login and verify otp.",
                                                 context: context,
                                               );
@@ -268,8 +268,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                           }else{
                                             // showProgress = false;
                                             // setState(() {});
+                                            showProgress = false;
+                                            setState(() {});
                                             print("Sorry you did not verified please login and verify otp.");
-                                            LoginScreenWidgets().showAlertDialog(
+                                            Widgets().showAlertDialog(
                                               alertMessage: "Sorry you did not verified please login and verify otp.",
                                               context: context,
                                             );
@@ -279,12 +281,12 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                         var data = jsonDecode(response.body);
                                         if(data.containsKey("detail")){
                                           print("---- ${data["detail"]}");
-                                          LoginScreenWidgets().showAlertDialog(
+                                          Widgets().showAlertDialog(
                                             alertMessage: data["detail"], context: context,
                                           );
                                         }else{
                                           print("Log in failed something went wrong");
-                                          LoginScreenWidgets().showAlertDialog(
+                                          Widgets().showAlertDialog(
                                             alertMessage: "Something went wrong", context: context,
                                           );
                                         }
@@ -293,7 +295,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                       }
                                     }
                                   }else{
-                                    LoginScreenWidgets().showAlertDialog(
+                                    Widgets().showAlertDialog(
                                       alertMessage: "Please enter a valid mobile number", context: context,
                                     );
                                     print("Invalid phone number");

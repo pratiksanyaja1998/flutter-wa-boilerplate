@@ -1,11 +1,15 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/localization/language_constants.dart';
-import 'package:whitelableapp/main.dart';
-import 'package:whitelableapp/screens/notification_settings.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
+import 'package:whitelabelapp/main.dart';
+import 'package:whitelabelapp/screens/password/change_password.dart';
+import 'package:whitelabelapp/screens/notification_settings.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -157,37 +161,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     const SizedBox(height: 15,),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          leading: Text(
-                            getTranslated(context, ["settingScreen", "environment"]),
-                          ),
-                          onTap: (){
-
-                          },
-                          tileColor: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
+                    if(SharedPreference.getUser() != null)
+                      if(SharedPreference.getUser()!.type == "admin")
+                        Container(
+                          margin: EdgeInsets.only(bottom: 15),
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
                             borderRadius: BorderRadius.circular(5),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                blurRadius: 6,
+                              ),
+                            ],
                           ),
-                          dense: true,
-                          trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                          child: Material(
+                            elevation: 0,
+                            color: Colors.transparent,
+                            child: ListTile(
+                              leading: Text(
+                                getTranslated(context, ["settingScreen", "environment"]),
+                              ),
+                              onTap: (){
+
+                              },
+                              tileColor: kPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              dense: true,
+                              trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 15,),
                     Container(
                       decoration: BoxDecoration(
                         color: kPrimaryColor,
@@ -207,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             getTranslated(context, ["settingScreen", "changePassword"]),
                           ),
                           onTap: (){
-
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
                           },
                           tileColor: kPrimaryColor,
                           shape: RoundedRectangleBorder(
@@ -249,30 +255,62 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                     ),
-                    // const SizedBox(height: 40,),
-                    // Container(
-                    //   padding: const EdgeInsets.all(15),
-                    //   constraints: const BoxConstraints(
-                    //     minWidth: 370,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     color: kPrimaryColor,
-                    //     borderRadius: BorderRadius.circular(5),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         color: Colors.black.withOpacity(0.5),
-                    //         blurRadius: 6,
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: const [
-                    //       Text("Logout",),
-                    //       Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
-                    //     ],
-                    //   ),
-                    // ),
+                    const SizedBox(height: 40,),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            blurRadius: 6,
+                          ),
+                        ],
+                      ),
+                      child: Material(
+                        elevation: 0,
+                        color: Colors.transparent,
+                        child: ListTile(
+                          leading: Text(
+                            getTranslated(context, ["settingScreen", "deleteAccount"]),
+                            style: const TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                          onTap: (){
+                            Widgets().showConfirmationDialog(
+                              confirmationMessage: getTranslated(context, ["settingScreen", "deleteAccountMessage"]),
+                              confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
+                              cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
+                              context: context,
+                              onConfirm: ()async{
+                                Navigator.pop(context);
+                                var response = await ServiceApis().deleteAccount();
+                                if(response.statusCode == 200){
+                                  var data = jsonDecode(response.body);
+                                  if(data["success"]) {
+                                    Widgets().showAlertDialog(
+                                      alertMessage: data["message"],
+                                      context: context,
+                                    );
+                                  }
+                                }else{
+                                  Widgets().showAlertDialog(
+                                    alertMessage: "Something went wrong.",
+                                    context: context,
+                                  );
+                                }
+                              }
+                            );
+                          },
+                          tileColor: kPrimaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          dense: true,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

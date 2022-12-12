@@ -5,13 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/localization/language_constants.dart';
-import 'package:whitelableapp/screens/register_user.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
-import 'package:whitelableapp/widgets/login_screen_widgets.dart';
-import 'package:whitelableapp/widgets/widgets.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
+import 'package:whitelabelapp/model/user_model.dart';
+import 'package:whitelabelapp/screens/password/forgot_password.dart';
+import 'package:whitelabelapp/screens/otp_verification_screen.dart';
+import 'package:whitelabelapp/screens/register_user.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/login_screen_widgets.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -168,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val!)){
                                 return null;
                               }else{
-                                LoginScreenWidgets().showAlertDialog(
+                                Widgets().showAlertDialog(
                                   alertMessage: getTranslated(context, ["registerScreen", "validate", "email"]), context: context,
                                 );
                                 return "";
@@ -185,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           labelText: getTranslated(context, ["loginScreen", "placeHolder", "password"]),
                           validator: (val) {
                             if(val!.length < 6){
-                              LoginScreenWidgets().showAlertDialog(
+                              Widgets().showAlertDialog(
                                 alertMessage: getTranslated(context, ["registerScreen", "validate", "password"]), context: context,
                               );
                               return "";
@@ -235,23 +238,62 @@ class _LoginScreenState extends State<LoginScreen> {
                                             userName: selectedLoginType == LoginType.phone ? phoneNumber!.completeNumber : emailController.text,
                                           );
                                           if(response.statusCode == 200){
-                                            showProgress = false;
-                                            setState(() {});
-                                            SharedPreference.setIsLogin(true);
-                                            if(SharedPreference.isLogin() && !kIsWeb){
-                                              await ServiceApis().crateFcmToken();
+                                            var data = jsonDecode(response.body);
+                                            if(data["is_active"]){
+                                              showProgress = false;
+                                              setState(() {});
+                                              SharedPreference.setIsLogin(true);
+                                              if(SharedPreference.isLogin() && !kIsWeb){
+                                                await ServiceApis().crateFcmToken();
+                                              }
+                                              Navigator.of(context).pop();
+                                            }else{
+                                              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                                                  OtpVerificationScreen(userName: data["username"], userId: data["id"],))
+                                              ).then((value) async {
+                                                if(value != null){
+                                                  if(value["verified"]){
+                                                    showProgress = false;
+                                                    setState(() {});
+                                                    Navigator.of(context).pop();
+                                                    UserModel userModel = UserModel.fromJson(value["data"]);
+                                                    SharedPreference.setUser(userModel: userModel);
+                                                    SharedPreference.setIsLogin(true);
+                                                    if(SharedPreference.isLogin() && !kIsWeb){
+                                                      await ServiceApis().crateFcmToken();
+                                                    }
+                                                    Navigator.of(context).pop();
+                                                  }else{
+                                                    showProgress = false;
+                                                    setState(() {});
+                                                    Navigator.of(context).pop();
+                                                    print("Sorry you did not verified please login and verify otp.");
+                                                    Widgets().showAlertDialog(
+                                                      alertMessage: "Sorry you did not verified please login and verify otp.",
+                                                      context: context,
+                                                    );
+                                                  }
+                                                }else{
+                                                  showProgress = false;
+                                                  setState(() {});
+                                                  print("Sorry you did not verified please login and verify otp.");
+                                                  Widgets().showAlertDialog(
+                                                    alertMessage: "Sorry you did not verified please login and verify otp.",
+                                                    context: context,
+                                                  );
+                                                }
+                                              });
                                             }
-                                            Navigator.of(context).pop();
                                           }else{
                                             var data = jsonDecode(response.body);
                                             if(data.containsKey("detail")){
                                               print("---- ${data["detail"]}");
-                                              LoginScreenWidgets().showAlertDialog(
+                                              Widgets().showAlertDialog(
                                                 alertMessage: data["detail"], context: context,
                                               );
                                             }else{
                                               print("Log in failed something went wrong");
-                                              LoginScreenWidgets().showAlertDialog(
+                                              Widgets().showAlertDialog(
                                                 alertMessage: "Something went wrong", context: context,
                                               );
                                             }
@@ -260,7 +302,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           }
                                         }
                                       }else{
-                                        LoginScreenWidgets().showAlertDialog(
+                                        Widgets().showAlertDialog(
                                           alertMessage: getTranslated(context, ["registerScreen", "validate", "phone"]), context: context,
                                         );
                                       }
@@ -275,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 10,),
                             GestureDetector(
                               onTap: (){
-
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Forgotpassword()),);
                               },
                               child: Text(
                                 getTranslated(context, ["loginScreen", "forgotPassword"]),

@@ -2,11 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:whitelableapp/screens/booking_detail.dart';
-import 'package:whitelableapp/screens/bookings.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
-import 'package:whitelableapp/widgets/login_screen_widgets.dart';
+import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 class RazorPay{
 
@@ -27,7 +25,7 @@ class RazorPay{
       _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
       _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     });
-    openGateway(
+    await openGateway(
       orderId: order["payment_order_key"],
       amount: order["paid_amount"],
       description: "Book Accommodation",

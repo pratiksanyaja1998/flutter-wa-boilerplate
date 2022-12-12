@@ -1,11 +1,9 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:whitelableapp/screens/booking_detail.dart';
-import 'package:whitelableapp/screens/bookings.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 class StripePg{
 
@@ -21,10 +19,10 @@ class StripePg{
   String orderId;
   String clientSecret;
 
-  void init(){
+  Future<void> init()async{
     print("_____ STRIPE INIT _____");
     Stripe.publishableKey = SharedPreference.getBusinessConfig()!.paymentKey;
-    openGateway();
+    await openGateway();
   }
   
   Future<void> openGateway()async{
@@ -37,9 +35,6 @@ class StripePg{
     try {
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
-          // customFlow: true,
-          // customerId: "",
-          // customerEphemeralKeySecret: "",
           paymentIntentClientSecret: clientSecret,
           setupIntentClientSecret: "",
           merchantDisplayName: SharedPreference.getBusinessConfig()!.appName,
@@ -51,14 +46,6 @@ class StripePg{
           //   testEnv: true,
           //   merchantCountryCode: "+91",
           // ),
-          // allowsDelayedPaymentMethods: false,
-          // appearance: PaymentSheetAppearance(),
-          // billingDetails: BillingDetails(
-          //   email: SharedPreference.getUser()!.email,
-          //   phone: SharedPreference.getUser()!.phone,
-          //   name: SharedPreference.getUser()!.firstName,
-          // ),
-          // returnURL: "https://192.168.1.15:8000/payment/stripe/callback/$orderId",
         ),
       );
       await Stripe.instance.presentPaymentSheet().then((value) async {

@@ -675,7 +675,7 @@
     "reject": "Reject",
     "norecord": {
       "title": "Notification",
-      "message": "We'll notify you when there is something now!"
+      "message": "We'll notify you when there is something new!"
     }
   },
   "ordering": {

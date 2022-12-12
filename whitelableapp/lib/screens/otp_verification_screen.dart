@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/widgets/login_screen_widgets.dart';
-import 'package:whitelableapp/widgets/widgets.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/widgets/login_screen_widgets.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({
@@ -159,12 +159,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _textFieldOTP(first: true, last: false, otpController: otpController1),
-                              _textFieldOTP(first: false, last: false, otpController: otpController2),
-                              _textFieldOTP(first: false, last: false, otpController: otpController3),
-                              _textFieldOTP(first: false, last: false, otpController: otpController4),
-                              _textFieldOTP(first: false, last: false, otpController: otpController5),
-                              _textFieldOTP(first: false, last: true, otpController: otpController6),
+                              Widgets().textFieldOTP(context: context, first: true, last: false, otpController: otpController1),
+                              Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController2),
+                              Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController3),
+                              Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController4),
+                              Widgets().textFieldOTP(context: context, first: false, last: false, otpController: otpController5),
+                              Widgets().textFieldOTP(context: context, first: false, last: true, otpController: otpController6),
                             ],
                           ),
                         ),
@@ -256,13 +256,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                           setState(() {});
                                           print("something went wrong");
                                           if(data.containsKey("detail")){
-                                            LoginScreenWidgets()
+                                            Widgets()
                                                 .showAlertDialog(
                                               alertMessage: data["detail"],
                                               context: context,
                                             );
                                           }else {
-                                            LoginScreenWidgets()
+                                            Widgets()
                                                 .showAlertDialog(
                                               alertMessage: "Something went wrong",
                                               context: context,
@@ -274,7 +274,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                         showProgress = false;
                                         setState(() {});
                                         print("something went wrong");
-                                        LoginScreenWidgets().showAlertDialog(
+                                        Widgets().showAlertDialog(
                                           alertMessage: "Something went wrong",
                                           context: context,
                                         );
@@ -282,7 +282,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                       // }
                                     }else{
                                       print("otp could not be empty");
-                                      LoginScreenWidgets().showAlertDialog(
+                                      Widgets().showAlertDialog(
                                         alertMessage: "Please enter a valid OTP",
                                         context: context,
                                       );
@@ -314,78 +314,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _textFieldOTP({
-    required bool first,
-    required bool last,
-    required TextEditingController otpController,
-  }) {
-    return Container(
-      height: 55,
-      width: 40,
-      margin: EdgeInsets.only(left: first ? 0 :5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 6
-          ),
-        ],
-      ),
-      child: TextFormField(
-        controller: otpController,
-        autofocus: true,
-        onChanged: (value) {
-          if (value.length == 1 && last == false) {
-            FocusScope.of(context).nextFocus();
-          }
-          if (value.isEmpty && first == false) {
-            FocusScope.of(context).previousFocus();
-          }
-        },
-        validator: (value){
-          if(value!.isEmpty){
-            return "";
-          }else{
-            return null;
-          }
-        },
-        readOnly: false,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        cursorColor: Colors.black,
-        decoration: InputDecoration(
-          errorStyle: const TextStyle(
-            fontSize: 0,
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 0,vertical: 0),
-          filled: true,
-          fillColor: kPrimaryColor,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          counter: const Offstage(),
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1.5, color: Colors.black.withOpacity(0.5)),
-              borderRadius: BorderRadius.circular(6)),
-          focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 1.5, color: Colors.black,),
-              borderRadius: BorderRadius.circular(6)),
-          focusedErrorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 1.5, color: Colors.black),
-              borderRadius: BorderRadius.circular(6)),
-          errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 1.5, color: Colors.black.withOpacity(0.5)),
-              borderRadius: BorderRadius.circular(6)),
         ),
       ),
     );

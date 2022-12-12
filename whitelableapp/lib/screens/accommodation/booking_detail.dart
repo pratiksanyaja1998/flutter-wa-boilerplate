@@ -2,8 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/service/api.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
 class BookingDetailScreen extends StatefulWidget {
   const BookingDetailScreen({Key? key, required this.id}) : super(key: key);
@@ -97,6 +98,19 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                       style: const TextStyle(
                         fontSize: 20,
                       ),
+                    ),
+                    const SizedBox(height: 20,),
+                    Widgets().textButton(
+                      onPressed: ()async{
+                        print("---------------- ${bookingDetail["id"]}");
+                        var response = await ServiceApis().cancelBooking(
+                          status: "requested",
+                          message: "Booking cancel request",
+                          user: bookingDetail["user"],
+                          bookingId: widget.id,
+                        );
+                      },
+                      text: "Cancel booking",
                     ),
                   ],
                 ) : const Center(),

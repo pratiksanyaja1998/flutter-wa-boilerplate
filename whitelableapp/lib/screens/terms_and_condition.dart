@@ -1,11 +1,10 @@
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:webviewx/webviewx.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 class TermsAndConditionScreen extends StatefulWidget {
   const TermsAndConditionScreen({Key? key}) : super(key: key);
@@ -51,42 +50,61 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
               title: const Text("Terms & Policies"),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              bottom: TabBar(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                labelStyle: const TextStyle(
-                  fontSize: 16,
-
-                ),
-                unselectedLabelStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
-                  decorationThickness: 2,
-                ),
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.white,
-                indicator: BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.black.withOpacity(0.4),
-                  //     blurRadius: 6,
-                  //   ),
-                  // ],
-                ),
-                tabs: [
-                  Tab(
-                    text: "Terms of Use",
+              bottom: PreferredSize(
+                preferredSize: Size(MediaQuery.of(context).size.width, 60),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: kThemeColor,
+                    border: Border.all(color: kPrimaryColor, width: 1.5),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 6
+                      ),
+                    ],
                   ),
-                  Tab(
-                    text: "Privacy Policy",
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: TabBar(
+                      labelStyle: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      unselectedLabelStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        decorationThickness: 2,
+                      ),
+                      labelColor: Colors.black,
+                      unselectedLabelColor: Colors.white,
+                      indicator: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 6,
+                          ),
+                        ],
+                      ),
+                      tabs: const [
+                        Tab(
+                          text: "Terms of Use",
+                        ),
+                        Tab(
+                          text: "Privacy Policy",
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
             ),
             body: Container(
               margin: const EdgeInsets.all(20.0),
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
@@ -100,23 +118,35 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
               child: TabBarView(
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: WebView(
-                      initialUrl: terms,
-                      javascriptMode: JavascriptMode.unrestricted,
-                      onWebViewCreated: (WebViewController webViewController){
-                        _controller = webViewController;
-                      },
-                    ),
+                  WebViewX(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    initialContent: terms,
+                    initialSourceType: SourceType.url,
                   ),
-                  WebView(
-                    initialUrl: policy,
-                    javascriptMode: JavascriptMode.unrestricted,
-                    onWebViewCreated: (WebViewController webViewController){
-                      _controller = webViewController;
-                    },
+                  WebViewX(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    initialContent: terms,
+                    initialSourceType: SourceType.url,
                   ),
+                  // ClipRRect(
+                  //   borderRadius: BorderRadius.circular(10),
+                  //   child: WebView(
+                  //     initialUrl: terms,
+                  //     javascriptMode: JavascriptMode.unrestricted,
+                  //     onWebViewCreated: (WebViewController webViewController){
+                  //       _controller = webViewController;
+                  //     },
+                  //   ),
+                  // ),
+                  // WebView(
+                  //   initialUrl: policy,
+                  //   javascriptMode: JavascriptMode.unrestricted,
+                  //   onWebViewCreated: (WebViewController webViewController){
+                  //     _controller = webViewController;
+                  //   },
+                  // ),
                 ],
               ),
 //             Column(

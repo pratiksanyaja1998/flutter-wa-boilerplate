@@ -1,4 +1,4 @@
-name: whitelableapp
+name: whitelabelapp
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -26,12 +26,18 @@ dependencies:
   paytm_allinonesdk: ^1.2.0
   flutter_stripe: ^7.0.0
 
-  provider: ^6.0.4
-  webview_flutter: ^3.0.4
+#  provider: ^6.0.4
+  webviewx: ^0.2.1
+  image_picker: ^0.8.6
+  image_cropper: ^3.0.1
+  file_picker: ^5.2.3
+  dotted_border: ^2.0.0+3
+  url_launcher: ^6.1.7
+#  webview_flutter: ^3.0.4
   intl: ^0.17.0
   flutter_slidable: ^2.0.0
   intl_phone_field: ^3.1.0
-  fluttertoast: ^8.1.1
+#  fluttertoast: ^8.1.1
   shared_preferences: ^2.0.15
   http: ^0.13.5
 
@@ -49,19 +55,20 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
+  remove_alpha_ios: true
   image_path: "assets/images/logo.png"
-#  web:
-#    generate: true
-#    image_path: "path/to/image.png"
-#    background_color: "#hexcode"
-#    theme_color: "#hexcode"
-#  windows:
-#    generate: true
-#    image_path: "path/to/image.png"
-#    icon_size: 48 # min:48, max:256, default: 48
-#  macos:
-#    generate: true
-#    image_path: "path/to/image.png"
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+    background_color: "#FFFFFF"
+    theme_color: "#FFFFFF"
+  windows:
+    generate: true
+    image_path: "assets/images/logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/logo.png"
 
 flutter:
 

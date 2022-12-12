@@ -1,257 +1,433 @@
+
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/components/home_screen/accommodation_card.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/localization/language_constants.dart';
-import 'package:whitelableapp/screens/accommodation_detail.dart';
-import 'package:whitelableapp/screens/bookings.dart';
-import 'package:whitelableapp/screens/contact_us.dart';
-import 'package:whitelableapp/screens/login.dart';
-import 'package:whitelableapp/screens/profile.dart';
-import 'package:whitelableapp/screens/settings.dart';
-import 'package:whitelableapp/screens/terms_and_condition.dart';
-import 'package:whitelableapp/service/api.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
-import 'package:whitelableapp/widgets/widgets.dart';
+import 'package:whitelabelapp/components/drawer.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
+import 'package:whitelabelapp/service/api.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
+import 'package:whitelabelapp/widgets/widgets.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  final String title = "Products";
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
 
-  List<dynamic> accommodationList = [];
+  bool showProgress = false;
+  bool gettingProducts = false;
 
-  bool showProgress = true;
+  late Timer _timer;
+
+  List<dynamic> productList = [];
+
+  int currentSliderPageIndex = 0;
+  PageController imageSliderController = PageController();
+  int currentBannerIndex = 0;
+  PageController bannerController = PageController();
+
+  Map<dynamic, dynamic>? appHomePage;
 
   @override
   void initState() {
     // TODO: implement initState
-    setFcmToken();
-    getAccommodations();
+    getHomePageData();
     super.initState();
   }
 
-  Future<void> getAccommodations()async{
-    if(SharedPreference.getUser() != null) {
-      var response = await ServiceApis().getAccommodationList();
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        accommodationList = data;
-        showProgress = false;
-        setState(() {});
-      } else {
-        showProgress = false;
-        setState(() {});
-      }
-    }else{
-      showProgress = false;
+  void getHomePageData(){
+    appHomePage = SharedPreference.getBusinessConfig()!.appHomePage;
+    setState(() {});
+    if(appHomePage!["slider"].length > 1) {
+      _timer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+        if (currentSliderPageIndex == appHomePage!["slider"].length - 1) {
+          imageSliderController.animateToPage(
+              0, duration: const Duration(milliseconds: 600),
+              curve: Curves.ease);
+        } else {
+          imageSliderController.nextPage(
+              duration: const Duration(milliseconds: 600), curve: Curves.ease);
+        }
+        if (currentBannerIndex == appHomePage!["bannerCard"].length - 1) {
+          bannerController.animateToPage(
+              0, duration: const Duration(milliseconds: 600),
+              curve: Curves.ease);
+        } else {
+          bannerController.nextPage(
+              duration: const Duration(milliseconds: 600), curve: Curves.ease);
+        }
+      });
+    }
+    if(appHomePage!["topProducts"].isNotEmpty){
+      gettingProducts = true;
+      setState(() {});
+      getProducts(ids: appHomePage!["topProducts"].toString().replaceAll("[", "").replaceAll("]", ""));
+    }
+  }
+
+  Future<void> getProducts({String? ids})async{
+    var response = await ServiceApis().getTopProductList(
+      ids: ids
+    );
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      productList = data;
+      gettingProducts = false;
+      setState(() {});
+    } else {
+      gettingProducts = false;
       setState(() {});
     }
   }
 
-  Future<void> setFcmToken()async{
-    if(SharedPreference.isLogin() && !kIsWeb){
-      await ServiceApis().crateFcmToken();
-    }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _timer.cancel();
+    imageSliderController.dispose();
+    bannerController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: const Text(kAppName),
-        actions: [
-          SizedBox(
-            height: 55,
-            width: 55,
-            child: IconButton(
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
-              icon: Icon(Icons.person_pin_rounded, size: 25,),
-            ),
-          ),
-        ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(getTranslated(context, ["menu","home"])),
       ),
-      drawer: Drawer(
-        backgroundColor: kPrimaryColor,
-        width: 200,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 50,),
-              ListTile(
-                leading: const Icon(Icons.settings, color: Colors.black,),
-                style: ListTileStyle.drawer,
-                horizontalTitleGap: 0,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => BookingsScreen()));
-                },
-                title: const Text(
-                  "Bookings",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings, color: Colors.black,),
-                style: ListTileStyle.drawer,
-                horizontalTitleGap: 0,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
-                },
-                title: Text(
-                  getTranslated(context, ["menu", "settings"]),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              if(!kIsWeb)
-                ListTile(
-                  leading: const Icon(Icons.my_library_books_rounded, color: Colors.black,),
-                  style: ListTileStyle.drawer,
-                  horizontalTitleGap: 0,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
-                  },
-                  title: Text(
-                    getTranslated(context, ["menu", "termPolicy"]),
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ListTile(
-                leading: const Icon(Icons.contacts_rounded, color: Colors.black,),
-                style: ListTileStyle.drawer,
-                horizontalTitleGap: 0,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactUsScreen()));
-                },
-                title: Text(
-                  getTranslated(context, ["menu", "contactUs"]),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Expanded(child: Center()),
-              Row(
-                children: [
-                  Expanded(
-                    child: Widgets().textButton(
-                      onPressed: ()async{
-                        if(SharedPreference.isLogin()){
-                          await ServiceApis().userLogOut();
-                          setState(() {});
-                        }else{
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen())).then((value) {
-                            setState(() {});
-                            getAccommodations();
-                          });
-                        }
-                      },
-                      text: SharedPreference.isLogin() ? getTranslated(context, ["menu", "logout"]) : getTranslated(context, ["menu", "login"]),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20,),
-              const Text(
-                "Powered by\nSpyhunter IT Solution",
-                style: TextStyle(
-                  fontSize: 10,
-                ),
-              ),
-              const Text(
-                "v 3.0.4",
-                style: TextStyle(
-                  fontSize: 10,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: DrawerItem().drawer(context, setState),
       body: Center(
-        child: showProgress ? const CircularProgressIndicator(
-          color: kThemeColor,
-        ) : RefreshIndicator(
-          onRefresh: ()async{
-            // Future.delayed(const Duration(seconds: 0), (){});
-            showProgress = true;
-            setState(() {});
-            getAccommodations();
-          },
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 10,),
-                for(int i = 0; i < accommodationList.length; i++)
-                  Column(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AccommodationDetailScreen(
-                            accommodationList: accommodationList,
-                            index: i,
-                          )));
-                        },
-                        child: AccommodationCard(
-                          name: accommodationList[i]["name"],
-                          description: accommodationList[i]["description"],
-                          images: accommodationList[i]["images"],
-                        ),
-                      ),
-                      if(i < accommodationList.length - 1)
-                        Container(
-                          constraints: const BoxConstraints(
-                            maxWidth: 370,
-                          ),
-                          margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                          child: const Divider(
-                            thickness: 2,
-                            color: Colors.grey,
-                          ),
-                        ),
-                    ],
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: 1000,
+            maxHeight: MediaQuery.of(context).size.height,
+          ),
+          child: Center(
+            child: RefreshIndicator(
+              onRefresh: ()async{
+
+              },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: showProgress ? const Center(
+                  child: CircularProgressIndicator(
+                    color: kThemeColor,
                   ),
-              ],
+                ) : Column(
+                  children: appHomePage != null ? [
+                    if(!kIsWeb)
+                      const SizedBox(height: 20,),
+                    if(!kIsWeb)
+                      Widgets().appLogo(
+                        height: 100,
+                        width: 100,
+                        radius: 5,
+                      ),
+                    const SizedBox(height: 40,),
+                    Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          constraints: const BoxConstraints(
+                            maxHeight: 150,
+                          ),
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 6,
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: PageView(
+                              controller: imageSliderController,
+                              onPageChanged: (index){
+                                currentSliderPageIndex = index;
+                                setState(() {});
+                              },
+                              children: [
+                                for(int i = 0; i < appHomePage!["slider"].length; i++)
+                                  Image.network(
+                                    appHomePage!["slider"][i]["image"],
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (context, child, loadingProgress){
+                                      if(loadingProgress != null){
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: kThemeColor,
+                                            strokeWidth: 3,
+                                          ),
+                                        );
+                                      }else{
+                                        return child;
+                                      }
+                                    },
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          left: 0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if(appHomePage!["slider"].length > 1)
+                                for(int i = 0; i < appHomePage!["slider"].length; i++)
+                                  GestureDetector(
+                                    onTap: (){
+                                      imageSliderController.animateToPage(i,duration: const Duration(milliseconds: 600), curve: Curves.ease);
+                                    },
+                                    child: AnimatedContainer(
+                                      width: currentSliderPageIndex == i ? 24.0 : 12,
+                                      height: 8.0,
+                                      margin: const EdgeInsets.only(bottom: 15.0, left: 4, right: 4, top: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: currentSliderPageIndex == i ? kThemeColor  : Colors.black.withOpacity(0.3),
+                                      ),
+                                      duration: const Duration(
+                                        milliseconds: 500,
+                                      ),
+                                    ),
+                                  ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    if(gettingProducts || productList.isNotEmpty)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Top Products",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10,),
+                                  if(!gettingProducts)
+                                    Stack(
+                                      children: [
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: [
+                                              for(int i = 0; i < productList.length; i++)
+                                                Container(
+                                                  height: 250,
+                                                  width: 200,
+                                                  margin: const EdgeInsets.only(right: 15, bottom: 10, top: 10),
+                                                  decoration: BoxDecoration(
+                                                    color: kPrimaryColor,
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black.withOpacity(0.3),
+                                                        blurRadius: 6,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: SizedBox(
+                                                          width: 200,
+                                                          child: ClipRRect(
+                                                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10),),
+                                                            child: Image.network(
+                                                              productList[i]["images"][0]["photo"],
+                                                              fit: BoxFit.cover,
+                                                              loadingBuilder: (context, child, loadingProgress){
+                                                                if(loadingProgress != null){
+                                                                  return const Center(
+                                                                    child: CircularProgressIndicator(
+                                                                      color: kThemeColor,
+                                                                      strokeWidth: 3,
+                                                                    ),
+                                                                  );
+                                                                }else{
+                                                                  return child;
+                                                                }
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8.0),
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              productList[i]["name"],
+                                                              style: const TextStyle(
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  "₹ ${productList[i]["price"]}",
+                                                                  style: const TextStyle(
+                                                                    fontSize: 18,
+                                                                    fontWeight: FontWeight.bold,
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(width: 5),
+                                                                // if(double.parse(productList[i]["discount"]) != 0 )
+                                                                  Text(
+                                                                    "${double.parse(productList[i]["price"]) + ((double.parse(productList[i]["price"]) * double.parse(productList[i]["discount"]))/100)}",
+                                                                    style: const TextStyle(
+                                                                      fontSize: 16,
+                                                                      decoration: TextDecoration.lineThrough
+                                                                    ),
+                                                                  ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  else
+                                    Center(
+                                      child: Column(
+                                        children: const [
+                                          CircularProgressIndicator(
+                                            color: kThemeColor,
+                                          ),
+                                          Text("getting products"),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    const SizedBox(height: 20,),
+                    Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          constraints: const BoxConstraints(
+                            maxHeight: 150,
+                          ),
+                          decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 6,
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: PageView(
+                              controller: bannerController,
+                              onPageChanged: (index){
+                                currentBannerIndex = index;
+                                setState(() {});
+                              },
+                              children: [
+                                for(int i = 0; i < appHomePage!["bannerCard"].length; i++)
+                                  Image.network(
+                                    appHomePage!["bannerCard"][i]["image"],
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (context, child, loadingProgress){
+                                      if(loadingProgress != null){
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: kThemeColor,
+                                            strokeWidth: 3,
+                                          ),
+                                        );
+                                      }else{
+                                        return child;
+                                      }
+                                    },
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          left: 0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if(appHomePage!["bannerCard"].length > 1)
+                                for(int i = 0; i < appHomePage!["bannerCard"].length; i++)
+                                  GestureDetector(
+                                    onTap: (){
+                                      bannerController.animateToPage(i,duration: const Duration(milliseconds: 600), curve: Curves.ease);
+                                    },
+                                    child: AnimatedContainer(
+                                      width: currentBannerIndex == i ? 24.0 : 12,
+                                      height: 8.0,
+                                      margin: const EdgeInsets.only(bottom: 15.0, left: 4, right: 4, top: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: currentBannerIndex == i ? kThemeColor  : Colors.black.withOpacity(0.3),
+                                      ),
+                                      duration: const Duration(
+                                        milliseconds: 500,
+                                      ),
+                                    ),
+                                  ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20,),
+                  ] : [],
+                ),
+              ),
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-
-        },
-        child: Icon(Icons.filter_alt_rounded),
       ),
     );
   }

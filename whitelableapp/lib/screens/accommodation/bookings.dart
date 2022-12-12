@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/screens/booking_detail.dart';
-import 'package:whitelableapp/service/api.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/screens/accommodation/booking_detail.dart';
+import 'package:whitelabelapp/service/api.dart';
 
 class BookingsScreen extends StatefulWidget {
   const BookingsScreen({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:whitelableapp/firebase_options.dart';
+import 'package:whitelabelapp/firebase_options.dart';
 
 class FirebaseProject {
 

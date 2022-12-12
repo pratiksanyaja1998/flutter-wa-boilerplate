@@ -1,16 +1,20 @@
 
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/config.dart';
+import 'package:whitelabelapp/config.dart';
 
 class AddressField extends StatelessWidget {
   const AddressField({
     Key? key,
+    this.enabled,
+    this.textColor,
     required this.controller,
     required this.fieldName,
     required this.hintText,
     this.initialValue,
   }) : super(key: key);
 
+  final Color? textColor;
+  final bool? enabled;
   final TextEditingController controller;
   final String fieldName;
   final String hintText;
@@ -19,7 +23,7 @@ class AddressField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 8, bottom: 2),
       constraints: const BoxConstraints(
         minWidth: 370,
       ),
@@ -45,10 +49,11 @@ class AddressField extends StatelessWidget {
             ),
           ),
           TextFormField(
+            enabled: enabled ?? true,
             controller: controller,
-            style: const TextStyle(
-                fontSize: 16,
-                color: Colors.black
+            style: TextStyle(
+              fontSize: 16,
+              color: textColor ?? Colors.black,
             ),
             keyboardType: TextInputType.text,
             initialValue: initialValue,

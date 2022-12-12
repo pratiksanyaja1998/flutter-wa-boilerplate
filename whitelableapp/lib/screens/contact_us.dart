@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:whitelableapp/config.dart';
-import 'package:whitelableapp/service/shared_preference.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
+import 'package:whitelabelapp/service/shared_preference.dart';
 
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: const Text("Contact Us"),
+            title: Text(getTranslated(context, ["contactUs", "title"]),),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -60,7 +62,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       child: Column(
                         children: [
                           Text(
-                            SharedPreference.getBusinessConfig()!.businessName,
+                            SharedPreference.getBusinessConfig()!.contactUs.bussinessName,
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -70,51 +72,61 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           const SizedBox(height: 10,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
-                                "Contact Number",
-                                style: TextStyle(
+                                getTranslated(context, ["contactUs", "label", "contact"]),
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text("9099228842"),
+                              Text(SharedPreference.getBusinessConfig()!.contactUs.mobile,),
                             ],
                           ),
                           const SizedBox(height: 10,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
-                                "Email Id",
-                                style: TextStyle(
+                                getTranslated(context, ["contactUs", "label", "email"]),
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text("spyhunteritsolution@gmail.com"),
+                              Text(SharedPreference.getBusinessConfig()!.contactUs.email,),
                             ],
                           ),
                           const SizedBox(height: 10,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                "Address",
-                                style: TextStyle(
+                                getTranslated(context, ["contactUs", "label", "address"]),
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 5,),
-                              Text("104-Global point, Sarthana jakatnaka, Surat, Gujrat, India - 395006"),
+                              const SizedBox(height: 5,),
+                              Text(SharedPreference.getBusinessConfig()!.contactUs.address,),
                             ],
                           ),
                           const SizedBox(height: 15,),
-                          const Text("https:/ /demo-retail.whitelabelapp.in"),
+                          GestureDetector(
+                            onTap: () async {
+                              await launchUrl(Uri.parse("https://${SharedPreference.getBusinessConfig()!.domain}"));
+                            },
+                            child: Text(
+                              "https://${SharedPreference.getBusinessConfig()!.domain}",
+                              style: const TextStyle(
+                                color: Colors.indigo,
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 10,),
                         ],
                       ),

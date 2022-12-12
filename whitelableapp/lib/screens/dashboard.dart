@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:whitelabelapp/components/drawer.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/payment_gateways/cashfree/cashfree.dart';
@@ -92,23 +91,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 15,),
-                if(SharedPreference.isLogin())
-                  ListTile(
-                    leading: const Icon(Icons.book_online, color: Colors.black,),
-                    style: ListTileStyle.drawer,
-                    horizontalTitleGap: 0,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    title: const Text(
-                      "Home",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
+                ListTile(
+                  leading: const Icon(Icons.home, color: Colors.black,),
+                  style: ListTileStyle.drawer,
+                  horizontalTitleGap: 0,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  title: const Text(
+                    "Home",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
+                ),
                 ListTile(
                   leading: const Icon(Icons.settings, color: Colors.black,),
                   style: ListTileStyle.drawer,
@@ -370,7 +368,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                         },
                                                         text: "Close",
                                                         fontSize: 22,
-                                                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: kIsWeb ? 12 : 8),
                                                       ),
                                                     ),
                                                   ],
@@ -417,35 +415,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     elevation: 0,
                     color: Colors.transparent,
                     child: ListTile(
-                      title: const Text(
-                        "Referral code",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
+                      title: Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "Referral code",
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            SharedPreference.getUser()!.referralCode ?? "",
+                            style: const TextStyle(
+                              color: Colors.black,fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 5,),
+                          const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black,),
+                        ],
                       ),
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (contxt) => ReferralScreen()));
                       },
                       dense: true,
-                      trailing: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth: 100,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              SharedPreference.getUser()!.referralCode ?? "",
-                              style: const TextStyle(
-                                color: Colors.black,fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                            const SizedBox(width: 5,),
-                            const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black,),
-                          ],
-                        ),
-                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     ),
                   ),
                 ),
@@ -478,31 +473,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "₹ ${donationList[i]["amount"]}",
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      DateFormat("dd MMM yyyy hh:mm a").format(DateTime.parse(donationList[i]["updated_at"])),
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle: FontStyle.italic
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 3,),
                                 Text(
-                                  donationList[i]["status"],
+                                  "₹ ${donationList[i]["amount"]}",
                                   style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -510,11 +484,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   const SizedBox(height: 3,),
                                 if(donationList[i]["note"].isNotEmpty)
                                   Text(
-                                      donationList[i]["note"],
+                                    donationList[i]["note"],
                                     style: const TextStyle(
                                       fontSize: 18,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
+                                const SizedBox(height: 3,),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        DateFormat("dd MMM yyyy hh:mm a").format(DateTime.parse(donationList[i]["updated_at"])),
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FontStyle.italic
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      donationList[i]["status"].toString().toUpperCase(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -678,7 +675,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           },
                           fontSize: 22,
                           text: "Donate",
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: kIsWeb ? 12 : 8),
                         ),
                       ),
                     ],

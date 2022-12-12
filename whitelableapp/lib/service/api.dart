@@ -41,7 +41,6 @@ class ServiceApis {
       return response;
     }else{
       print("GET APP CONFIG RESPONSE = ${response.statusCode}");
-      print("GET APP CONFIG RESPONSE = ${response.body}");
       return response;
     }
 
@@ -296,15 +295,8 @@ class ServiceApis {
   })async{
     Uri url = Uri.parse("$_baseUrl/user/address/delete/$addressId");
 
-    // final body = jsonEncode({
-    //   "id": addressId,
-    // });
-
-    // print("_+_+_+_+_+_+_ $body");
-
     http.Response response = await http.Client().delete(
         url,
-        // body: body,
         headers: {
           "Accept": "application/json",
           "Authorization": "Token ${SharedPreference.getUser()!.token}"
@@ -338,11 +330,6 @@ class ServiceApis {
     http.Response response = await http.Client().post(
         url,
         body: body,
-        // headers: {
-        //   "Accept": "application/json",
-        //   // "Content-Type": "application/json",
-        //   // "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        // }
     );
 
     if(response.statusCode == 200){
@@ -364,7 +351,6 @@ class ServiceApis {
       url,
       headers: {
         "Accept": "application/json",
-        // "Content-Type": "application/json",
         "Authorization": "Token ${SharedPreference.getUser()!.token}"
       }
     );
@@ -590,8 +576,6 @@ class ServiceApis {
       "note": description ?? "",
     });
 
-    print("-=-=-=-=-=-= $body");
-
     http.Response response = await http.Client().post(
         url,
         body: body,
@@ -625,7 +609,6 @@ class ServiceApis {
 
     if(response.statusCode == 200){
       print("GET DONATION LIST RESPONSE = ${response.statusCode}");
-      print("GET DONATION LIST RESPONSE = ${response.body}");
       return response;
     }else{
       print("GET DONATION LIST RESPONSE = ${response.statusCode}");
@@ -646,10 +629,10 @@ class ServiceApis {
 
     if(response.statusCode == 200){
       print("GET REFERRAL LIST RESPONSE = ${response.statusCode}");
-      print("GET REFERRAL LIST RESPONSE = ${response.body}");
       return response;
     }else{
       print("GET REFERRAL LIST RESPONSE = ${response.statusCode}");
+      print("GET REFERRAL LIST RESPONSE = ${response.body}");
       return response;
     }
   }

@@ -77,7 +77,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             },
                             suffixIcon: Icons.remove_red_eye,
                             obscureText: !showOldPassword,
-                            showPassword: (){
+                            onPressedSuffixIcon: (){
                               showOldPassword = !showOldPassword;
                               setState(() {});
                             },
@@ -96,7 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                             },
                             suffixIcon: Icons.remove_red_eye,
                             obscureText: !showNewPassword,
-                            showPassword: (){
+                            onPressedSuffixIcon: (){
                               setState(() {});
                               showNewPassword = !showNewPassword;
                             },

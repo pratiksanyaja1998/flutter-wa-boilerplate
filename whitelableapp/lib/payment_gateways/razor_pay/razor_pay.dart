@@ -19,6 +19,8 @@ class RazorPay{
 
   final Razorpay _razorpay = Razorpay();
 
+  bool paymentEnd = false;
+
   Future<Razorpay?> init()  async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -30,6 +32,10 @@ class RazorPay{
       amount: order["paid_amount"],
       description: "Book Accommodation",
     );
+    while (!paymentEnd) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      if (paymentEnd) break;
+    }
   }
 
   Razorpay get getInstance => _razorpay;
@@ -54,6 +60,8 @@ class RazorPay{
       Widgets().showSuccessModal(context: context, success: false);
     }
 
+    paymentEnd = true;
+
     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentSuccessScreen()));
 
   }
@@ -62,11 +70,13 @@ class RazorPay{
     print("###################### ${response.code} ##########################");
     print("###################### ${response.message} ##########################");
     _razorpay.clear();
+    paymentEnd = true;
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     print("@@@@@@@@@@@@@@@@@@@@ ${response.walletName} @@@@@@@@@@@@@@@@@@@@@@@@@@@");
     _razorpay.clear();
+    paymentEnd = true;
   }
 
   Future<void> openGateway({required String orderId, required double amount, required String description})async{

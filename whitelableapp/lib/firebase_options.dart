@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,40 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAs_h3Kw7EHqi6n_r63BhfO_yMrOCB0XVs',
-    appId: '1:282053984724:web:5e7440778c4e4e35e99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    authDomain: 'wa-apps-28f9a.firebaseapp.com',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC4X_Qk-ZhTxK3wezB364jBIY9Xh8bEGCo',
-    appId: '1:282053984724:android:a59b2240c813b0e2e99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAJicLaUThPDnR0Kesa4W6_4TUw4Eqj1Ts',
-    appId: '1:282053984724:ios:6d03885571fc4f98e99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
-    iosClientId: '282053984724-jnuvqjps172fsunvg35gfboagen5kvsq.apps.googleusercontent.com',
-    iosBundleId: 'com.spyhunteritsolution.demoretail',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAJicLaUThPDnR0Kesa4W6_4TUw4Eqj1Ts',
-    appId: '1:282053984724:ios:59cbd37b2868e73be99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
-    iosClientId: '282053984724-ehpi271tqktlgl79i319sg8oolf7gmnn.apps.googleusercontent.com',
-    iosBundleId: 'com.newpackagename',
+    apiKey: 'AIzaSyCrSl4gYMa8dwd8QDy9YgQ4Bdady0c8owM',
+    appId: '1:580108769562:android:a1bfe6fc6d0a9dfde3b4a3',
+    messagingSenderId: '580108769562',
+    projectId: 'kalpvruksh-foundation',
+    storageBucket: 'kalpvruksh-foundation.appspot.com',
   );
 }

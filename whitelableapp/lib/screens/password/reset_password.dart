@@ -129,7 +129,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             },
                             suffixIcon: Icons.remove_red_eye,
                             obscureText: !showNewPassword,
-                            showPassword: (){
+                            onPressedSuffixIcon: (){
                               setState(() {});
                               showNewPassword = !showNewPassword;
                             },

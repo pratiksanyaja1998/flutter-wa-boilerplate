@@ -8,6 +8,7 @@ import 'package:intl_phone_field/phone_number.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/model/user_model.dart';
+import 'package:whitelabelapp/screens/dashboard.dart';
 import 'package:whitelabelapp/screens/password/forgot_password.dart';
 import 'package:whitelabelapp/screens/otp_verification_screen.dart';
 import 'package:whitelabelapp/screens/register_user.dart';
@@ -198,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           suffixIcon: Icons.remove_red_eye,
                           obscureText: showPassword,
-                          showPassword: (){
+                          onPressedSuffixIcon: (){
                             showPassword = !showPassword;
                             setState(() {});
                           },
@@ -246,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               if(SharedPreference.isLogin() && !kIsWeb){
                                                 await ServiceApis().crateFcmToken();
                                               }
-                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
                                             }else{
                                               Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                                                   OtpVerificationScreen(userName: data["username"], userId: data["id"],))
@@ -255,18 +256,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   if(value["verified"]){
                                                     showProgress = false;
                                                     setState(() {});
-                                                    Navigator.of(context).pop();
                                                     UserModel userModel = UserModel.fromJson(value["data"]);
                                                     SharedPreference.setUser(userModel: userModel);
                                                     SharedPreference.setIsLogin(true);
                                                     if(SharedPreference.isLogin() && !kIsWeb){
                                                       await ServiceApis().crateFcmToken();
                                                     }
-                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
                                                   }else{
                                                     showProgress = false;
                                                     setState(() {});
-                                                    Navigator.of(context).pop();
                                                     print("Sorry you did not verified please login and verify otp.");
                                                     Widgets().showAlertDialog(
                                                       alertMessage: "Sorry you did not verified please login and verify otp.",

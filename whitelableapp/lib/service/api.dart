@@ -10,9 +10,10 @@ import 'package:whitelabelapp/service/shared_preference.dart';
 
 class ServiceApis {
 
-  // static const String _baseUrl = "https://api.whitelabelapp.in";
+  static const String _baseUrl = "https://api.whitelabelapp.in";
   // static const String _baseUrl = "http://192.168.1.10:8000";
-  static const String _baseUrl = "http://192.168.1.15:8000";
+  // static const String _baseUrl = "http://192.168.1.15:8000";
+  // static const String _baseUrl = "http://192.168.1.15:4000";
   // static const String _baseUrl = "http://192.168.1.11:9000";
 
   static String get getBaseUrl => _baseUrl;
@@ -122,6 +123,31 @@ class ServiceApis {
     }else{
       print("USER LOGIN RESPONSE = ${response.statusCode}");
       print("USER LOGIN RESPONSE = ${response.body}");
+      return response;
+    }
+
+  }
+
+  Future<http.Response> getUserProfile()async{
+
+    Uri url = Uri.parse("$_baseUrl/user/profile");
+
+    http.Response response = await http.Client().get(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Token ${SharedPreference.getUser()!.token}"
+      },
+    );
+
+    if(response.statusCode == 200){
+      print("GET USER PROFILE RESPONSE = ${response.body}");
+      UserModel userModel = UserModel.fromJson(jsonDecode(response.body));
+      SharedPreference.setUser(userModel: userModel);
+      return response;
+    }else{
+      print("GET USER PROFILE RESPONSE = ${response.statusCode}");
+      print("GET USER PROFILE RESPONSE = ${response.body}");
       return response;
     }
 
@@ -487,6 +513,55 @@ class ServiceApis {
     }
   }
 
+  Future<http.Response> getCoinTransactions({String? searchText, String? date, String? type})async{
+    Uri url = Uri.parse("$_baseUrl/coin/transactions/list?${searchText != null ? "search=$searchText" : ""}${date != null ? "&created_at=$date" : ""}${type != null ? "&type=$type" :  ""}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET COIN TRANSACTION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET COIN TRANSACTION LIST RESPONSE = ${response.statusCode}");
+      print("GET COIN TRANSACTION LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> redeemCoins({required double coin, required String upiId})async{
+    Uri url = Uri.parse("$_baseUrl/coin/redeem/create");
+
+    final body = jsonEncode({
+      "coin": coin,
+      "upi_id": upiId,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("REDEEM COINS RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("REDEEM COINS RESPONSE = ${response.statusCode}");
+      print("REDEEM COINS RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
   // Future<http.Response> getNotificationList()async{
   //   Uri url = Uri.parse("$_baseUrl/notification/list/${SharedPreference.getBusinessConfig()!.businessId}");
   //
@@ -612,6 +687,27 @@ class ServiceApis {
       return response;
     }else{
       print("GET DONATION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getPaymentDetail({required String paymentId})async{
+    Uri url = Uri.parse("$_baseUrl/payment/details/$paymentId");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
+      print("GET PAYMENT DETAIL RESPONSE = ${response.body}");
       return response;
     }
   }

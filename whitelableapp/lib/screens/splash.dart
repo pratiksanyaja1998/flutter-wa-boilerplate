@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/model/business_app_config_model.dart';
 import 'package:whitelabelapp/screens/dashboard.dart';
+import 'package:whitelabelapp/screens/login.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
 
@@ -31,14 +32,13 @@ class _SplashScreenState extends State<SplashScreen> {
     if(businessAppConfigModel != null){
       displayText = "";
       var response = await ServiceApis().getAppConfig();
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
     }else{
       displayText = "We are setting up your app...";
       setState(() {});
       var response = await ServiceApis().getAppConfig();
       displayText = "";
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
     }
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
   }
 
   @override

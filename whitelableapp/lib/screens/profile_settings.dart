@@ -24,6 +24,8 @@ class ProfileSettingsScreen extends StatefulWidget {
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
 
+  bool showProgress = false;
+
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -68,7 +70,9 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             elevation: 0,
           ),
           body: Center(
-            child: Container(
+            child: showProgress ? const CircularProgressIndicator(
+              color: kThemeColor,
+            ) : Container(
               margin: const EdgeInsets.all(20.0),
               constraints: BoxConstraints(
                 maxWidth: 370,
@@ -326,6 +330,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       Expanded(
                         child: Widgets().textButton(
                           onPressed: ()async{
+                            showProgress = true;
+                            setState(() {});
                             var response = await ServiceApis().updateUserProfile(
                               photo: f,
                               firstName: firstNameController.text,
@@ -344,6 +350,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             }else{
 
                             }
+                            showProgress = false;
+                            setState(() {});
                           },
                           text: getTranslated(context, ["editProfileScreen", "save"]),
                           fontSize: 20,

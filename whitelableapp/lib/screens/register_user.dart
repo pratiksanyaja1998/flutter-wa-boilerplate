@@ -9,6 +9,7 @@ import 'package:intl_phone_field/phone_number.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/model/user_model.dart';
+import 'package:whitelabelapp/screens/dashboard.dart';
 import 'package:whitelabelapp/screens/otp_verification_screen.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
@@ -213,7 +214,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           },
                           suffixIcon: Icons.remove_red_eye,
                           obscureText: showPassword,
-                          showPassword: (){
+                          onPressedSuffixIcon: (){
                             showPassword = !showPassword;
                             setState(() {});
                           },
@@ -264,7 +265,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                               UserModel userModel = UserModel.fromJson(value["data"]);
                                               SharedPreference.setUser(userModel: userModel);
                                               SharedPreference.setIsLogin(true);
-                                              Navigator.of(context).pop();
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
                                             }else{
                                               showProgress = false;
                                               setState(() {});
@@ -293,6 +294,11 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                           print("---- ${data["detail"]}");
                                           Widgets().showAlertDialog(
                                             alertMessage: data["detail"], context: context,
+                                          );
+                                        }else if(data.toString().contains("Referral Limit is exceed")){
+                                          print("Referral limit exceed");
+                                          Widgets().showAlertDialog(
+                                            alertMessage: "Referral limit exceeded for this referral code please try to use another referral code", context: context,
                                           );
                                         }else{
                                           print("Log in failed something went wrong");

@@ -72,212 +72,279 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Material(),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          leading: Text(
-                            getTranslated(context, ["settingScreen", "language"]),
-                          ),
-                          onTap: (){
-                            showDialog(context: context, builder: (context){
-                              return AlertDialog(
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                                content: Container(
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 150,
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        for(int i = 0; i < language.length; i++)
-                                          Column(
-                                            children: [
-                                              Material(
-                                                elevation: 0,
-                                                color: Colors.transparent,
-                                                child: ListTile(
-                                                  leading: Text(
-                                                    language[i]["language"],
-                                                    style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  onTap: (){
-                                                    _changeLanguage(language[i]);
-                                                  },
-                                                  // tileColor: kPrimaryColor,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(5),
-                                                  ),
-                                                  dense: true,
-                                                  trailing: SharedPreference.getLocale() == language[i]["languageCode"] ? const Text(
-                                                    "✔",
-                                                    style: TextStyle(
-                                                      // fontWeight: FontWeight.bold,
-                                                        fontSize: 18,
-                                                        color: Colors.green
-                                                    ),
-                                                  ) : SizedBox(),
+                    Widgets().settingOptionTile(
+                      context: context,
+                      tileText: getTranslated(context, ["settingScreen", "language"]),
+                      onTap: (){
+                        showDialog(context: context, builder: (context){
+                          return AlertDialog(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            content: Container(
+                              constraints: const BoxConstraints(
+                                maxHeight: 150,
+                              ),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    for(int i = 0; i < language.length; i++)
+                                      Column(
+                                        children: [
+                                          Material(
+                                            elevation: 0,
+                                            color: Colors.transparent,
+                                            child: ListTile(
+                                              leading: Text(
+                                                language[i]["language"],
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              if(i < language.length - 1)
-                                                const Divider(
-                                                  color: Colors.grey,
-                                                  height: 0,
+                                              onTap: (){
+                                                _changeLanguage(language[i]);
+                                              },
+                                              // tileColor: kPrimaryColor,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(5),
+                                              ),
+                                              dense: true,
+                                              trailing: SharedPreference.getLocale() == language[i]["languageCode"] ? const Text(
+                                                "✔",
+                                                style: TextStyle(
+                                                  // fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    color: Colors.green
                                                 ),
-                                            ],
+                                              ) : SizedBox(),
+                                            ),
                                           ),
-                                      ],
-                                    ),
-                                  ),
+                                          if(i < language.length - 1)
+                                            const Divider(
+                                              color: Colors.grey,
+                                              height: 0,
+                                            ),
+                                        ],
+                                      ),
+                                  ],
                                 ),
-                              );
-                            });
-                          },
-                          tileColor: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          dense: true,
-                          trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
-                        ),
-                      ),
+                              ),
+                            ),
+                          );
+                        });
+                      },
                     ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     color: kPrimaryColor,
+                    //     borderRadius: BorderRadius.circular(5),
+                    //     boxShadow: [
+                    //       BoxShadow(
+                    //         color: Colors.black.withOpacity(0.5),
+                    //         blurRadius: 6,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: Material(
+                    //     elevation: 0,
+                    //     color: Colors.transparent,
+                    //     child: ListTile(
+                    //       leading: Text(
+                    //         getTranslated(context, ["settingScreen", "language"]),
+                    //       ),
+                    //       onTap: (){
+                    //         showDialog(context: context, builder: (context){
+                    //           return AlertDialog(
+                    //             contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                    //             shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(10)
+                    //             ),
+                    //             content: Container(
+                    //               constraints: const BoxConstraints(
+                    //                 maxHeight: 150,
+                    //               ),
+                    //               child: SingleChildScrollView(
+                    //                 child: Column(
+                    //                   children: [
+                    //                     for(int i = 0; i < language.length; i++)
+                    //                       Column(
+                    //                         children: [
+                    //                           Material(
+                    //                             elevation: 0,
+                    //                             color: Colors.transparent,
+                    //                             child: ListTile(
+                    //                               leading: Text(
+                    //                                 language[i]["language"],
+                    //                                 style: const TextStyle(
+                    //                                   fontSize: 18,
+                    //                                   fontWeight: FontWeight.bold,
+                    //                                 ),
+                    //                               ),
+                    //                               onTap: (){
+                    //                                 _changeLanguage(language[i]);
+                    //                               },
+                    //                               // tileColor: kPrimaryColor,
+                    //                               shape: RoundedRectangleBorder(
+                    //                                 borderRadius: BorderRadius.circular(5),
+                    //                               ),
+                    //                               dense: true,
+                    //                               trailing: SharedPreference.getLocale() == language[i]["languageCode"] ? const Text(
+                    //                                 "✔",
+                    //                                 style: TextStyle(
+                    //                                   // fontWeight: FontWeight.bold,
+                    //                                     fontSize: 18,
+                    //                                     color: Colors.green
+                    //                                 ),
+                    //                               ) : SizedBox(),
+                    //                             ),
+                    //                           ),
+                    //                           if(i < language.length - 1)
+                    //                             const Divider(
+                    //                               color: Colors.grey,
+                    //                               height: 0,
+                    //                             ),
+                    //                         ],
+                    //                       ),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           );
+                    //         });
+                    //       },
+                    //       tileColor: kPrimaryColor,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(5),
+                    //       ),
+                    //       dense: true,
+                    //       trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(height: 15,),
                     if(SharedPreference.getUser() != null)
                       if(SharedPreference.getUser()!.type == "admin")
-                        Container(
-                          margin: EdgeInsets.only(bottom: 15),
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                blurRadius: 6,
-                              ),
-                            ],
-                          ),
-                          child: Material(
-                            elevation: 0,
-                            color: Colors.transparent,
-                            child: ListTile(
-                              leading: Text(
-                                getTranslated(context, ["settingScreen", "environment"]),
-                              ),
-                              onTap: (){
-
-                              },
-                              tileColor: kPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              dense: true,
-                              trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
-                            ),
-                          ),
+                        Widgets().settingOptionTile(
+                          context: context,
+                          tileText: getTranslated(context, ["settingScreen", "environment"]),
+                          onTap: (){},
                         ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 6,
-                          ),
-                        ],
+                        // Container(
+                        //   margin: const EdgeInsets.only(bottom: 15),
+                        //   decoration: BoxDecoration(
+                        //     color: kPrimaryColor,
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //         color: Colors.black.withOpacity(0.5),
+                        //         blurRadius: 6,
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   child: Material(
+                        //     elevation: 0,
+                        //     color: Colors.transparent,
+                        //     child: ListTile(
+                        //       leading: Text(
+                        //         getTranslated(context, ["settingScreen", "environment"]),
+                        //       ),
+                        //       onTap: (){
+                        //
+                        //       },
+                        //       tileColor: kPrimaryColor,
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(5),
+                        //       ),
+                        //       dense: true,
+                        //       trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                        //     ),
+                        //   ),
+                        // ),
+                    if(SharedPreference.isLogin())
+                      Widgets().settingOptionTile(
+                        context: context,
+                        tileText: getTranslated(context, ["settingScreen", "changePassword"]),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
+                        },
                       ),
-                      child: Material(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          leading: Text(
-                            getTranslated(context, ["settingScreen", "changePassword"]),
-                          ),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
-                          },
-                          tileColor: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          dense: true,
-                          trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     color: kPrimaryColor,
+                      //     borderRadius: BorderRadius.circular(5),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         color: Colors.black.withOpacity(0.5),
+                      //         blurRadius: 6,
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: Material(
+                      //     elevation: 0,
+                      //     color: Colors.transparent,
+                      //     child: ListTile(
+                      //       leading: Text(
+                      //         getTranslated(context, ["settingScreen", "changePassword"]),
+                      //       ),
+                      //       onTap: (){
+                      //         Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
+                      //       },
+                      //       tileColor: kPrimaryColor,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(5),
+                      //       ),
+                      //       dense: true,
+                      //       trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                      //     ),
+                      //   ),
+                      // ),
+                    if(SharedPreference.isLogin())
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 40),
+                        child: Widgets().settingOptionTile(
+                          context: context,
+                          tileText: getTranslated(context, ["settingScreen", "notificationSettings"]),
+                          onTap: (){},
                         ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     color: kPrimaryColor,
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //         color: Colors.black.withOpacity(0.5),
+                        //         blurRadius: 6,
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   child: Material(
+                        //     elevation: 0,
+                        //     color: Colors.transparent,
+                        //     child: ListTile(
+                        //       leading: Text(
+                        //         getTranslated(context, ["settingScreen", "notificationSettings"]),
+                        //       ),
+                        //       onTap: (){
+                        //
+                        //       },
+                        //       tileColor: kPrimaryColor,
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(5),
+                        //       ),
+                        //       dense: true,
+                        //       trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
+                        //     ),
+                        //   ),
+                        // ),
                       ),
-                    ),
-                    const SizedBox(height: 15,),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          leading: Text(
-                            getTranslated(context, ["settingScreen", "notificationSettings"]),
-                          ),
-                          onTap: (){
-
-                          },
-                          tileColor: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          dense: true,
-                          trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 40,),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        elevation: 0,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          leading: Text(
-                            getTranslated(context, ["settingScreen", "deleteAccount"]),
-                            style: const TextStyle(
-                              color: Colors.red,
-                            ),
-                          ),
-                          onTap: (){
-                            Widgets().showConfirmationDialog(
+                    if(SharedPreference.isLogin())
+                      Widgets().settingOptionTile(
+                        context: context,
+                        tileText: getTranslated(context, ["settingScreen", "deleteAccount"]),
+                        onTap: (){
+                          Widgets().showConfirmationDialog(
                               confirmationMessage: getTranslated(context, ["settingScreen", "deleteAccountMessage"]),
                               confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
                               cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
@@ -300,16 +367,65 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   );
                                 }
                               }
-                            );
-                          },
-                          tileColor: kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          dense: true,
-                        ),
+                          );
+                        },
+                        tileTextColor: Colors.red,
                       ),
-                    ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     color: kPrimaryColor,
+                      //     borderRadius: BorderRadius.circular(5),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         color: Colors.black.withOpacity(0.5),
+                      //         blurRadius: 6,
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: Material(
+                      //     elevation: 0,
+                      //     color: Colors.transparent,
+                      //     child: ListTile(
+                      //       leading: Text(
+                      //         getTranslated(context, ["settingScreen", "deleteAccount"]),
+                      //         style: const TextStyle(
+                      //           color: Colors.red,
+                      //         ),
+                      //       ),
+                      //       onTap: (){
+                      //         Widgets().showConfirmationDialog(
+                      //             confirmationMessage: getTranslated(context, ["settingScreen", "deleteAccountMessage"]),
+                      //             confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
+                      //             cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
+                      //             context: context,
+                      //             onConfirm: ()async{
+                      //               Navigator.pop(context);
+                      //               var response = await ServiceApis().deleteAccount();
+                      //               if(response.statusCode == 200){
+                      //                 var data = jsonDecode(response.body);
+                      //                 if(data["success"]) {
+                      //                   Widgets().showAlertDialog(
+                      //                     alertMessage: data["message"],
+                      //                     context: context,
+                      //                   );
+                      //                 }
+                      //               }else{
+                      //                 Widgets().showAlertDialog(
+                      //                   alertMessage: "Something went wrong.",
+                      //                   context: context,
+                      //                 );
+                      //               }
+                      //             }
+                      //         );
+                      //       },
+                      //       tileColor: kPrimaryColor,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(5),
+                      //       ),
+                      //       dense: true,
+                      //     ),
+                      //   ),
+                      // ),
                   ],
                 ),
               ),

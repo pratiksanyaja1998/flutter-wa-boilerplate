@@ -74,7 +74,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                 children: [
                   for(int i = 0; i < referralList.length; i++)
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         boxShadow: [
@@ -92,80 +92,97 @@ class _ReferralScreenState extends State<ReferralScreen> {
 
                           },
                           title: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Row(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    border: Border.all(color: Colors.grey),
-                                    color: kPrimaryColor,
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(40),
-                                    child: referralList[i]["user"]["photo"] != null ? Image.network(
-                                      referralList[i]["user"]["photo"],
-                                      width: 80,
-                                      height: 80,
-                                      loadingBuilder: (context, child, loadingProgress){
-                                        if(loadingProgress != null){
-                                          return const Center(
-                                            child: CircularProgressIndicator(
-                                              color: kThemeColor,
-                                              strokeWidth: 3,
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        border: Border.all(color: Colors.grey),
+                                        color: kPrimaryColor,
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(40),
+                                        child: referralList[i]["user"]["photo"] != null ? Image.network(
+                                          referralList[i]["user"]["photo"],
+                                          width: 80,
+                                          height: 80,
+                                          loadingBuilder: (context, child, loadingProgress){
+                                            if(loadingProgress != null){
+                                              return const Center(
+                                                child: CircularProgressIndicator(
+                                                  color: kThemeColor,
+                                                  strokeWidth: 3,
+                                                ),
+                                              );
+                                            }else{
+                                              return child;
+                                            }
+                                          },
+                                          errorBuilder: (context, obj, st){
+                                            return Image.asset("assets/images/profile.png", width: 100, height: 100,);
+                                          },
+                                        ) : Image.asset("assets/images/profile.png", width: 80, height: 80,),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 15,),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          RichText(
+                                            text: TextSpan(
+                                              text: "${referralList[i]["user"]["first_name"]} ",
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text: referralList[i]["user"]["last_name"],
+                                                ),
+                                              ],
                                             ),
-                                          );
-                                        }else{
-                                          return child;
-                                        }
-                                      },
-                                      errorBuilder: (context, obj, st){
-                                        return Image.asset("assets/images/profile.png", width: 100, height: 100,);
-                                      },
-                                    ) : Image.asset("assets/images/profile.png", width: 80, height: 80,),
-                                  ),
-                                ),
-                                const SizedBox(width: 15,),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          text: "${referralList[i]["user"]["first_name"]} ",
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
                                           ),
-                                          children: [
-                                            TextSpan(
-                                              text: referralList[i]["user"]["last_name"],
+                                          const SizedBox(height: 3,),
+                                          Text(
+                                            referralList[i]["user"]["phone"],
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14,
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                          Text(
+                                            referralList[i]["user"]["email"],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          if(referralList[i].containsKey("total_donation"))
+                                            if(referralList[i]["total_donation"] != null)
+                                              Text(
+                                                "Total donation : ₹ ${referralList[i]["total_donation"]}",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                        ],
                                       ),
-                                      const SizedBox(height: 3,),
-                                      Text(
-                                        referralList[i]["user"]["phone"],
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      Text(
-                                        referralList[i]["user"]["email"],
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

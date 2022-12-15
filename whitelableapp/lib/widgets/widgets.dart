@@ -48,10 +48,11 @@ class Widgets {
   Widget textFormField({
     required TextEditingController controller,
     required String labelText,
+    void Function(String)? onChanged,
     String? Function(String?)? validator,
     TextInputType? keyboardType,
     bool? obscureText,
-    void Function()? showPassword,
+    void Function()? onPressedSuffixIcon,
     IconData? suffixIcon,
   }){
     return Container(
@@ -72,14 +73,16 @@ class Widgets {
         maxLines: 1,
         controller: controller,
         obscureText: obscureText ?? false,
+        onChanged: onChanged ?? null,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: const TextStyle(
             color: Colors.grey
           ),
-          suffixIcon: showPassword != null ? IconButton(
-            onPressed: showPassword,
-            icon: Icon(obscureText! ? Icons.remove_red_eye : CupertinoIcons.eye_slash_fill, color: kThemeColor,),
+          suffixIcon: onPressedSuffixIcon != null ? IconButton(
+            onPressed: onPressedSuffixIcon,
+            icon: obscureText != null ? Icon(obscureText ? Icons.remove_red_eye : CupertinoIcons.eye_slash_fill, color: kThemeColor,) :
+            Icon(suffixIcon ?? Icons.remove_red_eye, color: kThemeColor,),
           ) : suffixIcon != null ? Icon(suffixIcon, color: kThemeColor,) : null,
           hintStyle: const TextStyle(
             color: Colors.grey,
@@ -134,7 +137,7 @@ class Widgets {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
-        child: Image.asset("assets/images/logo.png", width: width, height: height,),
+        child: Image.asset("assets/images/logo.png", width: width, height: height, fit: BoxFit.cover,),
       ),
     );
   }
@@ -312,6 +315,48 @@ class Widgets {
           errorBorder: OutlineInputBorder(
               borderSide: BorderSide(width: 1.5, color: Colors.black.withOpacity(0.5)),
               borderRadius: BorderRadius.circular(6)),
+        ),
+      ),
+    );
+  }
+
+  Widget settingOptionTile({
+    required BuildContext context,
+    required String tileText,
+    void Function()? onTap,
+    bool showArrowIcon = true,
+    Color? tileTextColor,
+  }){
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      decoration: BoxDecoration(
+        color: kPrimaryColor,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: Material(
+        elevation: 0,
+        color: Colors.transparent,
+        child: ListTile(
+          leading: Text(
+            tileText,
+            style: TextStyle(
+              color: tileTextColor,
+              fontSize: 13,
+            )
+          ),
+          onTap: onTap,
+          tileColor: kPrimaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          dense: true,
+          trailing: showArrowIcon ? const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,) : null,
         ),
       ),
     );

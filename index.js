@@ -118,6 +118,7 @@ axios
     console.log("--- rename app done ---");
 
     // update app android package name
+    console.log(`--- updating package name to "${response.data?.data?.androidPackageName}"" ---`);
     cmdStatus = execSync(
       `cd ./whitelableapp && flutter pub global run rename --bundleId "${response.data?.data?.androidPackageName}" -t android`
     );
@@ -144,7 +145,7 @@ axios
 
     // update firebase_option.dart file for firebase
     cmdStatus = execSync(
-      `cd ./whitelableapp && flutterfire configure -p wa-apps-28f9a`,
+      `cd ./whitelableapp && flutterfire configure -p kalpvruksh-foundation`,
       {
         encoding: "utf-8",
         stdio: "inherit",

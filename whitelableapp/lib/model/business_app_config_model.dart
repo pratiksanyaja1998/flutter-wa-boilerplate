@@ -35,6 +35,7 @@ class BusinessAppConfigModel {
     required this.googleIosFile,
     required this.subscription,
     required this.restaurant,
+    required this.redeemCoin,
     required this.env,
     required this.fcmServerKey,
     required this.paymentKey,
@@ -69,6 +70,7 @@ class BusinessAppConfigModel {
   String googleIosFile;
   Map<dynamic, dynamic> subscription;
   Map<dynamic, dynamic> restaurant;
+  RedeemCoin redeemCoin;
   String env;
   String fcmServerKey;
   String paymentKey;
@@ -103,6 +105,7 @@ class BusinessAppConfigModel {
     googleIosFile: json["google_ios_file"] ?? "",
     subscription: json["subscription"] ?? {},
     restaurant: json["restaurant"] ?? {},
+    redeemCoin: RedeemCoin.fromJson(json["redeem_coin"] ?? {}),
     env: json["ENV"] ?? "",
     fcmServerKey: json["fcm_server_key"] ?? "",
     paymentKey: json["paymentKey"] ?? "",
@@ -403,6 +406,26 @@ class BusinessProduct {
     "showVariants": showVariants,
     "showSubCategory": showSubCategory,
     "availableForSubscription": availableForSubscription,
+  };
+}
+
+class RedeemCoin {
+  RedeemCoin({
+    required this.minCoin,
+    required this.redeemCode,
+  });
+
+  double minCoin;
+  bool redeemCode;
+
+  factory RedeemCoin.fromJson(Map<String, dynamic> json) => RedeemCoin(
+    minCoin: json["min_coin"] != null ? double.parse(json["min_coin"].toString()) : 0.0,
+    redeemCode: json["redeem_code"] ?? false,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "min_code": minCoin,
+    "redeem_code": redeemCode,
   };
 }
 

@@ -1,10 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.spyhunteritsolution.demo_retail">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        tools:node="remove" />
 
    <application
-        android:label="Demo Retail App"
+        android:label="Kalpvruksh Foundation"
        android:name="${applicationName}"
        android:usesCleartextTraffic="true"
        android:icon="@mipmap/launcher_icon">

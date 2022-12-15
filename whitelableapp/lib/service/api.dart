@@ -42,6 +42,7 @@ class ServiceApis {
       return response;
     }else{
       print("GET APP CONFIG RESPONSE = ${response.statusCode}");
+      print("GET APP CONFIG RESPONSE = ${response.body}");
       return response;
     }
 
@@ -53,7 +54,6 @@ class ServiceApis {
     required String password,
     required String firstName,
     required String lastName,
-    String? referralCode,
   })async{
 
     Uri url = Uri.parse("$_baseUrl/user/register");
@@ -65,7 +65,6 @@ class ServiceApis {
       "first_name": firstName,
       "last_name": lastName,
       "business": _businessAppConfigModel!.businessId,
-      "refer_by": referralCode ?? "",
     });
 
     print(body);
@@ -123,31 +122,6 @@ class ServiceApis {
     }else{
       print("USER LOGIN RESPONSE = ${response.statusCode}");
       print("USER LOGIN RESPONSE = ${response.body}");
-      return response;
-    }
-
-  }
-
-  Future<http.Response> getUserProfile()async{
-
-    Uri url = Uri.parse("$_baseUrl/user/profile");
-
-    http.Response response = await http.Client().get(
-      url,
-      headers: {
-        "Accept": "application/json",
-        "Authorization": "Token ${SharedPreference.getUser()!.token}"
-      },
-    );
-
-    if(response.statusCode == 200){
-      print("GET USER PROFILE RESPONSE = ${response.body}");
-      UserModel userModel = UserModel.fromJson(jsonDecode(response.body));
-      SharedPreference.setUser(userModel: userModel);
-      return response;
-    }else{
-      print("GET USER PROFILE RESPONSE = ${response.statusCode}");
-      print("GET USER PROFILE RESPONSE = ${response.body}");
       return response;
     }
 
@@ -316,13 +290,108 @@ class ServiceApis {
     }
   }
 
+  Future<http.Response> getAccommodationList({String? startDate, String? endDate})async{
+    Uri url = Uri.parse("$_baseUrl/hospitality/accommodation/available/list?start_date=${startDate ?? ""}&end_date=${endDate ?? ""}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET ACCOMMODATION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET ACCOMMODATION LIST RESPONSE = ${response.statusCode}");
+      print("GET ACCOMMODATION LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getUserAddressList()async{
+    Uri url = Uri.parse("$_baseUrl/user/address/list");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET ADDRESS LIST RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("GET ADDRESS LIST RESPONSE = ${response.statusCode}");
+      print("GET ADDRESS LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> addAddress({
+    required String street,
+    required String area,
+    required String pinCode,
+    required String city,
+    required String state,
+    required String type,
+    required String country,
+    double? longitude,
+    double? latitude,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/user/address/create");
+
+    final body = jsonEncode({
+      "street": street,
+      "area": area,
+      "pincode": pinCode,
+      "city": city,
+      "state": state,
+      "type": type,
+      "country": country,
+      "longitude": longitude ?? 0.0,
+      "latitude": latitude ?? 0.0,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CREATE ADDRESS RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("CREATE ADDRESS RESPONSE = ${response.statusCode}");
+      print("CREATE ADDRESS RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
   Future<http.Response> deleteAddress({
     required int addressId,
   })async{
     Uri url = Uri.parse("$_baseUrl/user/address/delete/$addressId");
 
+    // final body = jsonEncode({
+    //   "id": addressId,
+    // });
+
+    // print("_+_+_+_+_+_+_ $body");
+
     http.Response response = await http.Client().delete(
         url,
+        // body: body,
         headers: {
           "Accept": "application/json",
           "Authorization": "Token ${SharedPreference.getUser()!.token}"
@@ -335,6 +404,39 @@ class ServiceApis {
     }else{
       print("DELETE ADDRESS RESPONSE = ${response.statusCode}");
       print("DELETE ADDRESS RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> createBooking({
+    required String checkInDate,
+    required String checkOutDate,
+    required int accommodationId,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/hospitality/booking/create");
+
+    final body = jsonEncode({
+      "check_in": checkInDate,
+      "check_out": checkOutDate,
+      "accommodation": accommodationId,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 201){
+      print("CREATE BOOKING RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("CREATE BOOKING RESPONSE = ${response.statusCode}");
+      print("CREATE BOOKING RESPONSE = ${response.body}");
       return response;
     }
   }
@@ -356,6 +458,11 @@ class ServiceApis {
     http.Response response = await http.Client().post(
         url,
         body: body,
+        // headers: {
+        //   "Accept": "application/json",
+        //   // "Content-Type": "application/json",
+        //   // "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        // }
     );
 
     if(response.statusCode == 200){
@@ -377,6 +484,7 @@ class ServiceApis {
       url,
       headers: {
         "Accept": "application/json",
+        // "Content-Type": "application/json",
         "Authorization": "Token ${SharedPreference.getUser()!.token}"
       }
     );
@@ -387,6 +495,86 @@ class ServiceApis {
       return response;
     }else{
       print("STRIPE CALLBACK RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getBookingsList()async{
+    Uri url = Uri.parse("$_baseUrl/hospitality/booking/user/list");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET BOOKING LIST RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("GET BOOKING LIST RESPONSE = ${response.statusCode}");
+      print("GET BOOKING LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getBookingDetail({required int id})async{
+    print("-+-+-+-+-+-+-+-+-+-+-+-+-+- $id");
+    Uri url = Uri.parse("$_baseUrl/hospitality/get/booking/details/$id");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET BOOKING DETAIL RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("GET BOOKING DETAIL RESPONSE = ${response.statusCode}");
+      print("GET BOOKING DETAIL RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> cancelBooking({
+    required String status,
+    required String message,
+    required int user,
+    required int bookingId,
+  })async{
+    Uri url = Uri.parse("$_baseUrl/hospitality/cancel/booking/request");
+
+    final body = jsonEncode({
+      "statue": status,
+      "message": message,
+      "user": user,
+      "booking": bookingId,
+    });
+
+    print(body);
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CANCEL BOOKING RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("CANCEL BOOKING RESPONSE = ${response.statusCode}");
+      print("CANCEL BOOKING RESPONSE = ${response.body}");
       return response;
     }
   }
@@ -513,8 +701,89 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getCoinTransactions({String? searchText, String? date, String? type})async{
-    Uri url = Uri.parse("$_baseUrl/coin/transactions/list?${searchText != null ? "search=$searchText" : ""}${date != null ? "&created_at=$date" : ""}${type != null ? "&type=$type" :  ""}");
+  Future<http.Response> getNotificationList()async{
+    Uri url = Uri.parse("$_baseUrl/notification/list/${SharedPreference.getBusinessConfig()!.businessId}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          // "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET NOTIFICATION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET NOTIFICATION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteNotification({required int notificationId})async{
+    Uri url = Uri.parse("$_baseUrl/notification/delete/$notificationId}");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("DELETE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("DELETE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteMultipleNotification({required String notificationId})async{
+    Uri url = Uri.parse("$_baseUrl/notification/delete/multiple/$notificationId}");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("DELETE MULTIPLE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("DELETE MULTIPLE NOTIFICATION RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getPromotionList()async{
+    Uri url = Uri.parse("$_baseUrl/promotion/list/${SharedPreference.getBusinessConfig()!.businessId}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          // "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET PROMOTION LIST RESPONSE = ${response.statusCode}");
+      print("GET PROMOTION LIST RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("GET PROMOTION LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getTopProductList({String? ids})async{
+    Uri url = Uri.parse("$_baseUrl/products/list/${SharedPreference.getBusinessConfig()!.businessId}?ids=${ids ?? ""}");
 
     http.Response response = await http.Client().get(
         url,
@@ -525,210 +794,10 @@ class ServiceApis {
     );
 
     if(response.statusCode == 200){
-      print("GET COIN TRANSACTION LIST RESPONSE = ${response.statusCode}");
+      print("GET PRODUCT LIST RESPONSE = ${response.statusCode}");
       return response;
     }else{
-      print("GET COIN TRANSACTION LIST RESPONSE = ${response.statusCode}");
-      print("GET COIN TRANSACTION LIST RESPONSE = ${response.body}");
-      return response;
-    }
-  }
-
-  Future<http.Response> redeemCoins({required double coin, required String upiId})async{
-    Uri url = Uri.parse("$_baseUrl/coin/redeem/create");
-
-    final body = jsonEncode({
-      "coin": coin,
-      "upi_id": upiId,
-    });
-
-    http.Response response = await http.Client().post(
-        url,
-        body: body,
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 200){
-      print("REDEEM COINS RESPONSE = ${response.statusCode}");
-      return response;
-    }else{
-      print("REDEEM COINS RESPONSE = ${response.statusCode}");
-      print("REDEEM COINS RESPONSE = ${response.body}");
-      return response;
-    }
-  }
-
-  // Future<http.Response> getNotificationList()async{
-  //   Uri url = Uri.parse("$_baseUrl/notification/list/${SharedPreference.getBusinessConfig()!.businessId}");
-  //
-  //   http.Response response = await http.Client().get(
-  //       url,
-  //       headers: {
-  //         "Accept": "application/json",
-  //         // "Authorization": "Token ${SharedPreference.getUser()!.token}"
-  //       }
-  //   );
-  //
-  //   if(response.statusCode == 200){
-  //     print("GET NOTIFICATION LIST RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }else{
-  //     print("GET NOTIFICATION LIST RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }
-  // }
-  //
-  // Future<http.Response> deleteNotification({required int notificationId})async{
-  //   Uri url = Uri.parse("$_baseUrl/notification/delete/$notificationId}");
-  //
-  //   http.Response response = await http.Client().delete(
-  //       url,
-  //       headers: {
-  //         "Accept": "application/json",
-  //         "Authorization": "Token ${SharedPreference.getUser()!.token}"
-  //       }
-  //   );
-  //
-  //   if(response.statusCode == 200){
-  //     print("DELETE NOTIFICATION RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }else{
-  //     print("DELETE NOTIFICATION RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }
-  // }
-  //
-  // Future<http.Response> deleteMultipleNotification({required String notificationId})async{
-  //   Uri url = Uri.parse("$_baseUrl/notification/delete/multiple/$notificationId}");
-  //
-  //   http.Response response = await http.Client().delete(
-  //       url,
-  //       headers: {
-  //         "Accept": "application/json",
-  //         "Authorization": "Token ${SharedPreference.getUser()!.token}"
-  //       }
-  //   );
-  //
-  //   if(response.statusCode == 200){
-  //     print("DELETE MULTIPLE NOTIFICATION RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }else{
-  //     print("DELETE MULTIPLE NOTIFICATION RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }
-  // }
-  //
-  //   Future<http.Response> getPromotionList()async{
-  //   Uri url = Uri.parse("$_baseUrl/promotion/list/${SharedPreference.getBusinessConfig()!.businessId}");
-  //
-  //   http.Response response = await http.Client().get(
-  //       url,
-  //       headers: {
-  //         "Accept": "application/json",
-  //         // "Authorization": "Token ${SharedPreference.getUser()!.token}"
-  //       }
-  //   );
-  //
-  //   if(response.statusCode == 200){
-  //     print("GET PROMOTION LIST RESPONSE = ${response.statusCode}");
-  //     print("GET PROMOTION LIST RESPONSE = ${response.body}");
-  //     return response;
-  //   }else{
-  //     print("GET PROMOTION LIST RESPONSE = ${response.statusCode}");
-  //     return response;
-  //   }
-  // }
-
-  Future<http.Response> createDonation({required double amount, String? description})async{
-    Uri url = Uri.parse("$_baseUrl/donation/create");
-
-    final body = jsonEncode({
-      "amount": amount,
-      "note": description ?? "",
-    });
-
-    http.Response response = await http.Client().post(
-        url,
-        body: body,
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 200){
-      print("CREATE DONATION RESPONSE = ${response.statusCode}");
-      return response;
-    }else{
-      print("CREATE DONATION RESPONSE = ${response.statusCode}");
-      print("CREATE DONATION RESPONSE = ${response.body}");
-      return response;
-    }
-  }
-
-  Future<http.Response> getDonationList()async{
-    Uri url = Uri.parse("$_baseUrl/donation/list");
-
-    http.Response response = await http.Client().get(
-        url,
-        headers: {
-          "Accept": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 200){
-      print("GET DONATION LIST RESPONSE = ${response.statusCode}");
-      return response;
-    }else{
-      print("GET DONATION LIST RESPONSE = ${response.statusCode}");
-      return response;
-    }
-  }
-
-  Future<http.Response> getPaymentDetail({required String paymentId})async{
-    Uri url = Uri.parse("$_baseUrl/payment/details/$paymentId");
-
-    http.Response response = await http.Client().get(
-        url,
-        headers: {
-          "Accept": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 200){
-      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
-      return response;
-    }else{
-      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
-      print("GET PAYMENT DETAIL RESPONSE = ${response.body}");
-      return response;
-    }
-  }
-
-  Future<http.Response> getReferralList()async{
-    Uri url = Uri.parse("$_baseUrl/user/referral/list");
-
-    http.Response response = await http.Client().get(
-        url,
-        headers: {
-          "Accept": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 200){
-      print("GET REFERRAL LIST RESPONSE = ${response.statusCode}");
-      return response;
-    }else{
-      print("GET REFERRAL LIST RESPONSE = ${response.statusCode}");
-      print("GET REFERRAL LIST RESPONSE = ${response.body}");
+      print("GET PRODUCT LIST RESPONSE = ${response.statusCode}");
       return response;
     }
   }

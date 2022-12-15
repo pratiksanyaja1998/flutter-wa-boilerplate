@@ -1,0 +1,1779 @@
+{
+  "settings": "Settings",
+  "availabelTable": {
+    "title": "Select Table",
+    "tableOn": "Available tables on",
+    "alert": {
+      "limitTable": "You can't select more table!"
+    },
+    "button": {
+      "selectedTable": "Table",
+      "capacity": "Capacity",
+      "title": "Book Table"
+    }
+  },
+  "PromotionListScreen": {
+    "promotions": "Offers",
+    "left": "Left",
+    "createNew": "Create Offer",
+    "downloaded": "Downloaded",
+    "bought": "Bought"
+  },
+  "ProductListScreen": {
+    "products": "Products",
+    "addProduct": "Add Product",
+    "addCatggory": "Add Category",
+    "menu": "Menu",
+    "addMenu": "Add Menu"
+  },
+  "TopSelectedProductScreen": {
+    "topSelectedProduct": "Select Top Products",
+    "selectTopItem": "Select Top Items"
+  },
+  "aboutScreen": {
+    "about": "About",
+    "version": "Version",
+    "stringCopied": "Copied to clipboard!",
+    "deviceId": "Device Id"
+  },
+  "actionSheet": {
+    "takePhoto": "Take Photo",
+    "choosePhoto": "Choose from Library",
+    "removePhoto": "Remove Photo",
+    "cancel": "Cancel"
+  },
+  "addressList": {
+    "askDelete": "Are you sure delete address?",
+    "title": "Address",
+    "addAddress": "Add Address",
+    "noRecord": {
+      "title": "Addresses",
+      "message": "No data found!"
+    }
+  },
+  "addFranchiseScreen": {
+    "title": {
+      "edit": "Edit Franchise",
+      "add": "Add Franchise"
+    },
+    "location": "Your location",
+    "liveLocation": "Location permission required for getting your live location",
+    "button": {
+      "request": "Request Location Access"
+    },
+    "label": {
+      "name": "Name",
+      "detail": "Detail"
+    },
+    "alert": {
+      "permission": "Permission to access location was denied",
+      "pincode": "Pincode is required"
+    },
+    "placeholder": {
+      "name": "Enter franchise name",
+      "detail": "Enter detail"
+    }
+  },
+  "addNewAddressScreen": {
+    "addNewAddress": "Add New Address",
+    "workPlace": "Work Place",
+    "home": "Home",
+    "placeHolder": {
+      "type": "Type",
+      "newType": "New Type",
+      "contact": "Enter Your First Or Full Name",
+      "phone": "Mobile Number",
+      "address1": "Enter Your First Address",
+      "address2": "Enter Your Second Address",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "postcode": "Postcode",
+      "street": "Enter your Street",
+      "area": "Enter Your Area",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "title": {
+      "type": "Type",
+      "newType": "New Type",
+      "name": "Name",
+      "contact": "Contact Person",
+      "phone": "Mobile No.",
+      "address1": "Address Line 1",
+      "address2": "Address Line 2",
+      "city": "City / Town",
+      "state": "State/Province",
+      "country": "Country",
+      "postcode": "Postcode",
+      "street": "Street",
+      "area": "Area",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "alert": {
+      "type": "Type is required!",
+      "newType": "New Type is required!",
+      "updateSuccess": "Address updated successfully",
+      "addSuccess": "Address added successfully",
+      "permissionDenied": "Permission to access location was denied"
+    },
+    "cancel": "Cancel",
+    "add": "Add",
+    "edit": "Update",
+    "confirm": "Confirm",
+    "editAddress": "Edit Address Details"
+  },
+  "addNewAnniversaryScreen": {
+    "anniversary": "Anniversary",
+    "date": "Date",
+    "confirm": "Confirm"
+  },
+  "alert": {
+    "updateTitle": "Please Update",
+    "updateDescription": "You will have to update your app to the latest version to continue using.",
+    "disconnectFB": "Do you want to disconnect with facebook account",
+    "disconnectApple": "Do you want to disconnect with apple account"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "emptyDesc": "Your wallet is currently empty, go ahead and check out our promotions!",
+    "connectFBSuccess": "Successfully connected with your Facebook account",
+    "backToLogin": "Back to login",
+    "back": "Back",
+    "skip": "Skip",
+    "next": "Next",
+    "letExplore": "Let's Explore",
+    "description": "Description",
+    "deleteMessage": "Delete message",
+    "leftQuantity": "left",
+    "noMatchFound": "No match found!",
+    "noResultFound": "No results found!",
+    "quantity": "Quantity",
+    "soldOut": "Sold out",
+    "search": "Search",
+    "forceUpdateTitle": "New update available",
+    "yes": "Yes",
+    "no": "No",
+    "hour": "Hour",
+    "minute": "Minute",
+    "permision": "Permission is denied.",
+    "invalidQR": "Invalid QR code, Please scan valid QR code.",
+    "forceUpdateDesc": "Please update our app for an improved experience! This version is no longer supported."
+  },
+  "contactUsScreen": {
+    "feedBack": "Feedback",
+    "attachPhoto": "Attach your photos here",
+    "placeHolder": {
+      "name": "Name",
+      "email": "Email Address",
+      "phone": "Mobile Number",
+      "message": "Message"
+    },
+    "send": "Send"
+  },
+  "coinTransactionList": {
+    "alert": {
+      "cancelToken": "This request is cancel due to new request"
+    },
+    "label": {
+      "filterByDate": "Filter by date",
+      "credit": "CREDITED",
+      "debit": "DEBITED"
+    },
+    "noReacordFound": {
+      "title": "Coins",
+      "message": "No data found!"
+    },
+    "placehoder": {
+      "search": "Search coin transaction"
+    },
+    "sagmentData": {
+      "credit": "Credit",
+      "debit": "Debit"
+    },
+    "title": "Coins",
+    "value": {
+      "selectDate": "Select Date"
+    }
+  },
+  "deleteConfirmation": {
+    "askDelete": "Are you sure, You want to delete account from",
+    "success": "Your account deleted successfully",
+    "button": {
+      "confirm": "Confirm Delete",
+      "cancel": "Cancel"
+    }
+  },
+  "editProfileScreen": {
+    "profileEditing": "Profile Editing",
+    "disconnect": "Disconnect",
+    "connect": "Connect",
+    "save": "Save"
+  },
+  "editMenuScreen": {
+    "alert": {
+      "menuName": "Menu name required!",
+      "price": "Price required!",
+      "qty": "Stock quantity required!",
+      "availableAt": "Available at date required!",
+      "label": "Label is required",
+      "value": "Value is required",
+      "point_above": "Point ",
+      "point_below": " value is required",
+      "delete": "Are you sure you want to delete Menu image?"
+    },
+    "title": {
+      "edit": "Edit Menu",
+      "add": "Add Menu"
+    },
+    "dropDownPicker": {
+      "alwaysAvailable": "Always available stock",
+      "limitedStock": "Limited stock",
+      "vag": "veg",
+      "nonveg": "non-veg"
+    },
+    "label": {
+      "name": "Name",
+      "description": "Description",
+      "price": "Price",
+      "discount": "Discount",
+      "inventory": "Inventory",
+      "qty": "Stock Quantities",
+      "availableAt": "Available at",
+      "tax": "Tax",
+      "foodType": "Food Type",
+      "details": "Details"
+    },
+    "button": {
+      "remove": "Remove",
+      "add": "Add",
+      "update": "Update",
+      "save": "Save"
+    },
+    "placeholder": {
+      "name": "Menu Name",
+      "description": "Description",
+      "price": "Price",
+      "discount": "Discount",
+      "qty": "Stock Quantities",
+      "availableAt": "Select available at date",
+      "tax": "Tax"
+    }
+  },
+  "emailConfig": {
+    "update": "Updated.",
+    "label": {
+      "host": "Host",
+      "user": "User",
+      "useTLS": "Use TLS",
+      "password": "Password",
+      "port": "Port"
+    },
+    "placeholder": {
+      "host": "Host",
+      "user": "User",
+      "useTLS": "Use TLS",
+      "password": "Password",
+      "port": "Port"
+    },
+    "button": {
+      "save": "Save",
+      "addAddress": "Add Address"
+    }
+  },
+  "editServices": {
+    "title": {
+      "edit": "Edit Service",
+      "add": "Add Service"
+    },
+    "label": {
+      "serviceName": "Service Name",
+      "description": "Description",
+      "serviceCategory": "Service Category",
+      "price": "Price",
+      "discount": "Discount",
+      "tax": "Tax",
+      "details": "Details"
+    },
+    "placeholder": {
+      "serviceName": "Service Name",
+      "description": "Description",
+      "serviceCategory": "Service Category",
+      "price": "Price",
+      "discount": "Discount",
+      "tax": "Tax"
+    },
+    "button": {
+      "remove": "Remove",
+      "update": "Update",
+      "save": "Save"
+    },
+    "required": {
+      "name": "Service name required!",
+      "category": "Category required!",
+      "price": "Price required!",
+      "tax": "TAX required!",
+      "label": "Label is required",
+      "value": "Value is required"
+    }
+  },
+  "editServiceCategory": {
+    "title": {
+      "edit": "Edit Service Category",
+      "add": "Add Service Category"
+    },
+    "label": {
+      "name": "Name",
+      "des": "Description"
+    },
+    "placeholder": {
+      "name": "Name",
+      "des": "Description"
+    },
+    "button": {
+      "save": "Save"
+    },
+    "required": {
+      "name": "Service category name is required!"
+    }
+  },
+  "HomeSliderScreen": {
+    "sliderConfiguaration": "Slider Configuaration"
+  },
+  "franchise": {
+    "title": "Franchise",
+    "askDelete": "Are you sure delete Franchise?",
+    "noRecord": {
+      "title": "Franchise",
+      "message": "No Franchise Found :("
+    },
+    "addNew": "Add New Franchise"
+  },
+  "faqScreen": {
+    "faq": "FAQ"
+  },
+  "forceLoginScreen": {
+    "login": "Log In",
+    "description1": "You are currently logged into another device.",
+    "description2": "Do you wish to terminate that session?",
+    "continueLogin": "Continue to Login"
+  },
+  "forgotPasswordScreen": {
+    "forgotPassword": "Forgot Password",
+    "enterYourEmail": "Enter your email",
+    "sendOTP": "Send OTP",
+    "sendLinkSuccess": "Successfully sent link to your email"
+  },
+  "homeScreen": {
+    "pushToken": "Failed to get push token for push notification. Status is ",
+    "homeSlider": "Image Slider",
+    "homeSliderDesc": "Add or remove slide",
+    "topProduct": "Top Products",
+    "topProductDes": "Manage top products",
+    "topItems": "Top Items",
+    "topItemsDes": "Manage top items",
+    "recentProduct": "Recent Products",
+    "recentItem": "Recent Items",
+    "setupApp": "Setup App",
+    "setupAppDec": " You can customize app from setting for default currency, payment method, order configuration and etc.",
+    "setupNow": "Setup Now",
+    "later": "Later",
+    "pendingOrder": "Pending Order",
+    "order": "Order",
+    "cancelOrder": "Cancel Orders",
+    "customers": "Customers",
+    "products": "Products",
+    "report": "Reports",
+    "invoices": "Invoices",
+    "previewInvoice": "Preview Invoice",
+    "bennarAds": "Banner Ads",
+    "bennarAdsDes": "Manage banner cards",
+    "latestOffer": "Latest Offer",
+    "topOffer": "Top Offer",
+    "memberGetMember": "Member Get Member",
+    "inviteFriendsDesc": "Invite your friend and enjoy your amazing gift",
+    "learnMore": "Learn More",
+    "joinUs": "Join Us Now / Log In",
+    "cashback": "Cashback\n\n",
+    "cashVouchersCoupons": "Cash\nVouchers\n & Coupons",
+    "productVouchersCoupons": "Product\nVouchers\n & Coupons",
+    "storeCredit": "Store Credit\n\n",
+    "reports": "Reports",
+    "reportsContent": "A report is a document that presents information in an organized format for a specific audience and purpose.",
+    "createAppTitile": "Create Your Own Application",
+    "createAppDescription": "Start selling products or food with your own application",
+    "signUpButton": "Sign Up Now"
+  },
+  "inviteFriendScreen": {
+    "inviteFriend": "Invite Friends",
+    "share": "Share"
+  },
+  "locationDetailScreen": {
+    "promotions": "Promotions"
+  },
+  "locationScreen": {
+    "ourLocations": "Our Locations",
+    "search": "Search"
+  },
+  "loginScreen": {
+    "login": "Log In",
+    "loginViaFB": "Login via Facebook",
+    "or": "OR",
+    "register": "Register",
+    "forgotPassword": "Forgot your password?",
+    "placeHolder": {
+      "phone": "Mobile Number",
+      "password": "Password",
+      "email": "Email"
+    }
+  },
+  "rattingAndReview": {
+    "alert": {
+      "askDelete": "Are you sure, you want to delete your review?",
+      "review": "Ratting is required!",
+      "title": "Title is required!",
+      "message": "Message is required!",
+      "ratting": "Ratting is required!"
+    },
+    "title": "Ratting and Review",
+    "label": {
+      "ratting": "Ratting",
+      "title": "Title",
+      "message": "Message"
+    },
+    "placeholder": {
+      "ratting": "E.g. 4.5",
+      "title": "Enter review title",
+      "message": "Enter review message"
+    },
+    "button": {
+      "add": "Add Review",
+      "cancel": "Cancel",
+      "update": "Update Review",
+      "submit": "Submit Review"
+    }
+  },
+  "reports": {
+    "title": "Reports",
+    "date": {
+      "from": "From",
+      "to": "To",
+      "filterDate": "Select date"
+    },
+    "exportCSV": "Export CSV",
+    "noRecord": {
+      "title": "Reports",
+      "message": "No data found!"
+    },
+    "totalIncome": "Total Income",
+    "button": {
+      "getReports": "GET REPORTS"
+    }
+  },
+  "serviceCategories": {
+    "title": "Manage Service Categories",
+    "alert": {
+      "deleteTitle": "Are you sure delete category?"
+    },
+    "noRecord": {
+      "title": "Categories",
+      "message": "No data found"
+    },
+    "button": {
+      "title": "Create New Category"
+    }
+  },
+  "orderSetting": {
+    "alert": {
+      "orderPreparationTime": "Order preparation time is greater than 10 minutes.",
+      "success": "Order configuration saved successfully",
+      "orderDeliveryChargeOnAmount": "Order minimum amount should be required."
+    },
+    "delivery": "Delivery",
+    "deliveryDescrption": "Delivery",
+    "deliverySerivices": "Delivery Services",
+    "pickup": "Pick Up",
+    "pickupescrpation": "Pick Up",
+    "dineIn": "Dine In",
+    "dineInDescrption": "Dine In",
+    "autoOrderaccepat": "Auto Order Accept",
+    "autoOrderaccepatDescrption": "Make auto accept ordering",
+    "enableCancelOrder": "Enable Cancel Order",
+    "enableCancelOrderDescrption": "User can cancel order until completed",
+    "orderPreparationTime": "Order preparation time (In Minute)",
+    "OrderDeliveryCharge": "Order delivery charges",
+    "OrderDeliveryChargePerAmount": "Delivery charges apply on min. amount",
+    "selectDeliveryChargeType": "Select delivery charge type",
+    "placeholder": {
+      "Minute": "Minute"
+    },
+    "label": {
+      "cashOnDelivery": "Cash On Delivery",
+      "pickUp": "Pick Up",
+      "dinein": "Dine in"
+    },
+    "deliverys": "Delivery",
+    "button": {
+      "save": "Save"
+    }
+  },
+  "menuListScreen": {
+    "placeOrderScreen": {
+      "searchHint": "Search"
+    },
+    "noRecord": {
+      "message": "No data found",
+      "title": "Menu"
+    },
+    "button": {
+      "title": "Book Now"
+    },
+    "title": "Menu"
+  },
+  "menuDetailScreen": {
+    "description": "No description",
+    "delete": "Are you sure you want to delete?"
+  },
+  "bussinessDetail": {
+    "title": "Business Details",
+    "alert": {
+      "name": "Business name is required",
+      "description": "Business description is required",
+      "street": "Street name is required",
+      "city": "City name is required",
+      "state": "State name is required",
+      "pincode": "Pincode is required",
+      "country": "Country is required"
+    },
+    "label": {
+      "id": "Business Id",
+      "name": "Business Name",
+      "description": "Description",
+      "type": "App Type",
+      "street": "Street",
+      "city": "City / Town",
+      "state": "State",
+      "pincode": "Pincode",
+      "country": "Country"
+    },
+    "placeholder": {
+      "id": "Business Id",
+      "name": "Business Name",
+      "description": "Description",
+      "type": "App Type",
+      "street": "Street",
+      "city": "City / Town",
+      "state": "State",
+      "pincode": "Pincode",
+      "country": "Country"
+    },
+    "button": {
+      "save": "Save"
+    }
+  },
+  "notificationSettings": {
+    "title": "Notification Settings",
+    "orderUpdate": "Order Update Notification",
+    "orderUpdateDescription": "Enable for get order notification",
+    "offer": "Offer Notification",
+    "offerDescrption": "Enable for latest offers and news notification"
+  },
+  "contactUs": {
+    "title": "Contact Us",
+    "alert": {
+      "bussinessName": "Please enter bussiness name",
+      "mobileAndEmail": "Please enter email or contact numver ",
+      "phone": "Please enter valid phone",
+      "email": "Please enter valid email"
+    },
+    "button": {
+      "title": "Save"
+    },
+    "label": {
+      "bussinessName": "Bussiness Name",
+      "contact": "Contact Number",
+      "email": "Email ID",
+      "address": "Address"
+    },
+    "placehoder": {
+      "bussinessName": "Bussiness Name",
+      "contact": "Contact No.",
+      "email": "Email ID",
+      "address": "Address"
+    }
+  },
+  "menu": {
+    "poweredBy1": "Powered by",
+    "poweredBy2": "Spyhunter IT Solution",
+    "home": "Home",
+    "login": "Log In",
+    "logout": "Log Out",
+    "order": "Order",
+    "cart": "Cart",
+    "settings": "Settings",
+    "termPolicy": "Terms",
+    "support": "Support",
+    "promotion": "Offers",
+    "account": "Account",
+    "contactUs": "Contact Us",
+    "products": "Products",
+    "menu": "Menu",
+    "profile": "Account",
+    "order-history": "Orders",
+    "notifications": "Notifications",
+    "locations": "Locations",
+    "location": "Locations",
+    "myQR": "My QR"
+  },
+  "message": {
+    "registerSuccess": "Register Successful",
+    "phoneExist": "Your mobile number have been registered with us!",
+    "failToVerify": "Fail to verify your mobile number",
+    "logoutSuccess": "Logout successfully",
+    "resendSuccess": "Verification code have resent successfully",
+    "uploadAvatarSuccess": "Change profile picture successfully",
+    "removeAvatarSuccess": "Remove profile picture successfully",
+    "addressNameExist": "Address nickname already exists. Do you want to overwrite?",
+    "contactNameRequire": "Contact person is required",
+    "phoneRequire": "Phone number is required",
+    "address1Require": "Street address line 1 is required",
+    "address2Require": "Street address line 2 is required",
+    "cityRequire": "City/Town is required",
+    "stateRequire": "State/Province is required",
+    "countryRequire": "Country is required",
+    "postCodeRequire": "Post code is required",
+    "outletName": "Franchise name is required",
+    "streetRequire": "Street is required",
+    "areaRequire": "Area is required",
+    "editProfileSuccess": "Update profile successfully",
+    "loginFail": "Incorrect phone number or password",
+    "sendCodeFail": "Fail to send verify code to your phone number",
+    "sendEmailFail": "Fail to send verify email",
+    "nameEmpty": "Please enter your name",
+    "emailEmpty": "Please enter your email",
+    "phoneEmpty": "Please enter your mobile number",
+    "emailInvalid": "Please enter a valid email address",
+    "phoneInvalid": "Please enter a valid mobile number",
+    "messageEmpty": "Please enter message",
+    "sendFeedBackSuccess": "Contact support ticket sent successfully."
+  },
+  "network": {
+    "title": "You are currently offline!",
+    "description": "Please check your internet connection and try again"
+  },
+  "notificationScreen": {
+    "memberNotification": "Notification",
+    "userNotification": "User Notification",
+    "deleteMessage": "Do you want to delete this notification?",
+    "deleteSelectMessage": "Delete selected item.",
+    "deleteMultipleMessage": "Delete all items? If yes: delete all message if no go back to message list",
+    "confirm": "Confirm",
+    "sendNotification": "Send Notification",
+    "reject": "Reject",
+    "norecord": {
+      "title": "Notification",
+      "message": "We'll notify you when there is something new!"
+    }
+  },
+  "ordering": {
+    "payScreen": {
+      "description": "Go cashless, pay without cash or credit card, just look for store QR code to scan and pay",
+      "showMyQR": "Show my QR Code and Barcode",
+      "youPaid": "You've paid",
+      "paidTo": "To",
+      "payment": "Payment",
+      "paymentSuccess": "Payment Success",
+      "paymentError": "Something went wrong with your payment",
+      "orderPickupTimeSelect": "Please select your pickup time"
+    },
+    "chooseOrderTypeScreen": {
+      "title": "Choose Your Order Type",
+      "desc": "What would you like to have today?",
+      "pickup": "Pickup",
+      "dinein": "Dine-in",
+      "delivery": "Delivery"
+    },
+    "checkInOrderScreen": {
+      "title": "Scan Table QR",
+      "scan": "Scan QR code on the table to begin order",
+      "qrCodeUnknown": "Unknown QR Code. Try again?",
+      "tryAgain": "Try again",
+      "cancel": "Cancel",
+      "goToTestOutlets": "Go to test table",
+      "flashMode": "Flash Mode"
+    },
+    "checkInOrderTestOutletsScreen": {
+      "title": "Test Outlets",
+      "testerOnly": "For testers only",
+      "searchPlaceholder": "Search outlets"
+    },
+    "pickUpOrderScreen": {
+      "title": "Pickup",
+      "warningOutlet": "You need to choose pickup outlet",
+      "warningLocation": "You need to choose pickup location",
+      "warningDate": "You need to choose pickup date",
+      "warningTime": "You need to choose pickup time",
+      "setDate": "Set pickup date",
+      "setTime": "Set pickup time",
+      "pickupOutlet": "Pickup outlet",
+      "pickupLocation": "Pickup location",
+      "pickupSpecial": "Special instruction",
+      "cancelButton": "Cancel",
+      "placeOrderButton": "Place Order",
+      "instruction": "Should you have any special instructions, please enter in the box above.",
+      "pickupTimeLabel": "When do you want to pick up?",
+      "theEarliestPickupTime": "The Earliest Pickup Time Is",
+      "selectAndPay": "Select And Pay Now",
+      "pickupTime": "Pickup Time"
+    },
+    "placeOrderScreen": {
+      "title": "Place Order",
+      "exit": "Do you want to exit order section?",
+      "yes": "Yes",
+      "no": "No",
+      "searchHint": "What are you looking for...?",
+      "viewAll": "View All",
+      "hideAll": "Hide All",
+      "addToCart": "  item(s) in cart",
+      "outOfStock": "Out of stock"
+    },
+    "orderHistoryScreen": {
+      "title": "Orders History",
+      "reorderSuccessful": "Add item(s) to the existing order successfully",
+      "searchHint": "Search by order product name",
+      "dateFilter": "Search by order date",
+      "orderingDate": "Ordering Date",
+      "orderRefNo": "Ref No",
+      "button": "Reorder All",
+      "payNow": "Pay Now",
+      "checkStatus": "Check Status",
+      "currentOrder": "Current order",
+      "previousOrders": "Previous orders",
+      "dineIn": "Dine-in",
+      "pickUp": "Pick up",
+      "delivery": "Delivery",
+      "norecord": {
+        "title": "Orders",
+        "message": "We'll notify you when there is something now!"
+      }
+    },
+    "myDiningCart": {
+      "maxQuantityAlert": "You have reached the maximum quantity of product",
+      "voucherRedeemed": "Voucher"
+    },
+    "orderHistoryDetailScreen": {
+      "title": "Order Detail",
+      "reorderSuccessful": "Add item(s) to the existing order successfully",
+      "searchHint": "Search by order product name",
+      "dateFilter": "Search by order date",
+      "orderingDate": "Ordering Date",
+      "orderRefNo": "Order Ref No",
+      "button": "See Order Detail",
+      "checkStatus": "Check Status",
+      "cancellationRequest": "Cancellation Requested",
+      "status": "Status",
+      "message": "Message",
+      "currentOrder": "Current order",
+      "previousOrders": "Previous orders",
+      "orderItems": "Order Items",
+      "orderDate": "Order Date",
+      "orderNo": "Order No.",
+      "pickupTime": "Pickup Time",
+      "tableNo": "Table No.",
+      "contactNumber": "Contact Number",
+      "memberName": "Member name",
+      "memberTier": "Member tier",
+      "print": "Print Invoice",
+      "deliveryInfo": "Delivery Information",
+      "deliveryPartner": "Delivery Partner",
+      "trackingId": "Tracking Id"
+    },
+    "productDetail": {
+      "askDelete": "Are you sure you want to delete?",
+      "addToCart": "Add to cart",
+      "updateItem": "Update item",
+      "noDesc": "No description",
+      "pickOne": "Pick One",
+      "choose": "Please choose",
+      "chooseAny": "Please choose any",
+      "chooseMin": "Please choose a min of",
+      "chooseMax": "Please choose a max of",
+      "chooseMinMax1": "Please choose a min of",
+      "chooseMinMax2": "and a max of",
+      "items": "item(s)",
+      "specialRequest": "Special Request",
+      "addSpecialRequest": "Add your special request if needed"
+    },
+    "checkOutOrder": {
+      "title": "Check out",
+      "payment": "Payment",
+      "payNow": "Pay now",
+      "orderNow": "Order now",
+      "subTotal": "Sub Total",
+      "grandTotal": "Grand Total",
+      "billTotal": "Bill Total",
+      "balancePayment": "Balance Payment",
+      "saleTax": "Tax",
+      "serviceTax": "Service Charge",
+      "redeemCashVC": "Redeem Cash Vouchers/Coupons",
+      "paymentMsg": "Your payment is complete",
+      "paymentDone": "OK",
+      "confirmError": "OK",
+      "membershipDiscount": "Membership discount",
+      "cashbackAmount": "Cashback",
+      "completeAmmount": "Complete payment from Store Credit",
+      "exceedCreditAmount": "Amount entered cannot exceed the store credit balance.",
+      "exceedBillTotal": "Amount entered cannot exceed the bill total.",
+      "exceedTotalAmount": "Amount entered cannot exceed the balance payment.",
+      "exceedCashAmount": "Amount entered cannot exceed available cashback.",
+      "totalPaymentGreaterBillTotal": "The total cash voucher added is greater than bill amount. Do you want to proceed?",
+      "totalBillPaymentGreaterBillTotal": "The total payment added is greater than bill amount. You need to remove extra amount to proceed order.",
+      "totalPayment": "Total Payment"
+    },
+    "orderStatusPending": {
+      "deliveryAddress": "Delivery Address",
+      "products": "Products",
+      "qty": "Qty",
+      "price": "Price",
+      "total": "Total",
+      "deliveryCharge": "Delivery Charge",
+      "detail": "Details",
+      "orderStatus": "Order Status",
+      "paymentMethode": "Payment Method",
+      "refundKey": "Refund Key",
+      "message": "Message",
+      "cancelOrder": "Cancel Order",
+      "requestCancel": "Request for Cancel Order",
+      "pickUpLocation": "PickUp Location",
+      "customerDetails": "Customer Details",
+      "name": "Name",
+      "mobile": "Mobile No.",
+      "permisiondenied": "Permission to access location was denied",
+      "locationPermison": "Location permission required for getting your live location",
+      "requestLocation": "Request Location Access",
+      "appliedPromotion": "Applied Promotion",
+      "codeapply": "Code is applied.",
+      "upto": "off up to",
+      "shippingDetails": "Shipping Details",
+      "courierName": "Courier Name",
+      "aWBNumber": "AWB Number",
+      "payNow": "Pay Now",
+      "contactUs": "Contact Us",
+      "reason": "Reason",
+      "reasonMessage": "Reason Message",
+      "reasonMessagerequired": "Reason message is required.",
+      "declined": "Declined",
+      "decline": "Decline",
+      "accept": "Accept",
+      "isready": "Ready",
+      "startShipping": "Start Shipping",
+      "showStatus": "Show Nimbus Delivery Status",
+      "showStatusDelivery": "Show ShipRocket Delivery Status",
+      "orderUpdateHistory": "Order Update History",
+      "orderUpdateHistoryby": "Order status is updated by",
+      "from": " from ",
+      "to": " to ",
+      "pendingMerchantToAccept": "Pending Merchant to accept",
+      "cancelOrderAlert": "Are you sure, you want to cancel the order?",
+      "accepted": "Accepted",
+      "paid": "Paid",
+      "shipping": "Shipping",
+      "preparing": "Preparing",
+      "ready": "Ready",
+      "completed": "Completed",
+      "served": "Served",
+      "delivered": "Delivered",
+      "inProcess": "In Process",
+      "cancelled": "Cancelled",
+      "orderNote": "Your order will be served shortly.\nShould you have any questions, please present your order number to our service staff",
+      "orderNoteForPaidButNotAccepted": "Your order waiting for accept by merchant",
+      "orderNoteForPickupAndReady": "Your order is now available for pickup",
+      "orderNoteForDeliveryAndAcceptPreparing": "Your order is started for preparing..."
+    },
+    "selectDeliveryLocationScreen": {
+      "title": "Delivery",
+      "outlet": "Outlet",
+      "address": "Select Address"
+    },
+    "addressDetail": {
+      "title": "Select and Save Your Location",
+      "address": "Address Selected",
+      "addressDetails": "Address Details",
+      "contactPerson": "Contact Person",
+      "mobileNo": "Mobile No",
+      "notesToDriver": "Notes to Driver",
+      "saveAndUseAddress": "Save and Use Address",
+      "addressNickname": "Address Nickname",
+      "customAddressNickname": "Custom Address Nickname"
+    }
+  },
+  "profileScreen": {
+    "profileSettings": "Profile Settings",
+    "profileStrength": "Profile Strength",
+    "nickName": "Nick Name",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "gender": "Gender",
+    "dob": "Date of Birth",
+    "phone": "Mobile Number",
+    "email": "Email Address",
+    "listAddress": "List of Address",
+    "segment": {
+      "address": "Address(es)",
+      "anniversary": "Anniversary"
+    }
+  },
+  "paymentSetting": {
+    "alert": {
+      "key": "key is required.",
+      "secret": "Secret key is required."
+    },
+    "label": {
+      "payMethod": "Payment Method",
+      "key": "Key",
+      "secretkey": "Secret Key"
+    },
+    "placeholder": {
+      "payMethod": "Payment Method",
+      "key": "Key",
+      "secretkey": "Secret Key"
+    },
+    "button": {
+      "save": "Save"
+    }
+  },
+  "promotionDetailScreen": {
+    "loading": "",
+    "askDelete": "Are you sure you want to delete?",
+    "free": "FREE",
+    "title": "Offer Details",
+    "offerPeriod": "Offer Period",
+    "validAt": "Valid at",
+    "outlets": "outlets",
+    "outlet": "outlet",
+    "termOfThisDeal": "Term Of This Deal",
+    "BUY_NOW": "Buy Now!",
+    "DOWNLOAD_NOW": "Download Now!",
+    "selectPayment": "Select Payment Method",
+    "paymentDone": "OK",
+    "onlinePayment": "Online Payment is not available",
+    "validTill": "Campaign Ends"
+  },
+  "registerLoginScreen": {
+    "registration": "Registration",
+    "headerMessage": "Your mobile number have been registered with us!",
+    "message": "Please kindly login with Cloud9 single Sign-on password last used with the {{brand}} ",
+    "forgotPassword": "Forgot your password?",
+    "login": "Login"
+  },
+  "registerScreen": {
+    "registration": "Registration",
+    "placeHolder": {
+      "phone": "Mobile Number",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "name": "Name",
+      "email": "Email Address",
+      "password": "Password",
+      "gender": "Gender (Optional)",
+      "referral": "Referral Code (Optional)"
+    },
+    "minAge": "(min. age - optional)",
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "register": "Register",
+    "agree": "By tapping Register, I agree to ",
+    "termsAndConditions": "Terms & Conditions",
+    "validate": {
+      "phone": "Please enter a valid mobile number",
+      "first_name": "Please enter your first name",
+      "last_name": "Please enter your last name",
+      "email": "Please enter a valid email address",
+      "password": "Password must be at least 6 characters",
+      "age": "Minimum age must be {{age}} years old",
+      "date": "Please enter DOB"
+    }
+  },
+  "productSetting": {
+    "alert": {
+      "success": "Products configuration saved successfully"
+    },
+    "title": "Products Configuration",
+    "productCategory": "Product Category",
+    "productCategoryDescription": "Enable disable product category",
+    "category": "Product Sub Category",
+    "categoryDescription": "Enable disable product subcategory",
+    "brand": "Product Brand",
+    "brandDescription": "Enable disable product brand",
+    "hidePrice": "Hide Price",
+    "hidePriceDescription": "Enable for hide product prices",
+    "review": "Enable Review",
+    "reviewDescription": "Can user give review for products",
+    "save": "Save"
+  },
+  "shopTimeing": {
+    "label": {
+      "openTime": "Open Time",
+      "closeTime": "Close Time"
+    },
+    "alert": {
+      "openCloseTimeRequired": "open close time required!",
+      "success": "Shop time configuration saved successfully"
+    },
+    "title": {
+      "shopTime": "Shop Time Configuration",
+      "restaurantTime": "Restaurant Time Configuration"
+    },
+    "button": {
+      "save": "Save"
+    }
+  },
+  "settingScreen": {
+    "settings": "Settings",
+    "changePassword": "Change Password",
+    "businessDetails": "Business Details",
+    "notificationSettings": "Notification",
+    "orderConfiguaration": "Order Configuaration",
+    "currencyConfiguaration": "Currency Configuaration",
+    "clientApp": "Client App",
+    "themeSetting": "Theme",
+    "productsConfiguration": "Products Configuration",
+    "serviceConfiguration": "Service Configuration",
+    "emailConfiguration": "Email Configuration",
+    "shoptime": "Shop Time Configuration",
+    "restauranttime": "Restaurant Time Configuration",
+    "paymentConfiguration": "Payment Configuration",
+    "franchise": "Franchise",
+    "websiteUpdated": "Website Updated Successfully",
+    "tryagine": "Something went wrong. Please try again.",
+    "newversion": "New Version Available",
+    "environment": "Environment",
+    "development": "Development",
+    "production": "Production",
+    "clientSetting": {
+      "title": "Client App Settings",
+      "checkbox": {
+        "tabBar": "TabBar",
+        "tabBarDesc": "Enable / Disable bottom tabs",
+        "loginRequire": "Login Require",
+        "loginRequireDesc": "login is require for access app",
+        "background": "Background",
+        "dark": "Dark Mode",
+        "darkDesc": "Enable /Disable dark mode",
+        "coin": "Enable App Coin",
+        "coinDesc": "Enable / Disable app coin for users"
+      },
+      "inputTitle": {
+        "primary": "Primary Color",
+        "secondary": "Secondary Color",
+        "theme": "Theme Color",
+        "appName": "App Name",
+        "androidPackage": "Android Package Name",
+        "iosBundle": "Ios Bundle Identifier"
+      },
+      "placeholder": {
+        "primary": "#ffffff",
+        "secondary": "#d3d3d3",
+        "theme": "#ffb800",
+        "appName": "App Name",
+        "androidPackage": "Android Package Name",
+        "iosBundle": "Ios Bundle Identifier"
+      },
+      "save": "Save",
+      "success": "Configuration saved successfully. Please restart or reload app to see latest changes"
+    },
+    "paymentSetting": "Payment Settings",
+    "currencySetting": {
+      "title": "Currency Settings",
+      "code": "Currency Code",
+      "symbol": "Currency Symbol",
+      "save": "Save"
+    },
+    "introductionSetting": "Introduction Settings",
+    "emailConfig": "Email Configuration",
+    "about": "About",
+    "env": "Environment",
+    "logout": "Logout",
+    "logoutMessage": "Are you sure you want to log out?",
+    "deleteMessage": "Your account deleted successfully.",
+    "deleteAccountMessage": "Are you sure you want to delete your account?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "guideScreen": "Guide Screen",
+    "language": "Language",
+    "OrderSetting": "Order Setting",
+    "deleteAccount": "Delete Account",
+    "success": "Configuration saved successfully",
+    "update": "Updated."
+  },
+  "sendCoinScreen": {
+    "alert": {
+      "sentCoin": "Coins sent successfully"
+    },
+    "label": {
+      "joinedDate": "Joined Date"
+    },
+    "placehoder": {
+      "addNote": "Add Note"
+    },
+    "button": {
+      "tilte": "Send Coins"
+    },
+    "required": {
+      "coin": "Please enter coins"
+    },
+    "title": "Send Coins"
+  },
+  "serviceDetailsScreen": {
+    "alert": {
+      "delete": "Are you sure you want to delete?"
+    },
+    "button": {
+      "addToCart": "Add To Cart"
+    }
+  },
+  "serviceSetting": {
+    "alert": {
+      "success": "Services configuration saved successfully"
+    },
+    "title": "Services Configuration",
+    "serviceCategory": "Service Category",
+    "descripation": "Enable disable service category",
+    "button": {
+      "save": "Save"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "addCategory": "Add Category",
+    "all": "Show All",
+    "button": {
+      "title": "Services",
+      "message": "No data found"
+    }
+  },
+  "supportScreen": {
+    "support": "Support",
+    "faq": "FAQ",
+    "cannotFindAnswer": "Can't find your answer in FAQ? Reach out to us directly",
+    "freeToContact": "Please feel free to contact us directly",
+    "contactUs": "Contact us"
+  },
+  "shippingPolicyScreen": {
+    "title": "Shipping Policy",
+    "placeholder": "Enter Shipping Policy",
+    "clickHere": "Click here to Create Shipping Policy",
+    "update": "Update"
+  },
+  "refundPolicyScreen": {
+    "title": "Refund Policy",
+    "placeholder": "Enter Refund Policy",
+    "clickHere": "Click here to Create Refunds Policy",
+    "update": "Update"
+  },
+  "aboutUsScreen": {
+    "title": "About Us",
+    "placeholder": "Enter About Us",
+    "clickHere": "Click here to Create About us ",
+    "update": "Update"
+  },
+  "termAndPolicyScreen": {
+    "termAndPolicy": "Terms & Policies",
+    "segment": {
+      "termOfUse": "Terms of Use",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "tableBooking": {
+    "alert": {
+      "date": "Please select Date",
+      "startTime": "please select start time",
+      "endTime": "please select end time",
+      "people": "Please add number of guest",
+      "table": "Please select tables",
+      "tableFor": "Please select table for ",
+      "guests": " guests",
+      "selectDate": "Please enter valid date."
+    },
+    "button": {
+      "bookTable": "Book Table"
+    },
+    "title": "Table Booking",
+    "label": {
+      "startTime": "Select Start Time",
+      "endTime": "Select End Time",
+      "noOfguests": "Number of guests"
+    },
+    "placeHolder": {
+      "totalGuests": "Total Guests",
+      "date": "No date"
+    },
+    "selectTable": "Select Table",
+    "selectedTable": "Selected Table",
+    "table": "Table",
+    "value": {
+      "date": "No date",
+      "time": "No Time"
+    }
+  },
+  "transactionHistoryScreen": {
+    "transactionHistory": "Voucher/Coupon Transaction History",
+    "search": "Search for history",
+    "noFilter": "No filter",
+    "transactionNo": "Reference No.",
+    "description": "Description",
+    "dateTime": "Date & Time",
+    "filterByDate": "Filter by date",
+    "outlet": "Outlet",
+    "amountPaid": "Amount Paid",
+    "brandName": "Brand",
+    "brand&Outlet": "Brand and Outlet.",
+    "billNumber": "Bill Number",
+    "billAmount": "Bill Amount",
+    "otherReferenceNumber": "Other Reference No",
+    "totalAvailableCashback": "Total Available Cashback",
+    "cashBackRedeemed": "Cashback Redeemed",
+    "balanceCashback": "Balance Cashback",
+    "eligibleAmount": "Eligible Amount",
+    "cashbackRate": "Cashback Rate",
+    "cashbackRewarded": "Cashback Rewarded",
+    "cashBackExpired": "Cashback Expired",
+    "cashbackTransferred": "Cashback Sent",
+    "cashbackTransferredTo": "Receiver",
+    "cashbackReceived": "Cashback Received",
+    "cashbackReceivedFrom": "Sender",
+    "transactionAt": "Outlet Name",
+    "transactionDesc": "Transaction Desc",
+    "referenceNo": "Reference No."
+  },
+  "updateEmailScreen": {
+    "updateEmail": "Update Email Address",
+    "confirm": "Confirm",
+    "placeHolder": {
+      "email": "ex: youridname@gmail.com"
+    }
+  },
+  "updatePhoneScreen": {
+    "updatePhone": "Update Mobile No.",
+    "enterPhone": "Enter your mobile number and Tap on Next verify",
+    "next": "Next",
+    "placeHolder": {
+      "phone": "Mobile Number"
+    }
+  },
+  "walletScreen": {
+    "wallet": "Account",
+    "memberSince": "Member since: ",
+    "vouchers": "Voucher / Coupon",
+    "transactionHistory": "Voucher/Coupon Transaction",
+    "storeCreditHistory": "Store Credit",
+    "giftingReferral": "Gifting & Referral",
+    "orderHistory": "Order History",
+    "savedAddress": "Saved Address",
+    "availableCashback": "Available Cashback",
+    "membershipTier": "Membership Tier",
+    "cashbackRate": "Cashback Rate",
+    "totalSavings": "Total Savings",
+    "expiringCashback": "Expiring Cashback",
+    "expiringOn": "Expiring On",
+    "amount": "Amount",
+    "amountPlaceholder": "Please enter amount to transfer or redeem",
+    "cashbackHistory": "Cashback History",
+    "cashback": "Cashback",
+    "maximunValue": "You have reach the maximum value",
+    "status": "Status",
+    "cancelled": "Cancelled",
+    "success": "Success",
+    "coins": "Coins",
+    "sendCoins": "Send Coins",
+    "subscribedProducts": "Subscribed Products"
+  },
+  "activeChatListScreen": {
+    "title": "Support",
+    "search": "Search",
+    "noRecord": {
+      "title": "Active Support",
+      "message": "No data found!"
+    }
+  },
+  "customersDetail": {
+    "title": "Customers Detail",
+    "dropDown": {
+      "client": "Client",
+      "manager": "Manager",
+      "boy": "Delivery Boy"
+    },
+    "noRecord": {
+      "title": "Orders",
+      "message": "No Order Found!"
+    }
+  },
+  "cartScreen": {
+    "title": "Carts",
+    "placeOrder": "Place Order",
+    "login": "Login to place order",
+    "total": "Total",
+    "norecord": {
+      "title": "Cart",
+      "message": "We'll notify you when there is something now!"
+    }
+  },
+  "bannerCardScreen": {
+    "title": "App Banner Card",
+    "label": {
+      "type": "Type",
+      "url": "URL",
+      "screen": "Screen"
+    },
+    "alert": {
+      "image": "Please select image.",
+      "url": "URL field is required.",
+      "bennerImage": "Banner image is required."
+    },
+    "add": "Add",
+    "update": "Update"
+  },
+  "changePasswordScreen": {
+    "title": "Change Password",
+    "placeholder": {
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "changePassword": "Change Password",
+    "alert": {
+      "oldPasswordLength": "Old Password at least 6 character.",
+      "newPasswordLength": "New Password at least 6 character.",
+      "confirmPasswordLength": "Confirm Password at least 6 character.",
+      "notMatch": "New Password and Confirm Password not matched"
+    }
+  },
+  "nimbusDetailScreen": {
+    "alert": {
+      "email": "Email is required!",
+      "password": "Password is required!",
+      "warehouseName": "WarehouseName is required!",
+      "name": "Name is required!",
+      "phone": "Phone is required!",
+      "streat": "Street is required!",
+      "area": "Area is required!",
+      "city": "City is required!",
+      "state": "State is required!",
+      "pincode": "Pincode is required!",
+      "orderUpdate": "Order Updated Successfully"
+    },
+    "pageTitle": "Ship With Nimbus",
+    "label": {
+      "email": "Email",
+      "password": "Password",
+      "warehouse": "Warehouse Name",
+      "name": "Name",
+      "phone": "Phone",
+      "street": "Pickup Street",
+      "area": "Pickup Area",
+      "city": "Pickup City",
+      "state": "Pickup State",
+      "country": "Pickup Country",
+      "pincode": "Pickup Pincode"
+    },
+    "placeholder": {
+      "email": "Email",
+      "password": "Password",
+      "warehouse": "Enter warehouse name",
+      "name": "Enter your name",
+      "phone": "Mobile number",
+      "street": "Enter pickup street",
+      "area": "Enter pickup area",
+      "city": "Enter pickup city",
+      "state": "Enter pickup state",
+      "country": "Enter pickup country",
+      "pincode": "Enter pickup pincode"
+    },
+    "button": {
+      "login": "Login & Fetch Detail",
+      "createOrder": "Create Order",
+      "loginToFetch": "Login To Fetch Latest Shipment Detail",
+      "download": "Download Label",
+      "reOrder": "Shipping order is cancelled from nimbus, Do you want to create order again? Click here"
+    },
+    "static": {
+      "title": "Shipment Detail",
+      "orderId": "Order ID",
+      "shipmentId": "Shipment ID",
+      "awb": "AWB Number",
+      "courier": "Courier Name",
+      "status": "Status",
+      "paymentType": "Payment Type",
+      "history": "History"
+    }
+  },
+  "createOffers": {
+    "alert": {
+      "name": "Promotion name required!",
+      "type": "Promotion type required!",
+      "descripation": "Promotion description required!",
+      "parcentge": "Promotion  percentage of required!",
+      "qty": "Promotion quantities required!",
+      "cupone": "Promotion coupon code required!"
+    },
+    "title": {
+      "edit": "Edit Offer",
+      "add": "Create Offer"
+    },
+    "label": {
+      "name": "Offer Name",
+      "description": "Description",
+      "type": "Type",
+      "discount": "Discount Up To",
+      "percentage": "Percentage of (%)",
+      "qty": "Quantities",
+      "coupon": "Coupon Code",
+      "date": "Start Date",
+      "enddate": "End Date",
+      "limit": "Limit (Maximum use per user)",
+      "lifetime": "Is Life Time"
+    },
+    "placeholder": {
+      "name": "Ex, 5% off on new orders",
+      "description": "Ex, Get UPTO 5% off on new orders",
+      "discount": "Discount up to in amount",
+      "percentage": "Ex, 5, 10",
+      "qty": "Total qty",
+      "coupon": "Ex, NEW50, 5PEROFF",
+      "date": "Start Date",
+      "enddate": "End Date",
+      "limit": "Limit (Maximum use per user)"
+    },
+    "button": {
+      "active": "Active",
+      "save": "Save"
+    }
+  },
+  "createNotificationScreen": {
+    "alert": {
+      "title": "Tilte required!"
+    },
+    "title": {
+      "edit": "Edit Notification",
+      "add": "Create Notification"
+    },
+    "label": {
+      "title": "Title",
+      "descripation": "Description"
+    },
+    "placeholder": {
+      "title": "Title",
+      "descripation": "Description"
+    },
+    "button": {
+      "save": "Save"
+    }
+  },
+  "editProductScreen": {
+    "alert": {
+      "name": "Product name required!",
+      "category": "Category required!",
+      "price": "Price required!",
+      "qty": "Stock quantity required!",
+      "askImageDelete": "Are you sure you want to delete product image?",
+      "label": "Label is required!",
+      "value": "Value is required!",
+      "point": "Point",
+      "pointValue": " value is required"
+    },
+    "title": {
+      "edit": "Edit Product",
+      "add": "Add Product"
+    },
+    "label": {
+      "name": "Name",
+      "description": "Description",
+      "keywords": "Keywords",
+      "category": "Category",
+      "discount": "Discount (%)",
+      "price": "Price",
+      "weight": "Weight",
+      "qty": "Stock Quantities",
+      "units": "Units",
+      "barcode": "Barcode",
+      "inventory": "Inventory",
+      "foodType": "Food Type (veg)",
+      "tax": "Tax (%)"
+    },
+    "variants": "Variants",
+    "button": {
+      "showAsNewProduct": "Show as a new product",
+      "foodType": "Food Type (veg)",
+      "remove": "Remove",
+      "add": "Add",
+      "update": "Update",
+      "save": "Save"
+    },
+    "details": "Details",
+    "placeholder": {
+      "name": "Product Name",
+      "description": "Description",
+      "keywords": "Keywords",
+      "category": "Category",
+      "discount": "Discount (%)",
+      "price": "Price",
+      "weight": "Weight",
+      "qty": "Stock Quantities",
+      "barcode": "Barcode",
+      "inventory": "Inventory",
+      "foodType": "Food Type (veg)",
+      "tax": "Tax (%)"
+    }
+  },
+  "shipRocketDeliveryScreen": {
+    "pageTitle": "Ship With ShipRocket",
+    "alert": {
+      "email": "Email is required!",
+      "password": "Password is required!",
+      "pickupLocation": "Pickup location is required!",
+      "courier": "Courier length is required!",
+      "courierbreadth": "Courier breadth is required!",
+      "height": "Courier height is required!",
+      "weight": "Courier weight is required!",
+      "deliverypartner": "Please select any delivery partner",
+      "orderSuccess": "Order Updated Successfully"
+    },
+    "label": {
+      "pickupLocation": "PickUp Location",
+      "courierLength": "Courier Length(cm)",
+      "breadth": "Courier Breadth (cm)",
+      "height": "courier height (cm)",
+      "weight": "courier height (kg)",
+      "name": "Courier Name",
+      "id": "Courier Id",
+      "deliveryPartner": "Select Delivery Partner"
+    },
+    "placeholder": {
+      "email": "Email ID ",
+      "password": "Password ",
+      "courierLength": "courier length in cm",
+      "breadth": "Courier Breadth in cm",
+      "height": "Courier Height in cm",
+      "weight": "Courier Height in kg"
+    },
+    "deliveryTime": "Delivery Time",
+    "charges": "Charges",
+    "button": {
+      "courierPartner": "Select Courier Partner",
+      "login": "Login",
+      "startShiping": "Start Shipping",
+      "download": "Download",
+      "createOrder": "Create Order"
+    },
+    "static": {
+      "title": "Shipment Detail",
+      "orderId": "Order ID",
+      "shipmentId": "Shipment ID",
+      "awb": "AWB Number",
+      "courier": "Courier Name",
+      "status": "Status",
+      "paymentType": "Payment Type",
+      "history": "History"
+    }
+  },
+  "liveSupport": {
+    "askDelete": "Do you want to delete this chat ?",
+    "messageType": "Type your message..."
+  },
+  "selectVeriant": {
+    "title": "Select Variants",
+    "cancel": "Cancel"
+  },
+  "ManageCategories": {
+    "title": "Manage Categories",
+    "askDelete": "Are you sure delete category?",
+    "norecord": {
+      "title": "Categories",
+      "message": "No Categories found"
+    },
+    "button": {
+      "createNew": "Create New Category"
+    }
+  },
+  "editProductCategory": {
+    "title": {
+      "edit": "Edit Product Category",
+      "add": "Add Product Category"
+    },
+    "label": {
+      "name": "Name",
+      "des": "Description",
+      "subCategory": "Sub Category"
+    },
+    "placeholder": {
+      "name": "Like FastFood, Electronics .. ",
+      "des": "Description"
+    },
+    "askDelete": "Are you sure delete category?",
+    "button": {
+      "save": "Save"
+    },
+    "required": {
+      "name": "Product category name is required!"
+    },
+    "norecord": {
+      "title": "Sub-Categories",
+      "message": "No Sub-Categories found"
+    }
+  },
+  "placeOrderScreen": {
+    "offer": "Offers",
+    "code": "Code",
+    "codeApply": "applied!",
+    "promocode": "Select a promo code",
+    "changeoffer": "Change offer",
+    "viewOffers": "View Offers",
+    "alert": {
+      "table": "Table number is required",
+      "delivery": "Delivery address is required.",
+      "pickup": "Pickup date and time is required.",
+      "pickupTime": "Please select pickup time"
+    },
+    "cashOnDelivery": "Cash On Delivery",
+    "orderNow": "Oder now pay on delivery or pickup",
+    "title": "Place Order",
+    "open": "Opps|",
+    "openDes": "Currently we are not accepting new orders. Please contact app administrator for any query.",
+    "date": "Pickup Date",
+    "selectdate": "Select pickup date",
+    "time": "Pickup Time",
+    "selecttime": "Select pickup time",
+    "validselectdate": "Please select valid pickup date.",
+    "button": {
+      "addNewAddress": "Add New Address",
+      "repay": "Re-Pay"
+    },
+    "scantable": "Scan Table QR",
+    "scantableDesc": "Please find table QR on table",
+    "total": "Total",
+    "pay": "Proceed To Pay",
+    "placeOrder": "Place Order",
+    "paybyCoin": "Pay by Coin",
+    "availableCoin": "Available Coin"
+  },
+  "shopCloseTime": {
+    "desc1": "Shop is close for this date",
+    "desc2": ". Please choose another date",
+    "close": "close"
+  },
+  "shareComponent": {
+    "title": "Share App",
+    "message": "Share this app to your friend and get rewards and offers ...)"
+  },
+  "filterScreen": {
+    "title": "Filter",
+    "label": {
+      "category": "Category",
+      "subcategory": "Sub Category",
+      "selectBrand": "Select Brand"
+    },
+    "placeholder": {
+      "brand": "Select Brand",
+      "subcategory": "Select Subcategory",
+      "category": "Select Category"
+    },
+    "button": {
+      "find": "Find"
+    }
+  },
+  "deliveryPartner": {
+    "title": "Select Delivery Partner",
+    "button": {
+      "startShipping": "Start Shipping"
+    }
+  },
+  "cancellationOrderList": {
+    "title": "Order Cancellation List"
+  },
+  "SubscriptionPayment": {
+    "title": "Product Subscription",
+    "label": {
+      "name": "Subscription Type",
+      "startdate": "Start Date",
+      "endDate": "End Date",
+      "deliveryAddress": "Select Delivery Address"
+    },
+    "placeholder": {
+      "startdate": "Select subscription start date",
+      "endDate": "Select subscription end date"
+    },
+    "button": {
+      "subscribeNow": "Subscribe Now",
+      "login": "Login to Subscribe product"
+    },
+    "alert": {
+      "startDate": "Subscription start date required!",
+      "endDate": "Subscription end date required!",
+      "subscriptionType": "Subscription type required",
+      "selectedAddress": "Please select address"
+    }
+  },
+  "subscriptionHistory": {
+    "title": "Subscription History"
+  },
+  "subscriptionDetailScreen": {
+    "title": "Subscription Detail",
+    "addressDetailCard": {
+      "title": "Delivery Address"
+    },
+    "detailCard": {
+      "title": "Detail",
+      "subscriptionNumber": "Subscription No",
+      "createdAt": "Created Date",
+      "type": "Type",
+      "bookingFrom": "Start Date",
+      "bookingTo": "End Date",
+      "status": "Status",
+      "paymentMethod": "Payment Method"
+    },
+    "customerDetailCard": {
+      "title": "Customer Detail",
+      "name": "Name",
+      "mobileNumber": "Mobile No."
+    },
+    "subscriptionItemCard": {
+      "title": "Subscription Item",
+      "days": "Days"
+    },
+    "dailyStatus": {
+      "title": "Daily Status"
+    }
+  },
+  "bookedTableHistory": {
+    "title": "Booked Table History"
+  },
+  "tableBookingDetailScreen": {
+    "title": "Table Booking History",
+    "detailCard": {
+      "title": "Detail",
+      "bookingNumber": "Booking No",
+      "createdAt": "Created Date",
+      "bookingDate": "Booking Date",
+      "bookingFrom": "Start Time",
+      "bookingTo": "End Time",
+      "status": "Status",
+      "paymentMethod": "Payment Method"
+    },
+    "customerDetailCard": {
+      "title": "Customer Detail",
+      "name": "Name",
+      "mobileNo": "Mobile No."
+    },
+    "tableDetailCard": {
+      "title": "Selected Tables",
+      "floor": "Floor",
+      "room": "Room",
+      "table": "Table"
+    }
+  }
+}

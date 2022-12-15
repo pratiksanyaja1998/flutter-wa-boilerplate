@@ -1,0 +1,1780 @@
+{
+  "availabelTable": {
+    "title": "टेबल चुनें",
+    "tableOn": "उपलब्ध टेबल",
+    "alert": {
+      "limitTable": "आप अधिक टेबल का चयन नहीं कर सकते!"
+    },
+    "button": {
+      "selectedTable": "टेबल",
+      "capacity": "क्षमता",
+      "title": "टेबल बुक करें"
+    }
+  },
+  "PromotionListScreen": {
+    "promotions": "ऑफर्स",
+    "createNew": "ऑफ़र बनाएं",
+    "left": "वाम",
+    "downloaded": "डाउनलोड",
+    "bought": "खरीदा"
+  },
+  "ProductListScreen": {
+    "products": "प्रोडक्ट्स",
+    "addProduct": "प्रोडक्ट जोड़ें",
+    "addCatggory": "केटेगरी जोड़ें",
+    "menu": "मेन्यू",
+    "addMenu": "मेन्यू जोड़ें"
+  },
+  "TopSelectedProductScreen": {
+    "topSelectedProduct": "टॉप प्रोडक्ट्स का चयन",
+    "selectTopItem": "टॉप आइटम का चयन"
+  },
+  "aboutScreen": {
+    "about": "के बारे में",
+    "version": "संस्करण",
+    "stringCopied": "क्लिपबोर्ड पर कॉपी करें!",
+    "deviceId": "डिवाइस आईडी"
+  },
+  "actionSheet": {
+    "takePhoto": "फोटो लो",
+    "choosePhoto": "तस्विर का चयन करो",
+    "removePhoto": "फोटो हटाएं",
+    "cancel": "रद्द करे"
+  },
+  "addressList": {
+    "askDelete": "क्या आप अपना पता हटा देना चाहते है?",
+    "title": "पता",
+    "addAddress": "नया पता डाले",
+    "noRecord": {
+      "title": "पता",
+      "message": "कोई डेटा नहीं मिला!"
+    }
+  },
+  "addFranchiseScreen": {
+    "title": {
+      "edit": "फ्रेंचाइजी संपादित करें",
+      "add": "नई फ्रेंचाइजी डाले"
+    },
+    "location": "आपका स्थान",
+    "liveLocation": "आपका लाइव स्थान प्राप्त करने के लिए अनुमति आवश्यक है।",
+    "button": {
+      "request": "स्थान पहुंच का अनुरोध करें"
+    },
+    "label": {
+      "name": "नाम",
+      "detail": "विवरण"
+    },
+    "alert": {
+      "permission": "स्थान तक पहुँचने की अनुमति अस्वीकार कर दी गई थी|",
+      "pincode": "पिनकोड आवश्यक है।"
+    },
+    "placeholder": {
+      "name": "फ्रेंचाइजी नाम डाले",
+      "detail": "विवरण डाले"
+    }
+  },
+  "addNewAddressScreen": {
+    "addNewAddress": "नया पता डाले",
+    "workPlace": "कार्यस्थल",
+    "home": "मुखपृष्ठ",
+    "placeHolder": {
+      "type": "प्रकार",
+      "newType": "नया प्रकार",
+      "contact": "संपर्क",
+      "phone": "फ़ोन",
+      "address1": "पहली पंक्ति",
+      "address2": "दूसरी पंक्ति",
+      "city": "शहर/कस्बा",
+      "state": "राज्य",
+      "country": "राष्ट्र",
+      "postcode": "डाक कोड",
+      "street": "अपनी गली दर्ज करें",
+      "area": "अपना क्षेत्र दर्ज करें",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "title": {
+      "type": "प्रकार",
+      "newType": "नया प्रकार",
+      "name": "नाम",
+      "contact": "संपर्क",
+      "phone": "फ़ोन",
+      "address1": "पहली पंक्ति",
+      "address2": "दूसरी पंक्ति",
+      "city": "शहर/कस्बा",
+      "state": "राज्य",
+      "country": "राष्ट्र",
+      "postcode": "डाक कोड",
+      "street": "गली",
+      "area": "क्षेत्र",
+      "latitude": "Latitude",
+      "longitude": "Longitude"
+    },
+    "alert": {
+      "type": "प्रकार आवश्यक है।",
+      "newType": "नया प्रकार आवश्यक है।",
+      "updateSuccess": "पता सफलतापूर्वक अपडेट किया गया है।",
+      "addSuccess": "पता सफलतापूर्वक सेव किया गया है।",
+      "permissionDenied": "स्थान तक पहुँचने की अनुमति अस्वीकार कर दी गई थी।"
+    },
+    "cancel": "रद्द करे",
+    "add": "में जोड़े",
+    "edit": "अपडेट करें",
+    "confirm": "पुष्टि करें",
+    "editAddress": "पता विवरण संपादित करें"
+  },
+  "addNewAnniversaryScreen": {
+    "anniversary": "सालगिरह",
+    "date": "दिनांक",
+    "confirm": "पुष्टि करें"
+  },
+  "alert": {
+    "updateTitle": "कृपया अपडेट करें",
+    "updateDescription": "उपयोग जारी रखने के लिए आपको अपने ऐप को नवीनतम संस्करण में अपडेट करना होगा।",
+    "disconnectFB": "क्या आप फेसबुक अकाउंट से डिसकनेक्ट करना चाहते है?",
+    "disconnectApple": "क्या आप Apple अकाउंट से डिस्कनेक्ट करना चाहते है|ं"
+  },
+  "common": {
+    "ok": "ठीक है|",
+    "cancel": "रद्द करे",
+    "apply": "कृपया आवेदन करें",
+    "emptyDesc": "आपका बटुआ अभी खाली है, आगे बढ़ें और हमारे प्रचार देखें!",
+    "connectFBSuccess": "आपके Facebook खाते से सफलतापूर्वक कनेक्ट हो गया",
+    "backToLogin": "लॉगिन पर वापस जाएं",
+    "back": "वापस",
+    "skip": "छोड़ें",
+    "next": "अगला",
+    "letExplore": "आइए ढूंढते है|ं",
+    "description": "विवरण",
+    "deleteMessage": "संदेश को हटाएं",
+    "leftQuantity": "वाम",
+    "noMatchFound": "कोई मेल नहीं मिला!",
+    "noResultFound": "कोई परिणाम नहीं मिला!",
+    "quantity": "मात्रा",
+    "soldOut": "बिक गया",
+    "search": "खोज",
+    "forceUpdateTitle": "हम कुछ दिलचस्प विशेषताएं लॉन्च कर रहे हैं|",
+    "yes": "हां",
+    "no": "नहीं",
+    "hour": "घंटा",
+    "minute": "मिनट",
+    "permision": "अनुमति अस्वीकृत है|",
+    "invalidQR": "अमान्य QR कोड, कृपया मान्य QR कोड स्कैन करें|",
+    "forceUpdateDesc": "कृपया उनका उपयोग करने के लिए ऐप को अपडेट करें"
+  },
+  "contactUsScreen": {
+    "feedBack": "प्रतिपुष्टि",
+    "attachPhoto": "छवि संलग्न करें",
+    "placeHolder": {
+      "name": "नाम",
+      "email": "ईमेल",
+      "phone": "फ़ोन",
+      "message": "संदेश"
+    },
+    "send": "भेजो"
+  },
+  "coinTransactionList": {
+    "alert": {
+      "cancelToken": "नए अनुरोध के कारण यह अनुरोध रद्द किया गया है|"
+    },
+    "label": {
+      "filterByDate": "तारीख़ के अनुसार फ़िल्टर करें",
+      "credit": "CREDITED",
+      "debit": "DEBITED"
+    },
+    "noReacordFound": {
+      "title": "Coins",
+      "message": "कोई डेटा नहीं मिला!"
+    },
+    "placehoder": {
+      "search": "लेन-देन खोजें"
+    },
+    "sagmentData": {
+      "credit": "Credit",
+      "debit": "Debit"
+    },
+    "title": "Coins",
+    "value": {
+      "selectDate": "तारीख़ चुनें"
+    }
+  },
+  "deleteConfirmation": {
+    "askDelete": "क्या आप सुनिश्चित है|ं, आप खाता हटाना चाहते है? यह",
+    "success": "आपका खाता सफलतापूर्वक हटा दिया गया है|ं|",
+    "button": {
+      "confirm": "हटाने की पुष्टि करें",
+      "cancel": "रद्द करें"
+    }
+  },
+  "editProfileScreen": {
+    "profileEditing": "प्रोफाइल एडिट",
+    "disconnect": "डिसकनेक्ट ",
+    "connect": "कनेक्ट",
+    "save": "सेव"
+  },
+  "editMenuScreen": {
+    "alert": {
+      "menuName": "मेन्यू नाम आवश्यक है|",
+      "price": "कीमत आवश्यक है|",
+      "qty": "स्टॉक मात्रा है|",
+      "availableAt": "कितनी तारीख तक उपलब्थ है| यह दाखिल करे!",
+      "label": "लेबल आवश्यक है!",
+      "value": "मूल्य आवश्यक है!",
+      "point_above": "Points ",
+      "point_below": " का मूल्य आवश्यक है!",
+      "delete": "क्या आप मेन्यू कि छवि हटाना चाहते है?"
+    },
+    "title": {
+      "edit": "मेन्यू संपादित करें",
+      "add": "मेन्यू जोड़ें"
+    },
+    "dropDownPicker": {
+      "alwaysAvailable": "स्टॉक हमेशा उपलब्ध",
+      "limitedStock": "सीमित स्टॉक",
+      "vag": "शाकाहारी",
+      "nonveg": "मांसाहारी"
+    },
+    "label": {
+      "name": "नाम",
+      "description": "विवरण",
+      "price": "कीमत",
+      "discount": "छूट",
+      "inventory": "सूची",
+      "qty": "स्टॉक मात्रा",
+      "availableAt": "कितनी तारीख तक उपलब्ध है?",
+      "tax": "कर",
+      "foodType": "खाद्य प्रकार",
+      "details": "विस्तार से"
+    },
+    "button": {
+      "remove": "हटाये",
+      "add": "जोड़ें",
+      "update": "अपडेट करें",
+      "save": "सेव  करें"
+    },
+    "placeholder": {
+      "name": "मेन्यू का नाम",
+      "description": "विवरण",
+      "price": "कीमत",
+      "discount": "छूट",
+      "qty": "स्टॉक मात्रा",
+      "availableAt": "तारीख का चयन करें",
+      "tax": "कर"
+    }
+  },
+  "emailConfig": {
+    "update": "अपडेट करें.",
+    "label": {
+      "host": "होस्ट",
+      "user": "उपयोगकर्ता",
+      "useTLS": "TLS का उपयोग",
+      "password": "पासवर्ड",
+      "port": "पोर्ट"
+    },
+    "placeholder": {
+      "host": "होस्ट",
+      "user": "उपयोगकर्ता",
+      "useTLS": "TLS का उपयोग करें",
+      "password": "पासवर्ड डाले",
+      "port": "पोर्ट डाले"
+    },
+    "button": {
+      "save": "सेव करे",
+      "addAddress": "पता जोड़ें"
+    }
+  },
+  "editServices": {
+    "title": {
+      "edit": "सर्विस संपादित करें",
+      "add": "जोड़ें सर्विस"
+    },
+    "label": {
+      "serviceName": "सर्विस का नाम",
+      "description": "विवरण",
+      "serviceCategory": "सर्विस की केटेगरी",
+      "price": "कीमत",
+      "discount": "छूट",
+      "tax": "कर",
+      "details": "विस्तार से"
+    },
+    "placeholder": {
+      "serviceName": "सर्विस का नाम",
+      "description": "विवरण",
+      "serviceCategory": "सर्विस की केटेगरी",
+      "price": "कीमत",
+      "discount": "छूट",
+      "tax": "कर"
+    },
+    "button": {
+      "remove": "हटाये",
+      "update": "अपडेट करें",
+      "save": "सेव करे"
+    },
+    "required": {
+      "name": "सर्विस का नाम आवश्यक है।",
+      "category": "सर्विस की केटेगरी आवश्यक है।",
+      "price": "कीमत आवश्यक है।",
+      "tax": "कर आवश्यक है।",
+      "label": "लेबल आवश्यक है।",
+      "value": "मूल्य आवश्यक है।"
+    }
+  },
+  "editServiceCategory": {
+    "title": {
+      "edit": "सर्विस की केटेगरी संपादित करें",
+      "add": "सर्विस की केटेगरी जोड़ें"
+    },
+    "label": {
+      "name": "नाम",
+      "des": "विवरण"
+    },
+    "placeholder": {
+      "name": "नाम",
+      "des": "विवरण"
+    },
+    "button": {
+      "save": "सेव करे"
+    },
+    "required": {
+      "name": "सर्विस की केटेगरी नाम आवश्यक है।"
+    }
+  },
+  "HomeSliderScreen": {
+    "sliderConfiguaration": "स्लाइडर कॉन्फिग्रेशन"
+  },
+  "franchise": {
+    "title": "फ्रेंचाइजी",
+    "askDelete": "क्या आप फ़्रैंचाइज़ी हटा देना चाहते है?",
+    "noRecord": {
+      "title": "फ्रेंचाइजी",
+      "message": "कोई फ्रेंचाइजी नहीं मिली :("
+    },
+    "addNew": "नई फ्रेंचाइजी जोड़ें"
+  },
+  "faqScreen": {
+    "faq": "FAQ"
+  },
+  "forceLoginScreen": {
+    "login": "लॉगिन",
+    "description1": "डिस्क्रिप्शन १",
+    "description2": "डिस्क्रिप्शन २",
+    "continueLogin": "कंटिन्यू लॉगिन करे"
+  },
+  "forgotPasswordScreen": {
+    "resetYourPassword": "अपना पासवर्ड रिसेट करे",
+    "enterYourEmail": "अपना ईमेल दर्ज करें",
+    "sendEmail": "ईमेल भेजें",
+    "sendLinkSuccess": "आपके ईमेल में भेज दिया गया हे"
+  },
+  "homeScreen": {
+    "pushToken": "पुश सूचना के लिए पुश टोकन प्राप्त करने में विफल। स्थिति है",
+    "homeSlider": "Image Slider",
+    "homeSliderDesc": "स्लाइड जोड़ें या हटाएं",
+    "topProduct": "टॉप प्रोडक्ट्स",
+    "topProductDes": "टॉप प्रोडक्ट्स मेनेज करे",
+    "topItems": "टॉप आइटम",
+    "topItemsDes": "टॉप आइटम मेनेज करे",
+    "recentProduct": "हाल के प्रोडक्ट्स",
+    "recentItem": "हाल के आइटम",
+    "setupApp": "सेटअप ऐप",
+    "setupAppDec": "आप डिफ़ॉल्ट Currency, भुगतान तरीका, ऑर्डर कॉन्फ़िगरेशन आदि के लिए सेटिंग से ऐप को कस्टमाइज़ कर सकते हैं।",
+    "setupNow": "अभी सेटअप करें",
+    "later": "बाद में",
+    "pendingOrder": "Pending Order",
+    "order": "ऑर्डर",
+    "cancelOrder": "ऑर्डर रद्द करें",
+    "customers": "ग्राहकों",
+    "products": "प्रोडक्ट्स",
+    "report": "रिपोर्ट",
+    "invoices": "चालान",
+    "previewInvoice": "Preview Invoice",
+    "bennarAds": "Banner Ads",
+    "bennarAdsDes": "बैनर कार्ड मेनेज करे",
+    "latestOffer": "लेटेस्ट ऑफर",
+    "topOffer": "टॉप ऑफर",
+    "memberGetMember": "सदस्य सदस्य प्राप्त करें",
+    "inviteFriendsDesc": "अपने मित्र को आमंत्रित करें और अपने अद्भुत उपहार का आनंद लें",
+    "learnMore": "अधिक जानें",
+    "joinUs": "अभी हमसे जुड़ें / लॉग इन करें",
+    "cashback": "कैशबैक\n\n",
+    "cashVouchersCoupons": "कैश\n वाउचर\n और कूपन",
+    "productVouchersCoupons": "प्रोडक्ट\nवाउचर\n और कूपन",
+    "storeCredit": "स्टोर क्रेडिट\n\n",
+    "reports": "रिपोर्ट",
+    "reportsContent": "यह रिपोर्ट एक दस्तावेज है| जो एक विशिष्ट दर्शक और उद्देश्य के लिए एक संगठित प्रारूप में जानकारी प्रस्तुत करता है।",
+    "createAppTitile": "अपना खुद की एप्पलीकेशन बनाएँ",
+    "createAppDescription": "अपने खुद के एप्पलीकेशन के साथ प्रोडक्ट्स या फ़ूड बेचना शुरू करें|",
+    "signUpButton": "अभी साइन अप करें"
+  },
+  "inviteFriendScreen": {
+    "inviteFriend": "मित्रों को आमंत्रित करें",
+    "share": "साझा करें"
+  },
+  "locationDetailScreen": {
+    "promotions": "ऑफर्स"
+  },
+  "locationScreen": {
+    "ourLocations": "हमारा स्थान",
+    "search": "खोजे"
+  },
+  "loginScreen": {
+    "login": "लॉगिन",
+    "loginViaFB": "फेसबुक के माध्यम से लॉगिन करें",
+    "or": "या",
+    "register": "रजिस्टर करें",
+    "forgotPassword": "पासवर्ड भूल गए",
+    "placeHolder": {
+      "phone": "फ़ोन नंबर",
+      "password": "पासवर्ड",
+      "email": "ईमेल"
+    }
+  },
+  "rattingAndReview": {
+    "alert": {
+      "askDelete": "क्या आप वाकई अपनी समीक्षा हटाना चाहते है?",
+      "review": "रेटिंग की आवश्यक है|",
+      "title": "शीर्षक आवश्यक है|",
+      "message": "संदेश आवश्यक है!",
+      "ratting": "रेटिंग आवश्यक है!"
+    },
+    "title": "रेटिंग और समीक्षा",
+    "label": {
+      "ratting": "रैटिंग",
+      "title": "शीर्षक",
+      "message": "संदेश"
+    },
+    "placeholder": {
+      "ratting": "उदा. 4.5",
+      "title": "समीक्षा शीर्षक दर्ज करें",
+      "message": "समीक्षा संदेश दर्ज करें"
+    },
+    "button": {
+      "add": "समीक्षा जोड़ें",
+      "cancel": "रद्द करें",
+      "update": "समीक्षा अपडेट करें",
+      "submit": "समीक्षा सेव करे"
+    }
+  },
+  "reports": {
+    "title": "रिपोर्ट",
+    "date": {
+      "from": "कितनी तारीख से",
+      "to": "कितनी तारीख तक",
+      "filterDate": "तारीख़ चुनें"
+    },
+    "exportCSV": "CSV निर्यात करे",
+    "noRecord": {
+      "title": "रिपोर्ट",
+      "message": "कोई डेटा नहीं मिला!"
+    },
+    "totalIncome": "कुल आवक",
+    "button": {
+      "getReports": "रिपोर्ट प्राप्त करें"
+    }
+  },
+  "serviceCategories": {
+    "title": "सर्विस की केटेगरी मेनेज करें",
+    "alert": {
+      "deleteTitle": "क्या आप केटेगरी हटा देना चाहते है?"
+    },
+    "noRecord": {
+      "title": "केटेगरी",
+      "message": "कोई डेटा नहीं मिला"
+    },
+    "button": {
+      "title": "नई केटेगरी बनाएं"
+    }
+  },
+  "orderSetting": {
+    "alert": {
+      "orderPreparationTime": "ऑर्डर तैयार करने का समय 10 मिनट से अधिक है।",
+      "success": "ऑर्डर कोन्फिग्रेशन सफलतापूर्वक सेव कर दिया गया हे|",
+      "orderDeliveryChargeOnAmount": "Order minimum amount should be required."
+    },
+    "delivery": "डिलवरी",
+    "deliveryDescrption": "डिलवरी",
+    "deliverySerivices": "डिलवरी सेवाएं",
+    "pickup": "पिक अप",
+    "pickupescrpation": "पिक अप",
+    "dineIn": "में भोजन",
+    "dineInDescrption": "में भोजन",
+    "autoOrderaccepat": "स्वचालित रूप से ऑर्डर स्वीकार करें|",
+    "autoOrderaccepatDescrption": "स्वचालित रूप से ऑर्डर स्वीकार करना जारी करें|",
+    "enableCancelOrder": "ऑर्डर रद्द करना सक्षम करें",
+    "enableCancelOrderDescrption": "उपयोगकर्ता ऑर्डर पूरा होने तक ऑर्डर रद्द कर सकता है|",
+    "orderPreparationTime": "ऑर्डर की तैयारी का समय (मिनट में)",
+    "OrderDeliveryCharge": "Order Delivery Charges",
+    "OrderDeliveryChargePerAmount": "Delivery charges apply on min. amount",
+    "selectDeliveryChargeType": "Select delivery charge type",
+    "placeholder": {
+      "Minute": "मिनट"
+    },
+    "label": {
+      "cashOnDelivery": "डिलवरी पर नकदी",
+      "pickUp": "पिक अप",
+      "dinein": "में भोजन"
+    },
+    "deliverys": "डिलवरी",
+    "button": {
+      "save": "सेव करे"
+    }
+  },
+  "menuListScreen": {
+    "placeOrderScreen": {
+      "searchHint": "खोजें"
+    },
+    "noRecord": {
+      "message": "कोई डेटा नहीं मिला|",
+      "title": "मेन्यू"
+    },
+    "button": {
+      "title": "अभी बुक करें"
+    },
+    "title": "मेन्यू"
+  },
+  "menuDetailScreen": {
+    "description": "कोई विवरण नहीं",
+    "delete": "क्या आप आश्वस्त है| कि आपको डिलीट करना है?"
+  },
+  "bussinessDetail": {
+    "title": "व्यापार विवरण",
+    "alert": {
+      "name": "व्यवसाय का नाम आवश्यक है|",
+      "description": "व्यवसाय विवरण आवश्यक है|",
+      "street": "गली का नाम आवश्यक है|",
+      "city": "शहर का नाम आवश्यक है|",
+      "state": "राज्य का नाम आवश्यक है|",
+      "pincode": "पिनकोड आवश्यक है|",
+      "country": "देश का नाम आवश्यक है|"
+    },
+    "label": {
+      "id": "व्यवसाय आईडी",
+      "name": "व्यवसाय का नाम",
+      "description": "विवरण",
+      "type": "ऐप का प्रकार",
+      "street": "गली का नाम",
+      "city": "शहर / नगर",
+      "state": "राज्य",
+      "pincode": "पिन कोड",
+      "country": "देश"
+    },
+    "placeholder": {
+      "id": "व्यवसाय आईडी",
+      "name": "व्यवसाय का नाम",
+      "description": "विवरण",
+      "type": "ऐप का प्रकार",
+      "street": "गली का नाम",
+      "city": "शहर / नगर",
+      "state": "राज्य",
+      "pincode": "पिन कोड",
+      "country": "देश"
+    },
+    "button": {
+      "save": "सेव करे"
+    }
+  },
+  "notificationSettings": {
+    "title": "नोटिफिकेशन सेटिंग्स",
+    "orderUpdate": "ऑर्डर अपडेट कि नोटिफिकेशन",
+    "orderUpdateDescription": "ऑर्डर कि सूचना प्राप्त करने के लिए नोटिफिकेशन सक्षम करें|",
+    "offer": "ऑफ़र्स कि नोटिफिकेशन",
+    "offerDescrption": "नवीनतम ऑफ़र और समाचार प्राप्त करने के लिए नोटिफिकेशन सक्षम करें|"
+  },
+  "contactUs": {
+    "title": "संपर्क करें",
+    "alert": {
+      "bussinessName": "कृपया व्यवसाय का नाम दर्ज करें|",
+      "mobileAndEmail": "कृपया ईमेल या संपर्क नंबर दर्ज करें|      ",
+      "phone": "कृपया मान्य फ़ोन नंबर दर्ज करें",
+      "email": "कृपया मान्य ईमेल दर्ज करें"
+    },
+    "button": {
+      "title": "सेव करे"
+    },
+    "label": {
+      "bussinessName": "व्यवसाय का नाम",
+      "contact": "संपर्क नंबर",
+      "email": "ईमेल आईडी",
+      "address": "पता"
+    },
+    "placehoder": {
+      "bussinessName": "व्यवसाय का नाम",
+      "contact": "संपर्क नंबर",
+      "email": "ईमेल आईडी",
+      "address": "पता"
+    }
+  },
+  "menu": {
+    "poweredBy1": "Powered by",
+    "poweredBy2": "Spyhunter IT Solution",
+    "home": "होम ",
+    "login": "लॉगिन",
+    "logout": "लॉग आउट",
+    "order": "आर्डर",
+    "cart": "कार्ट",
+    "settings": "सेटिंग",
+    "termPolicy": "टर्म पॉलिसी",
+    "support": "सपोर्ट",
+    "promotion": "ऑफर्स",
+    "account": "अकाउंट",
+    "contactUs": "संपर्क करें",
+    "products": "प्रोडक्ट्स",
+    "menu": "मेन्यू",
+    "profile": "खाता",
+    "order-history": "ऑर्डर",
+    "notifications": "नोटिफिकेशन",
+    "locations": "स्थान",
+    "location": "लोकेशन्स",
+    "myQR": "My QR"
+  },
+  "message": {
+    "registerSuccess": "रजिस्ट्रेशन सफल|",
+    "phoneExist": "आपका मोबाइल नंबर रजिस्टर हो चुका हे",
+    "failToVerify": "अपना मोबाइल नंबर सत्यापित करने में विफल :(",
+    "logoutSuccess": "लॉगआउट सफलतापूर्वक हो सुका है|",
+    "resendSuccess": "वेरीफिकेशयन कोड सफलतापूर्वक भेज दिया गया है|",
+    "uploadAvatarSuccess": "प्रोफ़ाइल फोटो सफलतापूर्वक बदल दिया गया हे|",
+    "removeAvatarSuccess": "प्रोफाइल फोटो सफलतापूर्वक हटा दिया गया हे|",
+    "addressNameExist": "पता पहले से मौजूद है|",
+    "contactNameRequire": "व्यक्ति का संपर्क आवश्यक है|",
+    "phoneRequire": "फ़ोन नंबर आवश्यक है|",
+    "address1Require": "गली का पता पंक्ति 1 आवश्यक है|",
+    "address2Require": "गली का पता पंक्ति 2 आवश्यक है|",
+    "cityRequire": "शहर / नगर आवश्यक है|",
+    "stateRequire": "राज्य / प्रांत आवश्यक है|",
+    "countryRequire": "देश का नाम अवषक है|",
+    "postCodeRequire": "पोस्ट कोड आवश्यक है|",
+    "outletName": "फ़्रैंचाइज़ी नाम आवश्यक है|",
+    "streetRequire": "गली का नाम आवश्यक है|",
+    "areaRequire": "क्षेत्र का नाम आवश्यक है|",
+    "editProfileSuccess": "प्रोफ़ाइल को सफलतापूर्वक अपडेट कर दिया गया हे|",
+    "loginFail": "फ़ोन नंबर या पासवर्ड गलत है|",
+    "sendCodeFail": "आपके फ़ोन नंबर पर वेरीफिकेशयन कोड भेजने में विफल :(",
+    "sendEmailFail": "ईमेल पर वेरीफिकेशयन कोड भेजने में विफल :(",
+    "nameEmpty": "अपना नाम दर्ज करें",
+    "emailEmpty": "अपना ईमेल दर्ज करें",
+    "phoneEmpty": "अपना मोबाइल नंबर दर्ज करें",
+    "emailInvalid": "कृपया सही ई-मेल एड्रेस डालें",
+    "phoneInvalid": "कृपया मान्य मोबाइल नंबर दर्ज करें",
+    "messageEmpty": "कृपया संदेश दर्ज करें",
+    "sendFeedBackSuccess": "संपर्क सहायता टिकट सफलतापूर्वक भेजा गया"
+  },
+  "network": {
+    "title": "आप वर्तमान में ऑफ़लाइन है|",
+    "description": "अपने इंटरनेट कनेक्शन की जाँच करें और पुन: प्रयास करें"
+  },
+  "notificationScreen": {
+    "memberNotification": "नोटिफिकेशन",
+    "userNotification": "उपयोगकर्ता नोटिफिकेशन",
+    "deleteMessage": "क्या आप इस अधिसूचना को हटाना चाहते है?",
+    "deleteMultipleMessage": "सभी आइटम हटाएं? यदि हां: यदि नहीं तो सभी संदेश हटाएं संदेश सूची पर वापस जाएं",
+    "deleteSelectMessage": "चयनित आइटम हटाएं",
+    "confirm": "पुष्टि करे",
+    "sendNotification": "नोटिफिकेशन भेजें",
+    "reject": "अस्वीकार",
+    "norecord": {
+      "title": "नोटिफिकेशन",
+      "message": "अब कुछ होने पर हम आपको सूचित करेंगे!"
+    }
+  },
+  "ordering": {
+    "payScreen": {
+      "description": "कैशलेस हो जाएं, कैश या क्रेडिट कार्ड के बिना भुगतान करें, स्कैन करने और भुगतान करने के लिए बस स्टोर क्यूआर कोड देखें",
+      "showMyQR": "Show my QR Code and Barcode",
+      "youPaid": "आपने भुगतान किया है|",
+      "paidTo": "से",
+      "payment": "भुगतान",
+      "paymentSuccess": "भुगतान की सफलता",
+      "paymentError": "आपके भुगतान में कुछ समस्या हुई",
+      "orderPickupTimeSelect": "कृपया अपना पिकअप समय चुनें"
+    },
+    "chooseOrderTypeScreen": {
+      "title": "अपना ऑर्डर प्रकार चुनें",
+      "desc": "आज आप क्या लेना चाहेंगे?",
+      "pickup": "पिक अप",
+      "dinein": "में भोजन",
+      "delivery": "डिलवरी"
+    },
+    "checkInOrderScreen": {
+      "title": "ऑर्डरींग",
+      "scan": "ऑर्डर शुरू करने के लिए टेबल पर मौजूद QR कोड को स्कैन करें",
+      "qrCodeUnknown": "अज्ञात QR कोड। पुनः प्रयास करें|",
+      "tryAgain": "पुनः प्रयास करें",
+      "cancel": "रद्द करे",
+      "goToTestOutlets": "परीक्षण आउटलेट पर जाएं",
+      "flashMode": "फ़्लैश मोड"
+    },
+    "checkInOrderTestOutletsScreen": {
+      "title": "टेस्ट आउटलेट",
+      "testerOnly": "केवल परीक्षकों के लिए",
+      "searchPlaceholder": "आउटलेट खोजें"
+    },
+    "pickUpOrderScreen": {
+      "title": "पिक अप",
+      "warningOutlet": "आपको पिकअप आउटलेट चुनना होगा",
+      "warningLocation": "आपको पिकअप स्थान चुनना होगा",
+      "warningDate": "आपको पिकअप तारीख चुननी होगी",
+      "warningTime": "आपको पिकअप समय चुनना होगा",
+      "setDate": "पिकअप तारीख सेट करें",
+      "setTime": "पिकअप समय सेट करें",
+      "pickupOutlet": "पिकअप आउटलेट",
+      "pickupLocation": "लेने की जगह",
+      "pickupSpecial": "विशेष निर्देश",
+      "cancelButton": "रद्द करे",
+      "placeOrderButton": "ऑर्डर किजिये",
+      "instruction": "यदि आपके पास कोई विशेष निर्देश है, तो कृपया ऊपर दिए गए बॉक्स में दर्ज करें|",
+      "pickupTimeLabel": "आप कब पिक अप करेंगे?",
+      "theEarliestPickupTime": "जल्द से जल्द पिकअप करने का समय हे",
+      "selectAndPay": "चुनें और अभी भुगतान करें",
+      "pickupTime": "पिक अप समय"
+    },
+    "placeOrderScreen": {
+      "title": "ऑर्डर किजिये",
+      "exit": "क्या आप ऑर्डर सेक्शन से बाहर निकलना चाहते है?",
+      "yes": "हां",
+      "no": "नहीं",
+      "searchHint": "आप क्या ढूंढ रहे है...?",
+      "viewAll": "सभी देखें",
+      "hideAll": "सभी छिपाएं",
+      "addToCart": " कार्ट में आइटम",
+      "outOfStock": "स्टॉक ख़त्म"
+    },
+    "orderHistoryScreen": {
+      "title": "ऑर्डर का इतिहास",
+      "reorderSuccessful": "आइटम को मौजूदा ऑर्डर में सफलतापूर्वक जोड़ें",
+      "searchHint": "ऑर्डर या प्रोडक्ट्स के नाम से खोजें",
+      "dateFilter": "ऑर्डर तारीख के अनुसार खोजें",
+      "orderingDate": "ऑर्डर कि तारीख",
+      "orderRefNo": "Ref No",
+      "button": "सभी ऑर्डर पुन: करे",
+      "payNow": "अब भुगतान करें",
+      "checkStatus": "ऑर्डर का स्थिति जांचे",
+      "currentOrder": "अभी का ऑर्डर",
+      "previousOrders": "पहले के ऑर्डर",
+      "dineIn": "में भोजन",
+      "pickUp": "पिक अप",
+      "delivery": "डिलवरी",
+      "norecord": {
+        "title": "ऑर्डर",
+        "message": "अब कुछ होने पर हम आपको सूचित करेंगे!"
+      }
+    },
+    "myDiningCart": {
+      "maxQuantityAlert": "आप उत्पाद की अधिकतम मात्रा तक पहुंच गए हैं|",
+      "voucherRedeemed": "वाउचर / कूपन"
+    },
+    "orderHistoryDetailScreen": {
+      "title": "ऑर्डर विवरण इतिहास",
+      "reorderSuccessful": "आइटम को मौजूदा ऑर्डर में सफलतापूर्वक जोडा",
+      "searchHint": "ऑर्डर या प्रोडक्ट्स के नाम से खोजें",
+      "dateFilter": "ऑर्डर तारीख के अनुसार खोजें",
+      "orderingDate": "ऑर्डर करने की तारीख",
+      "orderRefNo": "ऑर्डर का Ref No",
+      "button": "ऑर्डर का विवरण देखें",
+      "cancellationRequest": "Cancellation Requested",
+      "status": "स्थिति",
+      "message": "संदेश",
+      "checkStatus": "ऑर्डर का स्थिति जांचे",
+      "currentOrder": "अभी का ऑर्डर",
+      "previousOrders": "पहले के ऑर्डर",
+      "orderItems": "ऑर्डर आइटम",
+      "orderDate": "ऑर्डर की तारीख",
+      "orderNo": "ऑर्डर नंबर",
+      "pickupTime": "लेने का समय",
+      "tableNo": "टेबल नंबर",
+      "contactNumber": "संपर्क नंबर",
+      "memberName": "मेम्बर का नाम",
+      "memberTier": "Member tier",
+      "print": "चालान प्रिन्ट करे",
+      "deliveryInfo": "डिलवरी की जानकारी",
+      "deliveryPartner": "डिलीवरी पार्टनर",
+      "trackingId": "ट्रैकिंग आईडी"
+    },
+    "productDetail": {
+      "askDelete": "क्या आप आश्वस्त है कि आपको डिलीट करना है? ",
+      "addToCart": "कार्ट में जोड़ें",
+      "updateItem": "आइटम अपडेट करें",
+      "noDesc": "कोई विवरण नहीं",
+      "pickOne": "एक चुनें",
+      "choose": "कृपया चुने",
+      "chooseAny": "कृपया कोई भी चुनें",
+      "chooseMin": "Please choose a min of",
+      "chooseMax": "Please choose a max of",
+      "chooseMinMax1": "Please choose a min of",
+      "chooseMinMax2": "and a max of",
+      "items": "आइटम",
+      "specialRequest": "विशेष अनुरोध",
+      "addSpecialRequest": "यदि आवश्यक हो तो अपना विशेष अनुरोध जोड़ें"
+    },
+    "checkOutOrder": {
+      "title": "चेक आउट",
+      "payment": "भुगतान",
+      "payNow": "अभी भुगतान करें",
+      "orderNow": "अभी ऑर्डर करें",
+      "subTotal": "सब टोटल",
+      "grandTotal": "कुल टोटल",
+      "billTotal": "कुल बिल",
+      "balancePayment": "शेष राशि का भुगतान",
+      "saleTax": "कर",
+      "serviceTax": "सर्विस चार्ज",
+      "redeemCashVC": "वाउचर/कूपन रिडिम करे",
+      "paymentMsg": "आपका भुगतान पूरा हो गया है|",
+      "paymentDone": "ठीक",
+      "confirmError": "ठीक",
+      "membershipDiscount": "मेम्बरशिप पर छूट",
+      "cashbackAmount": "कैशबैक",
+      "completeAmmount": "स्टोर क्रेडिट से पूरा भुगतान",
+      "exceedCreditAmount": "दर्ज की गई राशि स्टोर क्रेडिट बैलेंस से अधिक नहीं हो सकती।",
+      "exceedBillTotal": "दर्ज की गई राशि कुल बिल से अधिक नहीं हो सकती|",
+      "exceedTotalAmount": "दर्ज की गई राशि शेष भुगतान से अधिक नहीं हो सकती|",
+      "exceedCashAmount": "दर्ज की गई राशि उपलब्ध कैशबैक से अधिक नहीं हो सकती।",
+      "totalPaymentGreaterBillTotal": "जोड़ा गया कुल टोटल वाउचर बिल राशि से अधिक है। क्या आप आगे बढ़ना चाहते है?",
+      "totalBillPaymentGreaterBillTotal": "जोड़ा गया कुल भुगतान बिल राशि से अधिक है। ऑर्डर को आगे बढ़ाने के लिए आपको अतिरिक्त राशि निकालने की आवश्यकता है।",
+      "totalPayment": "कुल भुगतान"
+    },
+    "orderStatusPending": {
+      "deliveryAddress": "डिलिवरी का पता",
+      "products": "प्रोडक्ट्स",
+      "qty": "मात्रा",
+      "price": "कीमत",
+      "total": "टोटल",
+      "deliveryCharge": "Delivery Charge",
+      "detail": "विवरण",
+      "orderStatus": "ऑर्डर की स्थिति",
+      "paymentMethode": "भुगतान का प्रकार",
+      "refundKey": "Refund Key",
+      "message": "संदेश",
+      "pickUpLocation": "लेने की जगह",
+      "customerDetails": "उपभोक्ता की माहिती",
+      "requestCancel": "ऑर्डर रद्द करने का अनुरोध",
+      "name": "नाम",
+      "mobile": "मोबाइल नंबर",
+      "permisiondenied": "स्थान तक पहुँचने की अनुमति अस्वीकार कर दी गई थी",
+      "locationPermison": "आपका लाइव स्थान प्राप्त करने के लिए लोकेशन की अनुमति आवश्यक है|",
+      "requestLocation": "लोकेशन का  अनुरोध करें",
+      "appliedPromotion": "एप्लाइड ऑफर",
+      "codeapply": "कोड लागू है।",
+      "upto": "off तक",
+      "shippingDetails": "परिवहन विवरण",
+      "courierName": "कूरियर का नाम",
+      "aWBNumber": "AWB नंबर",
+      "payNow": "अभी भुगतान करें",
+      "contactUs": "संपर्क करें",
+      "reason": "कारण",
+      "reasonMessage": "कारणआपत्ती होने का कारण",
+      "reasonMessagerequired": "कारणआपत्ती होने का कारण आवश्यक हे|",
+      "declined": "इंकार कर दिया",
+      "decline": "इंकार",
+      "accept": "स्वीकार",
+      "isready": "तैयार",
+      "startShipping": "शिपिंग शुरू करें",
+      "showStatus": "Nimbus की डिलीवरी स्थिति दिखाएं",
+      "showStatusDelivery": "ShipRocket की डिलीवरी स्थिति दिखाएं",
+      "orderUpdateHistory": "ऑर्डर अपडेट इतिहास ",
+      "orderUpdateHistoryby": "",
+      "from": " ने ऑर्डर कि स्थिति अपडेट कि हे|",
+      "to": " मैं से  ",
+      "cancelOrder": "ऑर्डर रद्द करें",
+      "pendingMerchantToAccept": "Pending Merchant to accept",
+      "cancelOrderAlert": "क्या आप सुनिश्चित है|ं, आप ऑर्डर को रद्द करना चाहते है?",
+      "accepted": "स्वीकार किया",
+      "paid": "भुगतान किया",
+      "shipping": "शिपिंग",
+      "preparing": "तैयार कर रहे है|ं",
+      "ready": "तैयार  है|ं",
+      "completed": "पुरा हो गया",
+      "served": "Served",
+      "delivered": "पहुंचा दिया",
+      "inProcess": "प्रक्रिया में है|",
+      "cancelled": "रद्द किया",
+      "orderNote": "आपका ऑर्डर जल्द से जल्द कर दिया जाएगा|\nयदि आपके कोई प्रश्न है|ं, तो कृपया अपना ऑर्डर नंबर हमारे सेवा कर्मचारियों को प्रस्तुत करें",
+      "orderNoteForPaidButNotAccepted": "आपका ऑर्डर व्यापारी द्वारा स्वीकार किए जाने की प्रतीक्षा कर रहा है|",
+      "orderNoteForPickupAndReady": "आपका ऑर्डर अब पिकअप के लिए उपलब्ध है|",
+      "orderNoteForDeliveryAndAcceptPreparing": "आपका ऑर्डर तैयार करने के लिए शुरू हो गया है|..."
+    },
+
+    "selectDeliveryLocationScreen": {
+      "title": "डिलवरी",
+      "outlet": "आउटलेट",
+      "address": "पता चुनें"
+    },
+    "addressDetail": {
+      "title": "अपना लोकेशन चुनें और सेव करे",
+      "address": "चुना हुआ पता",
+      "addressDetails": "पते का विवरण",
+      "contactPerson": "व्यक्ति का संपर्क",
+      "mobileNo": "मोबाइल नंबर",
+      "notesToDriver": "ड्राइवर के लिए नोट्स",
+      "saveAndUseAddress": "पता सेव करे और उपयोग करें",
+      "addressNickname": "पते का उपनाम",
+      "customAddressNickname": "पते का उपनाम कस्टम दर्ज करें"
+    }
+  },
+  "profileScreen": {
+    "profileSettings": "प्रोफाइल सेटिंग",
+    "profileStrength": "प्रोफाइल स्ट्रेंथ",
+    "nickName": "उपनाम",
+    "firstName": "पहला नाम",
+    "lastName": "अंतिम नाम",
+    "gender": "लिंग",
+    "dob": "जन्म की तारीख",
+    "phone": "मोबाइल नंबर",
+    "email": "ईमेल आईडी",
+    "listAddress": "पते की सूची",
+    "segment": {
+      "address": "पता",
+      "anniversary": "सालगिरह"
+    }
+  },
+  "paymentSetting": {
+    "alert": {
+      "key": "Key आवश्यक है|",
+      "secret": "Secret key आवश्यक है|"
+    },
+    "label": {
+      "payMethod": "भुगतान का प्रकार",
+      "key": "Key",
+      "secretkey": "Secret Key"
+    },
+    "placeholder": {
+      "payMethod": "भुगतान का प्रकार",
+      "key": "Key",
+      "secretkey": "Secret Key"
+    },
+    "button": {
+      "save": "सेव करे"
+    }
+  },
+  "promotionDetailScreen": {
+    "loading": "",
+    "askDelete": "क्या आप आश्वस्त है कि आपको डिलीट करना है?",
+    "free": "FREE",
+    "title": "ऑफ़र विवरण",
+    "offerPeriod": "ऑफ़र अवधि",
+    "validAt": "मान्य है|",
+    "outlets": "आउटलेट",
+    "outlet": "आउटलेट",
+    "termOfThisDeal": "Term Of This Deal",
+    "BUY_NOW": "अभी खरीदें!",
+    "DOWNLOAD_NOW": "अभी  डाउनलोड करो!",
+    "selectPayment": "भुगतान का तरीका चुनें",
+    "paymentDone": "ठीक",
+    "onlinePayment": "ऑनलाइन भुगतान उपलब्ध नहीं है|",
+    "validTill": "अभियान समाप्त"
+  },
+  "registerLoginScreen": {
+    "registration": "रजिस्टर",
+    "headerMessage": "आपका मोबाइल नंबर हमारे पास रजिस्टर हो गया है|",
+    "message": "Please kindly login with Cloud9 single Sign-on password last used with the {{brand}} ",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "login": "लॉगइन"
+  },
+  "registerScreen": {
+    "registration": "रजिस्टर",
+    "placeHolder": {
+      "phone": "मोबाइल नंबर",
+      "first_name": "पहला नाम",
+      "last_name": "अंतिम नाम",
+      "name": "नाम",
+      "email": "ईमेल आईडी",
+      "password": "पासवर्ड",
+      "gender": "लिंग (आवशयक नहीं)",
+      "referral": "रेफरल कोड (आवशयक नहीं)"
+    },
+    "minAge": "(न्यूनतम आयु - आवशयक नहीं)",
+    "gender": {
+      "male": "पुरुष",
+      "female": "महिला"
+    },
+    "register": "रजिस्टर",
+    "agree": "रजिस्टर पर टैप करके, मैं सहमत हूं कि ",
+    "termsAndConditions": "Terms & Conditions",
+    "validate": {
+      "phone": "कृपया मान्य मोबाइल नंबर दर्ज करें",
+      "first_name": "कृपया पहला नाम दर्ज करें",
+      "last_name": "कृपया अंतिम नाम दर्ज करें",
+      "email": "कृपया ईमेल आईडी दर्ज करें",
+      "password": "पासवर्ड कम से कम 6 अंकों का होना चाहिए",
+      "age": "न्यूनतम आयु 18 वर्ष होनी चाहिए",
+      "date": "कृपया DOB दर्ज करें"
+    }
+  },
+  "productSetting": {
+    "alert": {
+      "success": "प्रोडक्ट्स कोन्फिग्रेशन सफलतापूर्वक सेव कर दिया गया"
+    },
+    "title": "प्रोडक्ट्स कोन्फिग्रेशन",
+    "productCategory": "प्रोडक्ट्स केटेगरी",
+    "productCategoryDescription": "प्रोडक्ट्स केटेगरी को सक्षम या अक्षम करें",
+    "category": "प्रोडक्ट्स सब केटेगरी",
+    "categoryDescription": "प्रोडक्ट्स सब केटेगरी को सक्षम या अक्षम करें",
+    "brand": "प्रोडक्ट्स ब्रांड",
+    "brandDescription": "प्रोडक्ट्स ब्रांड को सक्षम या अक्षम करें",
+    "hidePrice": "कीमत छुपाएं",
+    "hidePriceDescription": "प्रोडक्ट्स की कीमतों को छिपाने के लिए सक्षम करें",
+    "review": "समीक्षा सक्षम करें",
+    "reviewDescription": "क्या उपयोगकर्ता प्रोडक्ट्स पर समीक्षा करने की अनुमति दे सकता है?",
+    "save": "सेव करे"
+  },
+  "shopTimeing": {
+    "label": {
+      "openTime": "Open Time",
+      "closeTime": "Close Time"
+    },
+    "alert": {
+      "openCloseTimeRequired": "खुलने का समय और बंद होने का समय  आवश्यक हे!",
+      "success": "खरीदारी का समय कोन्फिग्रेशन सफलतापूर्वक सेव कर दिया गया|"
+    },
+    "title": {
+      "shopTime": "दुकान समय कोन्फिग्रेशन",
+      "restaurantTime": "रेस्टोरेंट का समय कोन्फिग्रेशन"
+    },
+    "button": {
+      "save": "सेव करे"
+    }
+  },
+  "settingScreen": {
+    "settings": "सेटिंग",
+    "changePassword": "पासवर्ड बदलें",
+    "businessDetails": "व्यापार विवरण",
+    "notificationSettings": "नोटिफिकेशन सेटिंग्स",
+    "orderConfiguaration": "ऑर्डर कोन्फिग्रेशन",
+    "currencyConfiguaration": "Currency कोन्फिग्रेशन",
+    "clientApp": "क्लाइंट ऐप",
+    "themeSetting": "Theme",
+    "productsConfiguration": "प्रोडक्ट्स कोन्फिग्रेशन",
+    "serviceConfiguration": "सर्विस कोन्फिग्रेशन",
+    "emailConfiguration": "ईमेल कोन्फिग्रेशन",
+    "shoptime": "दुकान समय कोन्फिग्रेशन",
+    "restauranttime": "रेस्टोरेंट का समय कोन्फिग्रेशन",
+    "paymentConfiguration": "भुगतान कोन्फिग्रेशन",
+    "franchise": "फ्रेंचाइजी",
+    "websiteUpdated": "वेबसाइट को सफलतापूर्वक अपडेट किया गया",
+    "tryagine": "कुछ गलत हो गया। कृपया पुन: प्रयास करें|",
+    "newversion": "नया वरज़न उपलब्ध है|",
+    "environment": "Environment",
+    "development": "Development",
+    "production": "Production",
+    "clientSetting": {
+      "title": "क्लाइंट ऐप सेटिंग",
+      "checkbox": {
+        "tabBar": "टैबबार",
+        "tabBarDesc": "टैबबार सक्षम / अक्षम करें",
+        "loginRequire": "लॉगइन की आवश्यकता",
+        "loginRequireDesc": "ऐप एक्सेस करने के लिए लॉगिन की आवश्यकता है?",
+        "background": "Background",
+        "dark": "डार्क मोड",
+        "darkDesc": "डार्क मोड सक्षम / अक्षम करें",
+        "coin": "ऐप Coins सक्षम करें",
+        "coinDesc": "उपयोगकर्ताओं के लिए ऐप Coins सक्षम / अक्षम करें"
+      },
+      "inputTitle": {
+        "primary": "प्राथमिक कलर",
+        "secondary": "माध्यमिक कलर",
+        "theme": "थीम कलर",
+        "appName": "एप्लिकेशन का नाम",
+        "androidPackage": "Android Package Name",
+        "iosBundle": "Ios Bundle Identifier"
+      },
+      "placeholder": {
+        "primary": "#ffffff",
+        "secondary": "#d3d3d3",
+        "theme": "#ffb800",
+        "appName": "एप्लिकेशन का नाम",
+        "androidPackage": "Android Package Name",
+        "iosBundle": "Ios Bundle Identifier"
+      },
+      "save": "सेव करे",
+      "success": "कोन्फिग्रेशन सफलतापूर्वक सेव कर दिया गया है| नवीनतम परिवर्तन देखने के लिए कृपया ऐप को पुनः प्रारम्भ करें या पुनः लोड करें|"
+    },
+    "paymentSetting": "भुगतान सेटिंग",
+    "currencySetting": {
+      "title": "Currency Settings",
+      "code": "Currency Code",
+      "symbol": "Currency Symbol",
+      "save": "सेव करे"
+    },
+    "introductionSetting": "एप्लिकेशन का परिचय सेटिंग्स",
+    "emailConfig": "ईमेल कोन्फिग्रेशन",
+    "about": "विशे मैं",
+    "pinSettings": "पिन सेटिंग",
+    "env": "वातावरण",
+    "logout": "साइन आउट",
+    "logoutMessage": "लॉग आउट करना सुनिश्चित करें?",
+    "deleteMessage": "आपका खाता सफलतापूर्वक हटा दिया गया।",
+    "deleteAccountMessage": "क्या आप इस खाते को हटाने के लिए सुनिश्चित है?",
+    "confirm": "पुष्टि करें",
+    "cancel": "रद्द करे",
+    "guideScreen": "मार्गदर्शक स्क्रीन",
+    "language": "भाषा",
+    "OrderSetting": "ऑर्डर सेटिंग्स",
+    "deleteAccount": "अकाउंट डीलिट करे",
+    "success": "कोन्फिग्रेशन सफलतापूर्वक सेव कर दिया गया हे|",
+    "update": "अपडेट किया|"
+  },
+  "sendCoinScreen": {
+    "alert": {
+      "sentCoin": "Coins सफलतापूर्वक भेजे गए"
+    },
+    "label": {
+      "joinedDate": "Joined Date"
+    },
+    "placehoder": {
+      "addNote": "नोट या मेसेज जोड़े"
+    },
+    "button": {
+      "tilte": "Coins भेजे"
+    },
+    "required": {
+      "coin": "कृपया Coins दर्ज करें"
+    },
+    "title": "Coins भेजे"
+  },
+  "serviceDetailsScreen": {
+    "alert": {
+      "delete": "क्या आप आश्वस्त है| कि आपको डिलीट करना है?"
+    },
+    "button": {
+      "addToCart": "कार्ट में जोड़ें"
+    }
+  },
+  "serviceSetting": {
+    "alert": {
+      "success": "सर्विस कोन्फिग्रेशन सफलतापूर्वक सेव कर दिया गया हे|"
+    },
+    "title": "सर्विस कोन्फिग्रेशन",
+    "serviceCategory": "सर्विस केटेगरी",
+    "descripation": "सर्विस केटेगरी को सक्षम या अक्षम करें|",
+    "button": {
+      "save": "सेव करे"
+    }
+  },
+  "services": {
+    "title": "सर्विस",
+    "addCategory": "केटेगरी जोड़ें",
+    "all": "सब दिखाएं",
+    "button": {
+      "title": "सर्विस",
+      "message": "कोई डेटा नहीं मिला|"
+    }
+  },
+  "supportScreen": {
+    "support": "Support",
+    "faq": "FAQ",
+    "cannotFindAnswer": "अक्सर पूछे जाने वाले प्रश्न में आपका उत्तर नहीं मिल रहा है? सीधे हमसे संपर्क करें|",
+    "freeToContact": "कृपया सीधे हमसे संपर्क करें|",
+    "contactUs": "संपर्क करें"
+  },
+  "shippingPolicyScreen": {
+    "title": "Shipping Policy",
+    "placeholder": "Shipping Policy दर्ज करें",
+    "clickHere": "Shipping Policy बनाने के लिए यहां क्लिक करें",
+    "update": "अपडेट करें"
+  },
+  "refundPolicyScreen": {
+    "title": "Refund Policy",
+    "placeholder": "Refund Policy दर्ज करें",
+    "clickHere": "Refund Policy बनाने के लिए यहां क्लिक करें",
+    "update": "अपडेट करें"
+  },
+  "aboutUsScreen": {
+    "title": "About Us",
+    "placeholder": "About Us दर्ज करें",
+    "clickHere": "About us बनाने के लिए यहां क्लिक करें",
+    "update": "अपडेट करें"
+  },
+  "termAndPolicyScreen": {
+    "termAndPolicy": "Terms & Policies",
+    "segment": {
+      "termOfUse": "Terms of Use",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "tableBooking": {
+    "alert": {
+      "date": "कृपया तारीख चुनें",
+      "startTime": "कृपया प्रारंभ समय चुनें",
+      "endTime": "कृपया समाप्ति समय चुनें",
+      "people": "कृपया मेहमानों की संख्या जोड़ें|",
+      "table": "कृपया टेबल का चयन करें|",
+      "tableFor": "",
+      "guests": " मेहमानों के लिए कृपया टेबल का चयन करें|",
+      "selectDate": "कृपया मान्य तारीख दर्ज करें।"
+    },
+    "button": {
+      "bookTable": "टेबल बुक करें"
+    },
+    "title": "टेबल बुकिंग",
+    "label": {
+      "startTime": "प्रारंभ समय चुनें",
+      "endTime": "समाप्ति समय चुनें",
+      "noOfguests": "मेहमानो की संख्या"
+    },
+    "placeHolder": {
+      "totalGuests": "कुल मेहमान",
+      "date": "कोई तारीख नहीं"
+    },
+    "selectTable": "टेबल का चयन करें|",
+    "selectedTable": "चुने गए टेबल",
+    "table": "टेबल",
+    "value": {
+      "date": "कोई तारीख नहीं",
+      "time": "कोई समय नहीं"
+    }
+  },
+  "transactionHistoryScreen": {
+    "transactionHistory": "वाउचर/कूपन लेनदेन इतिहास",
+    "search": "खोजें",
+    "noFilter": "कोई फिल्टर नहीं",
+    "transactionNo": "Reference No.",
+    "description": "विवरण",
+    "dateTime": "तारिख और समय",
+    "filterByDate": "तारिख के अनुसार फ़िल्टर करें",
+    "outlet": "आउटलेट",
+    "amountPaid": "राशि का भुगतान",
+    "brandName": "ब्रांड",
+    "brand&Outlet": "ब्रांड और आउटलेट|",
+    "billNumber": "बिल नंबर",
+    "billAmount": "बिल राशि",
+    "otherReferenceNumber": "Other Reference No",
+    "totalAvailableCashback": "कुल उपलब्ध कैशबैक",
+    "cashBackRedeemed": "कैशबैक रिडीम किया गया",
+    "balanceCashback": "कैशबैक बैलेंस",
+    "eligibleAmount": "पात्र राशि",
+    "cashbackRate": "कैशबैक दर",
+    "cashbackRewarded": "कैशबैक रिवार्ड",
+    "cashBackExpired": "कैशबैक समाप्त",
+    "cashbackTransferred": "कैशबैक भेजा गया",
+    "cashbackTransferredTo": "गृहीता",
+    "cashbackReceived": "कैशबैक प्राप्त",
+    "cashbackReceivedFrom": "प्रेषक",
+    "transactionAt": "आउटलेट का नाम",
+    "transactionDesc": "लेन-देन विवरण",
+    "referenceNo": "Reference No."
+  },
+  "updateEmailScreen": {
+    "updateEmail": "ईमेल अपडेट करें",
+    "confirm": "पुष्टि करें",
+    "placeHolder": {
+      "email": "उदा. youridname@gmail.com"
+    }
+  },
+  "updatePhoneScreen": {
+    "updatePhone": "मोबाइल नंबर अपडेट करें",
+    "enterPhone": "अपना मोबाइल नंबर दर्ज करें और वेरिफाई पर टैप करें|",
+    "next": "अगला",
+    "placeHolder": {
+      "phone": "मोबाइल नंबर"
+    }
+  },
+  "walletScreen": {
+    "wallet": "अकाउंट",
+    "memberSince": "Member since: ",
+    "vouchers": "वाउचर / कूपन",
+    "transactionHistory": "वाउचर / कूपन लेन - देन",
+    "storeCreditHistory": "Store Credit",
+    "giftingReferral": "Gifting & Referral",
+    "orderHistory": "ऑर्डर इतिहास",
+    "savedAddress": "पता सेव करे",
+    "availableCashback": "उपलब्ध कैशबैक",
+    "membershipTier": "Membership Tier",
+    "cashbackRate": "कैशबैक दर",
+    "totalSavings": "कुल बचत",
+    "expiringCashback": "कैशबैक समाप्त हो रहा है|",
+    "expiringOn": "समाप्त होगा",
+    "amount": "राशि",
+    "amountPlaceholder": "कृपया भेजने या रिडीम करने के लिए राशि दर्ज करें|",
+    "cashbackHistory": "कैशबैक इतिहास",
+    "cashback": "कैशबैक इतिहास",
+    "maximunValue": "आप अधिकतम मूल्य पर पहुंच गए है|ं",
+    "status": "स्थिति",
+    "cancelled": "रद्द किया",
+    "success": "सफलता",
+    "coins": "Coins",
+    "sendCoins": "Coins भेजें",
+    "subscribedProducts": "सब्सक्राइब किए गए उत्पाद"
+  },
+  "activeChatListScreen": {
+    "title": "सहायता",
+    "search": "खोजें",
+    "noRecord": {
+      "title": "Active Support",
+      "message": "कोई डेटा नहीं मिला!"
+    }
+  },
+  "customersDetail": {
+    "title": "ग्राहक विवरण",
+    "dropDown": {
+      "client": "Client",
+      "manager": "Manager",
+      "boy": "Delivery Boy"
+    },
+    "noRecord": {
+      "title": "ऑर्डर",
+      "message": "कोई ऑर्डर नहीं मिला!"
+    }
+  },
+  "cartScreen": {
+    "title": "कार्ट",
+    "placeOrder": "अभी ऑर्डर करे",
+    "login": "ऑर्डर करने के लिए लॉग इन करें",
+    "total": "टोटल",
+    "norecord": {
+      "title": "कार्ट",
+      "message": "अब कुछ होने पर हम आपको सूचित करेंगे!"
+    }
+  },
+  "bannerCardScreen": {
+    "title": "ऐप बैनर कार्ड",
+    "label": {
+      "type": "प्रकार",
+      "url": "URL",
+      "screen": "Screen"
+    },
+    "alert": {
+      "image": "कृपया छवि का चयन करें|",
+      "url": "URL आवश्यक है|",
+      "bennerImage": "बैनर की छवी आवश्यक है|"
+    },
+    "add": "जोड़ें",
+    "update": "अपडेट करें"
+  },
+  "changePasswordScreen": {
+    "title": "पासवर्ड बदलें",
+    "placeholder": {
+      "oldPassword": "पुराना पासवर्ड",
+      "newPassword": "नया पासवर्ड",
+      "confirmPassword": "कन्फोर्म पासवर्ड"
+    },
+    "changePassword": "पासवर्ड बदलें",
+    "alert": {
+      "oldPasswordLength": "पुराना पासवर्ड कम से कम 6 अक्षर का होना चाहिए|",
+      "newPasswordLength": "नया पासवर्ड कम से कम 6 अक्षर का होना चाहिए|",
+      "confirmPasswordLength": "कन्फोर्म पासवर्ड कम से कम 6 अक्षर का होना चाहिए|",
+      "notMatch": "नया पासवर्ड और कन्फर्म पासवर्ड अलग हे|"
+    }
+  },
+  "nimbusDetailScreen": {
+    "alert": {
+      "email": "ईमेल आवश्यक है!",
+      "password": "पासवर्ड आवश्यक है!",
+      "warehouseName": "गोदाम का नाम आवश्यक है!",
+      "name": "नाम आवश्यक है!",
+      "phone": "फ़ोन नंबर आवश्यक है!",
+      "streat": "गली का नाम आवश्यक है!",
+      "area": "क्षेत्र का नाम आवश्यक है!",
+      "city": "शहर का नाम आवश्यक है!",
+      "state": "राज्य का नाम आवश्यक है!",
+      "pincode": "पिनकोड आवश्यक है!",
+      "orderUpdate": "ऑर्डर सफलतापूर्वक अपडेट किया गया"
+    },
+    "pageTitle": "Ship With Nimbus",
+    "label": {
+      "email": "ईमेल आईडी",
+      "password": "पासवर्ड",
+      "warehouse": "गोदाम का नाम",
+      "name": "नाम",
+      "phone": "फ़ोन",
+      "street": "पिकअप गली",
+      "area": "पिकअप क्षेत्र",
+      "city": "पिकअप सिटी",
+      "state": "पिकअप राज्य",
+      "country": "पिकअप देश",
+      "pincode": "पिकअप पिनकोड"
+    },
+    "placeholder": {
+      "email": "ईमेल आईडी",
+      "password": "पासवर्ड",
+      "warehouse": "गोदाम का नाम दर्ज करें",
+      "name": "अपना नाम दर्ज करें",
+      "phone": "मोबाइल नंबर",
+      "street": "पिकअप स्ट्रीट दर्ज करें",
+      "area": "पिकअप क्षेत्र दर्ज करें",
+      "city": "पिकअप शहर दर्ज करें",
+      "state": "राज्य दर्ज करें",
+      "country": "देश दर्ज करें",
+      "pincode": "पिनकोड दर्ज करें"
+    },
+    "button": {
+      "login": "लॉग इन करें और विवरण प्राप्त करें",
+      "createOrder": "ऑर्डर बनाएं",
+      "loginToFetch": "नवीनतम शिपमेंट विवरण प्राप्त करने के लिए लॉगिन करें|",
+      "download": "लेबल डाउनलोड करें",
+      "reOrder": "Nimbus से शिपिंग ऑर्डर रद्द कर दिया गया है, क्या आप फिर से ऑर्डर बनाना चाहते है? यहाँ क्लिक करें"
+    },
+    "static": {
+      "title": "शिपमेंट विवरण",
+      "orderId": "ऑर्डर आईडी",
+      "shipmentId": "शिपमेंट आईडी",
+      "awb": "AWB नंबर",
+      "courier": "कूरियर का नाम",
+      "status": "स्थिति",
+      "paymentType": "भुगतान प्रकार",
+      "history": "इतिहास"
+    }
+  },
+  "createOffers": {
+    "alert": {
+      "name": "नाम आवश्यक  हे|",
+      "type": "प्रकार आवश्यक हे|",
+      "descripation": "विवरण आवश्यक हे|",
+      "parcentge": "प्रतिशत आवश्यक हे|",
+      "qty": "मात्रा आवश्यक हे|",
+      "cupone": "कूपन कोड आवश्यक हे|"
+    },
+    "title": {
+      "edit": "ऑफ़र संपादित करें",
+      "add": "ऑफ़र बनाएं"
+    },
+    "label": {
+      "name": "ऑफ़र का नाम",
+      "description": "विवरण",
+      "type": "प्रकार",
+      "discount": "तक छूट",
+      "percentage": "प्रतिशत (%) ",
+      "qty": "मात्रा",
+      "coupon": "कूपन कोड",
+      "date": "Start Date",
+      "enddate": "End Date",
+      "limit": "सीमा (प्रति उपयोगकर्ता अधिकतम उपयोग)",
+      "lifetime": "लाइफ टाइम"
+    },
+    "placeholder": {
+      "name": "उदाहरण के लिए, नए ऑर्डर पर 5% तक की छूट पाएं",
+      "description": "उदाहरण के लिए, नए ऑर्डर पर 5% तक की छूट पाएं",
+      "discount": "राशि तक छूट",
+      "percentage": "Ex, 5, 10",
+      "qty": "कुल मात्रा",
+      "coupon": "Ex, NEW50, 5PEROFF",
+      "date": "आरंभ करने की तारीख",
+      "enddate": "अंतिम तारीख",
+      "limit": "सीमा (प्रति उपयोगकर्ता अधिकतम उपयोग)"
+    },
+    "button": {
+      "active": "सक्रिय",
+      "save": "सेव करे"
+    }
+  },
+  "createNotificationScreen": {
+    "alert": {
+      "title": "शीर्षक आवश्यक है।"
+    },
+    "title": {
+      "edit": "नोटिफिकेशन संपादित करें",
+      "add": "नोटिफिकेशन बनाएं"
+    },
+    "label": {
+      "title": "शीर्षक",
+      "descripation": "विवरण"
+    },
+    "placeholder": {
+      "title": "शीर्षक",
+      "descripation": "विवरण"
+    },
+    "button": {
+      "save": "सेव करे"
+    }
+  },
+  "editProductScreen": {
+    "alert": {
+      "name": "प्रोडक्ट का नाम आवश्यक है।",
+      "category": "केटेगरी आवश्यक है।",
+      "price": "कीमत आवश्यक है!",
+      "qty": "स्टॉक मात्रा आवश्यक है!",
+      "askImageDelete": "क्या आप वाकई प्रोडक्ट कि छवि हटाना चाहते हैं?",
+      "label": "लेबल आवश्यक है!",
+      "value": "मूल्य आवश्यक है!",
+      "point": "Points",
+      "pointValue": " का मूल्य आवश्यक है"
+    },
+    "title": {
+      "edit": "प्रोडक्ट संपादित करें",
+      "add": "प्रोडक्ट जोड़ें"
+    },
+    "label": {
+      "name": "प्रोडक्ट का नाम",
+      "description": "विवरण",
+      "category": "केटेगरी",
+      "keywords": "कीवर्ड",
+      "discount": "छूट (%)",
+      "price": "कीमत",
+      "weight": "वज़न",
+      "qty": "स्टॉक मात्रा",
+      "units": "मात्रक",
+      "barcode": "बारकोड",
+      "inventory": "सूची",
+      "foodType": "खाद्य प्रकार (शाकाहारी)",
+      "tax": "कर (%)"
+    },
+    "variants": "वेरिएंट",
+    "button": {
+      "showAsNewProduct": "एक नए रोडक्ट के रूप में दिखाएं",
+      "foodType": "खाद्य प्रकार (शाकाहारी)",
+      "remove": "हटाये",
+      "add": "जोड़ें",
+      "update": "अपडेट करे",
+      "save": "सेव करे"
+    },
+    "details": "विस्तार से",
+    "placeholder": {
+      "name": "प्रोडक्ट का नाम",
+      "description": "विवरण",
+      "category": "केटेगरी",
+      "keywords": "कीवर्ड",
+      "discount": "छूट (%)",
+      "price": "कीमत",
+      "weight": "वज़न",
+      "qty": "स्टॉक मात्रा",
+      "barcode": "बारकोड",
+      "inventory": "सूची",
+      "foodType": "खाद्य प्रकार (शाकाहारी)",
+      "tax": "कर (%)"
+    }
+  },
+  "shipRocketDeliveryScreen": {
+    "pageTitle": "Ship With ShipRocket",
+    "alert": {
+      "email": "ईमेल आवश्यक है!",
+      "password": "पासवर्ड आवश्यक है!",
+      "pickupLocation": "पिकअप लोकेशन आवश्यक है!",
+      "courier": "कूरियर की लंबाई आवश्यक है!",
+      "courierbreadth": "कूरियर की चौड़ाई आवश्यक है!",
+      "height": "कुरियर की ऊंचाई आवश्यक है!",
+      "weight": "कूरियर का वजन आवश्यक है!",
+      "deliverypartner": "कृपया कोई डिलीवरी पार्टनर चुनें",
+      "orderSuccess": "ऑर्डर सफलतापूर्वक अपडेट किया गया|"
+    },
+    "label": {
+      "pickupLocation": "लेने की जगह",
+      "courierLength": "कूरियर लंबाई (सेमी)",
+      "breadth": "कूरियर चौड़ाई (सेमी)",
+      "height": "कूरियर ऊंचाई (सेमी)",
+      "weight": "कूरियर वजन (किलो)",
+      "name": "कूरियर का नाम",
+      "id": "कूरियर आईडी",
+      "deliveryPartner": "डिलीवरी पार्टनर चुनें"
+    },
+    "placeholder": {
+      "email": "ईमेल ",
+      "password": "पासवर्ड ",
+      "courierLength": "कूरियर लंबाई सेमी मैं",
+      "breadth": "कूरियर चौड़ाई सेमी मैं",
+      "height": "कूरियर ऊंचाई सेमी मैं",
+      "weight": "कूरियर वजन किलो मैं"
+    },
+    "deliveryTime": "डिलीवरी का समय",
+    "charges": "चार्ज",
+    "button": {
+      "courierPartner": "कूरियर पार्टनर चुनें",
+      "login": "लॉगइन करें",
+      "startShiping": "शिपिंग शुरू करें",
+      "download": "डाउनलोड",
+      "createOrder": "ऑर्डर बनाएं"
+    },
+    "static": {
+      "title": "शिपमेंट विवरण",
+      "orderId": "ऑर्डर आईडी",
+      "shipmentId": "शिपमेंट आईडी",
+      "awb": "AWB नंबर",
+      "courier": "कूरियर का नाम",
+      "status": "स्थिति",
+      "paymentType": "भुगतान प्रकार",
+      "history": "इतिहास"
+    }
+  },
+  "liveSupport": {
+    "askDelete": "क्या आप इस चैट को हटाना चाहते हैं?",
+    "messageType": "अपना संदेश लिखें..."
+  },
+  "selectVeriant": {
+    "title": "वेरिएंट का चयन करें",
+    "cancel": "रद्द करें"
+  },
+  "ManageCategories": {
+    "title": "कटेगरी मेनेज करे",
+    "askDelete": "क्या आप कटेगरी हटा ना चाहते हैं?",
+    "norecord": {
+      "title": "कटेगरी",
+      "message": "कोई कटेगरी नहीं मिली"
+    },
+    "button": {
+      "createNew": "नई कटेगरी बनाएं"
+    }
+  },
+  "editProductCategory": {
+    "title": {
+      "edit": "प्रोडक्ट केटेगरी संपादित करें",
+      "add": "प्रोडक्ट केटेगरी जोड़ें"
+    },
+    "label": {
+      "name": "नाम",
+      "des": "विवरण",
+      "subCategory": "सब कटेगरी"
+    },
+    "placeholder": {
+      "name": "फास्टफूड, इलेक्ट्रॉनिक्स की तरह..",
+      "des": "विवरण"
+    },
+    "button": {
+      "save": "सेव करे"
+    },
+    "askDelete": "Are you sure delete category?",
+    "required": {
+      "name": "प्रोडक्ट केटेगरी नाम आवश्यक है।"
+    },
+    "norecord": {
+      "title": "सब कटेगरी",
+      "message": "कोई सब कटेगरी नहीं मिली"
+    }
+  },
+  "placeOrderScreen": {
+    "offer": "ऑफर",
+    "code": "कोड",
+    "codeApply": "लागू!",
+    "promocode": "एक प्रोमो कोड चुनें",
+    "changeoffer": "ऑफ़र बदलें",
+    "viewOffers": "ऑफ़र देखें",
+    "alert": {
+      "table": "टेबल नंबर आवश्यक है।",
+      "delivery": "डिलीवरी का पता आवश्यक है।",
+      "pickup": "पिकअप तारीख और समय आवश्यक है।",
+      "pickupTime": "कृपया पिकअप समय चुनें"
+    },
+    "cashOnDelivery": "केश ओन डिलीवरी",
+    "orderNow": "ऑर्डर पिकअप या डिलीवरी मिले तब भुगतन करे",
+    "title": "ऑर्डर करे",
+    "open": "अरे... |",
+    "openDes": "वर्तमान में हम नए ऑर्डर स्वीकार नहीं कर रहे हैं। कृपया किसी भी प्रश्न के लिए ऐप व्यवस्थापक से संपर्क करें।",
+    "date": "पिकअप तारीख",
+    "selectdate": "पिकअप तारीख चुनें",
+    "time": "पिकअप समय",
+    "selecttime": "पिकअप समय चुनें",
+    "validselectdate": "कृपया सही पिकअप तारीख चुनें.",
+    "button": {
+      "addNewAddress": "नया पता जोड़ें",
+      "repay": "फिर से भुगतान"
+    },
+    "scantable": "स्कैन टेबल QR",
+    "scantableDesc": "कृपया टेबल पर QR टेबल ढूंढें|",
+    "total": "टोटल",
+    "pay": "चुकवनी करे",
+    "placeOrder": "अभी ऑर्डर करे",
+    "paybyCoin": "Coins द्वारा भुगतान करें",
+    "availableCoin": "उपलब्ध Coin"
+  },
+  "shopCloseTime": {
+    "desc1": "",
+    "desc2": "इस तारीख को ये दुकान बंध हे| कृपा करके दुसरी तारीख चुनिये|",
+    "close": "बंध करे"
+  },
+  "shareComponent": {
+    "title": "ऐप शेयर करें",
+    "message": "इस ऐप को अपने मित्र को साझा करें और इनाम या ऑफ़र प्राप्त करें ...)"
+  },
+  "filterScreen": {
+    "title": "फ़िल्टर",
+    "label": {
+      "category": "केटेगरी",
+      "subcategory": "सब केटेगरी",
+      "selectBrand": "ब्रांड चुनें"
+    },
+    "placeholder": {
+      "brand": "ब्रांड चुनें",
+      "subcategory": "सब केटेगरी चुनें",
+      "category": "केटेगरी चुनें"
+    },
+    "button": {
+      "find": "खोजे"
+    }
+  },
+  "deliveryPartner": {
+    "title": "डिलीवरी पार्टनर का चयन करें",
+    "button": {
+      "startShipping": "शिपिंग प्रारंभ करें"
+    }
+  },
+  "cancellationOrderList": {
+    "title": "ऑर्डर रद्द करने की सूची"
+  },
+  "SubscriptionPayment": {
+    "title": "प्रोडक्ट की सदस्यता",
+    "label": {
+      "name": "सदस्यता प्रकार",
+      "startdate": "आरंभ करने की तिथि",
+      "endDate": "अंतिम तिथि",
+      "deliveryAddress": "वितरण पता चुनें"
+    },
+    "placeholder": {
+      "startdate": "सदस्यता शुरू होने की तारीख चुनें",
+      "endDate": "सदस्यता समाप्ति तिथि चुनें"
+    },
+    "button": {
+      "subscribeNow": "अभी सब्सक्राइब करें",
+      "login": "प्रोडक्ट की सदस्यता लेने के लिए लॉगिन करें"
+    },
+    "alert": {
+      "startDate": "सदस्यता प्रारंभ दिनांक आवश्यक!",
+      "endDate": "सदस्यता समाप्ति तिथि आवश्यक!",
+      "subscriptionType": "सदस्यता प्रकार की आवश्यकता है",
+      "selectedAddress": "कृपया पता चुनें"
+    }
+  },
+  "subscriptionHistory": {
+    "title": "सब्सक्रिप्शन इतिहास"
+  },
+  "subscriptionDetailScreen": {
+    "title": "सदस्यता विवरण",
+    "addressDetailCard": {
+      "title": "डिलिवरी का पता"
+    },
+    "detailCard": {
+      "title": "विवरण",
+      "subscriptionNumber": "सब्सक्रिप्शन नंबर",
+      "createdAt": "निर्मित तिथि",
+      "type": "प्रकार",
+      "bookingFrom": "आरंभ करने की तिथि",
+      "bookingTo": "अंतिम तिथि",
+      "status": "दर्जा",
+      "paymentMethod": "भुगतान का तरीका"
+    },
+    "customerDetailCard": {
+      "title": "ग्राहक विवरण",
+      "name": "नाम",
+      "mobileNumber": "मोबाइल नंबर"
+    },
+    "subscriptionItemCard": {
+      "title": "सदस्यता आइटम",
+      "days": "दिन"
+    },
+    "dailyStatus": {
+      "title": "डेली स्टेटस"
+    }
+  },
+  "bookedTableHistory": {
+    "title": "बुक की गई टेबल हिस्ट्री"
+  },
+  "tableBookingDetailScreen": {
+    "title": "टेबल बुकिंग विवरण",
+    "detailCard": {
+      "title": "विवरण",
+      "bookingNumber": "बुकिंग नंबर",
+      "createdAt": "निर्मित तिथि",
+      "bookingDate": "बुक करने की तिथि",
+      "bookingFrom": "प्रारंभ समय",
+      "bookingTo": "अंत समय",
+      "status": "दर्जा",
+      "paymentMethod": "भुगतान का तरीका"
+    },
+    "customerDetailCard": {
+      "title": "ग्राहक विवरण",
+      "name": "नाम",
+      "mobileNo": "मोबाइल नंबर"
+    },
+    "tableDetailCard": {
+      "title": "चयनित टेबल",
+      "floor": "फ़र्श",
+      "room": "कमरा",
+      "table": "टेबल"
+    }
+  }
+}

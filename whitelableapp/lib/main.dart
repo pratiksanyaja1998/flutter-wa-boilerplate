@@ -8,9 +8,6 @@ void main() async{
   runApp(const MyApp());
 }
 
-void initializeFirebaseApp() {
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -149,7 +146,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           child: const Text(
-            "Welcome to whitelable app",
+            "Welcome to whitelabel app",
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,

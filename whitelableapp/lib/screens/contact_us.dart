@@ -60,45 +60,88 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         ],
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                SharedPreference.getBusinessConfig()!.contactUs.bussinessName,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20,),
                           Text(
-                            SharedPreference.getBusinessConfig()!.contactUs.bussinessName,
+                            getTranslated(context, ["contactUs", "label", "contact"]),
                             style: const TextStyle(
                               color: Colors.black,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                getTranslated(context, ["contactUs", "label", "contact"]),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(SharedPreference.getBusinessConfig()!.contactUs.mobile,),
-                            ],
+                          Text(
+                            SharedPreference.getBusinessConfig()!.contactUs.mobile,
+                            textAlign: TextAlign.end,
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
                           const SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                getTranslated(context, ["contactUs", "label", "email"]),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(SharedPreference.getBusinessConfig()!.contactUs.email,),
-                            ],
+                          Text(
+                            getTranslated(context, ["contactUs", "label", "email"]),
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                          Text(
+                            SharedPreference.getBusinessConfig()!.contactUs.email,
+                            // textAlign: TextAlign.end,
+                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text(
+                          //       getTranslated(context, ["contactUs", "label", "contact"]),
+                          //       style: const TextStyle(
+                          //         color: Colors.black,
+                          //         fontSize: 16,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),
+                          //     ),
+                          //     const SizedBox(width: 10,),
+                          //     Expanded(child: Text(
+                          //       SharedPreference.getBusinessConfig()!.contactUs.mobile,
+                          //       textAlign: TextAlign.end,
+                          //     )),
+                          //   ],
+                          // ),
+                          // const SizedBox(height: 10,),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          //     Text(
+                          //       getTranslated(context, ["contactUs", "label", "email"]),
+                          //       style: const TextStyle(
+                          //         color: Colors.black,
+                          //         fontSize: 16,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),
+                          //     ),
+                          //     const SizedBox(width: 10,),
+                          //     Expanded(child: Text(
+                          //       SharedPreference.getBusinessConfig()!.contactUs.email,
+                          //       // textAlign: TextAlign.end,
+                          //     )),
+                          //   ],
+                          // ),
                           const SizedBox(height: 10,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,21 +154,26 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 5,),
+                              // const SizedBox(height: 5,),
                               Text(SharedPreference.getBusinessConfig()!.contactUs.address,),
                             ],
                           ),
-                          const SizedBox(height: 15,),
-                          GestureDetector(
-                            onTap: () async {
-                              await launchUrl(Uri.parse("https://${SharedPreference.getBusinessConfig()!.domain}"));
-                            },
-                            child: Text(
-                              "https://${SharedPreference.getBusinessConfig()!.domain}",
-                              style: const TextStyle(
-                                color: Colors.indigo,
+                          const SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  await launchUrl(Uri.parse("https://${SharedPreference.getBusinessConfig()!.domain}"));
+                                },
+                                child: Text(
+                                  "https://${SharedPreference.getBusinessConfig()!.domain}",
+                                  style: const TextStyle(
+                                    color: Colors.indigo,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                           const SizedBox(height: 10,),
                         ],

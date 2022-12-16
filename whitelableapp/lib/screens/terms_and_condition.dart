@@ -127,26 +127,9 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                   WebViewX(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    initialContent: terms,
+                    initialContent: policy,
                     initialSourceType: SourceType.url,
                   ),
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(10),
-                  //   child: WebView(
-                  //     initialUrl: terms,
-                  //     javascriptMode: JavascriptMode.unrestricted,
-                  //     onWebViewCreated: (WebViewController webViewController){
-                  //       _controller = webViewController;
-                  //     },
-                  //   ),
-                  // ),
-                  // WebView(
-                  //   initialUrl: policy,
-                  //   javascriptMode: JavascriptMode.unrestricted,
-                  //   onWebViewCreated: (WebViewController webViewController){
-                  //     _controller = webViewController;
-                  //   },
-                  // ),
                 ],
               ),
 //             Column(

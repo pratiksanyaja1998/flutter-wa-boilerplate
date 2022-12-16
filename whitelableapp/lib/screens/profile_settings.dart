@@ -287,8 +287,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                                 IntlPhoneField(
                                   readOnly: true,
                                   enabled: false,
-                                  style: const TextStyle(
-                                    color: Colors.grey
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
                                   ),
                                   controller: phoneNumberController,
                                   decoration: InputDecoration(
@@ -316,7 +316,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           const SizedBox(height: 15,),
                           UserSettingField(
                             enabled: false,
-                            textColor: Colors.grey,
+                            textColor: Colors.grey[600],
                             controller: emailController,
                             fieldName: getTranslated(context, ["profileScreen", "email"]),
                             hintText: getTranslated(context, ["profileScreen", "email"]),

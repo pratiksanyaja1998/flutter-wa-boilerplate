@@ -223,7 +223,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     //     ),
                     //   ),
                     // ),
-                    const SizedBox(height: 15,),
                     if(SharedPreference.getUser() != null)
                       if(SharedPreference.getUser()!.type == "admin")
                         Widgets().settingOptionTile(
@@ -302,7 +301,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       // ),
                     if(SharedPreference.isLogin())
                       Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 40),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: Widgets().settingOptionTile(
                           context: context,
                           tileText: getTranslated(context, ["settingScreen", "notificationSettings"]),

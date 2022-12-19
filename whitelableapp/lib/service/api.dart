@@ -10,10 +10,10 @@ import 'package:whitelabelapp/service/shared_preference.dart';
 
 class ServiceApis {
 
-  static const String _baseUrl = "https://api.whitelabelapp.in";
+  // static const String _baseUrl = "https://api.whitelabelapp.in";
   // static const String _baseUrl = "http://192.168.1.10:8000";
   // static const String _baseUrl = "http://192.168.1.15:8000";
-  // static const String _baseUrl = "http://192.168.1.15:4000";
+  static const String _baseUrl = "http://192.168.1.15:4000";
   // static const String _baseUrl = "http://192.168.1.11:9000";
 
   static String get getBaseUrl => _baseUrl;
@@ -148,6 +148,29 @@ class ServiceApis {
     }else{
       print("GET USER PROFILE RESPONSE = ${response.statusCode}");
       print("GET USER PROFILE RESPONSE = ${response.body}");
+      return response;
+    }
+
+  }
+
+  Future<http.Response> getUserDetail({required String userId})async{
+
+    Uri url = Uri.parse("$_baseUrl/user/details/$userId");
+
+    http.Response response = await http.Client().get(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Token ${SharedPreference.getUser()!.token}"
+      },
+    );
+
+    if(response.statusCode == 200){
+      print("GET USER DETAIL RESPONSE = ${response.body}");
+      return response;
+    }else{
+      print("GET USER DETAIL RESPONSE = ${response.statusCode}");
+      print("GET USER DETAIL RESPONSE = ${response.body}");
       return response;
     }
 
@@ -313,29 +336,6 @@ class ServiceApis {
       print("UPDATE USER PROFILE RESPONSE = $responseData");
       print("ERROR");
       return streamResponse;
-    }
-  }
-
-  Future<http.Response> deleteAddress({
-    required int addressId,
-  })async{
-    Uri url = Uri.parse("$_baseUrl/user/address/delete/$addressId");
-
-    http.Response response = await http.Client().delete(
-        url,
-        headers: {
-          "Accept": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 204){
-      print("DELETE ADDRESS RESPONSE = ${response.body}");
-      return response;
-    }else{
-      print("DELETE ADDRESS RESPONSE = ${response.statusCode}");
-      print("DELETE ADDRESS RESPONSE = ${response.body}");
-      return response;
     }
   }
 
@@ -513,6 +513,100 @@ class ServiceApis {
     }
   }
 
+  Future<http.Response> getPaymentDetail({required String paymentId})async{
+    Uri url = Uri.parse("$_baseUrl/payment/details/$paymentId");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
+      print("GET PAYMENT DETAIL RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getBusinessStaffList()async{
+    Uri url = Uri.parse("$_baseUrl/user/business/staff/list");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET BUSINESS STAFF LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET BUSINESS STAFF LIST RESPONSE = ${response.statusCode}");
+      print("GET BUSINESS STAFF LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getProjectList()async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/project/list");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET PROJECT LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET PROJECT LIST RESPONSE = ${response.statusCode}");
+      print("GET PROJECT LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> createProject({required String projectName, String? projectDescription, List<dynamic>? team})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/project/create");
+
+    final body = jsonEncode({
+      "name": projectName,
+      "description": projectDescription ?? "",
+      "team": team ?? [],
+      "manager": SharedPreference.getUser()!.id,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CREATE PROJECT RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("CREATE PROJECT RESPONSE = ${response.statusCode}");
+      print("CREATE PROJECT RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+
   Future<http.Response> getCoinTransactions({String? searchText, String? date, String? type})async{
     Uri url = Uri.parse("$_baseUrl/coin/transactions/list?${searchText != null ? "search=$searchText" : ""}${date != null ? "&created_at=$date" : ""}${type != null ? "&type=$type" :  ""}");
 
@@ -687,27 +781,6 @@ class ServiceApis {
       return response;
     }else{
       print("GET DONATION LIST RESPONSE = ${response.statusCode}");
-      return response;
-    }
-  }
-
-  Future<http.Response> getPaymentDetail({required String paymentId})async{
-    Uri url = Uri.parse("$_baseUrl/payment/details/$paymentId");
-
-    http.Response response = await http.Client().get(
-        url,
-        headers: {
-          "Accept": "application/json",
-          "Authorization": "Token ${SharedPreference.getUser()!.token}"
-        }
-    );
-
-    if(response.statusCode == 200){
-      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
-      return response;
-    }else{
-      print("GET PAYMENT DETAIL RESPONSE = ${response.statusCode}");
-      print("GET PAYMENT DETAIL RESPONSE = ${response.body}");
       return response;
     }
   }

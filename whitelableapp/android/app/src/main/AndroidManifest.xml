@@ -8,7 +8,7 @@
         tools:node="remove" />
 
    <application
-        android:label="Kalpvruksh Foundation"
+        android:label="Demo Retail App"
        android:name="${applicationName}"
        android:usesCleartextTraffic="true"
        android:icon="@mipmap/launcher_icon">

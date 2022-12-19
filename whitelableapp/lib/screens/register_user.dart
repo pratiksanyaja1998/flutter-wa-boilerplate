@@ -10,6 +10,7 @@ import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/model/user_model.dart';
 import 'package:whitelabelapp/screens/dashboard.dart';
+import 'package:whitelabelapp/screens/dashboards/manager_dashboard.dart';
 import 'package:whitelabelapp/screens/otp_verification_screen.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
@@ -265,7 +266,11 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                               UserModel userModel = UserModel.fromJson(value["data"]);
                                               SharedPreference.setUser(userModel: userModel);
                                               SharedPreference.setIsLogin(true);
-                                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+                                              if(SharedPreference.getUser()!.type == "manager"){
+                                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ManagerDashboardScreen()));
+                                              }else {
+                                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+                                              }
                                             }else{
                                               showProgress = false;
                                               setState(() {});

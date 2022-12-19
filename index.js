@@ -139,18 +139,26 @@ axios
     // check if firebase_option.dart exist then remove
     if (fs.existsSync("./whitelableapp/lib/firebase_options.dart")) {
       fs.rmSync("./whitelableapp/lib/firebase_options.dart");
-      fs.readFile('./whitelableapp/lib/firebase_options.dart', (err, data) => {
-        if (!err && data) {
-          fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
-        }
-      })
+      if (fs.existsSync('./whitelableapp/ios/firebase_app_id_file.json')) {
+        console.log('file exists');
+        fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
+      } else {
+        console.log('file not found!');
+      }
+      // fs.readFile('./whitelableapp/ios/firebase_app_id_file.json', (err, data) => {
+      //   print("---------- file exist ----------");
+      //   if (!err && data) {
+      //     print("---------- file exist ----------");
+      //     fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
+      //   }
+      // })
       
     }
     console.log("--- delete option file and firebase app id file done ---");
 
     // update firebase_option.dart file for firebase
     cmdStatus = execSync(
-      `cd ./whitelableapp && flutterfire configure -p kalpvruksh-foundation`,
+      `cd ./whitelableapp && flutterfire configure -p wa-apps-28f9a`,
       {
         encoding: "utf-8",
         stdio: "inherit",

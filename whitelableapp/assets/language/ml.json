@@ -694,5 +694,31 @@
 		"status": "Status",
 		"cancelled": "Dibatalkan",
 		"success": "Kejayaan"
+	},
+	"donationDashboardScreen": {
+		"coins": "Coins",
+		"referralCode": "Referral Code",
+		"donate": "Donate",
+		"close": "Close",
+		"label": {
+			"amount": "Enter Amount",
+			"description": "Enter Description"
+		},
+		"validate": {
+			"amount": "Please enter a valid amount"
+		},
+		"donationError": "There was a problem with your donation"
+	},
+	"coinTransactionScreen": {
+		"title": "Transactions",
+		"search": "search",
+		"filterByDate": "Filter by date",
+		"selectDate": "select date",
+		"credit": "Credit",
+		"debit": "Debit"
+	},
+	"referralScreen": {
+		"title": "Referrals",
+		"share": "Share"
 	}
 }

@@ -1776,5 +1776,31 @@
       "room": "कमरा",
       "table": "टेबल"
     }
+  },
+  "donationDashboardScreen": {
+    "coins": "सिक्के",
+    "referralCode": "रेफरल कोड",
+    "donate": "Donate",
+    "close": "बंध करे",
+    "label": {
+      "amount": "राशि डालें",
+      "description": "विवरण दर्ज करें"
+    },
+    "validate": {
+      "amount": "कृपया एक वैध राशि दर्ज करें"
+    },
+    "donationError": "आपके दान में कुछ समस्या हुई"
+  },
+  "coinTransactionScreen": {
+    "title": "लेनदेन",
+    "search": "search",
+    "filterByDate": "तारीख के अनुसार फ़िल्टर करें",
+    "selectDate": "तारीख़ चुनें",
+    "credit": "Credit",
+    "debit": "Debit"
+  },
+  "referralScreen": {
+    "title": "रेफरल",
+    "share": "शेयर करें"
   }
 }

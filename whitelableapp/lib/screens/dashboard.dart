@@ -127,9 +127,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onTap: (){
                     Navigator.pop(context);
                   },
-                  title: const Text(
-                    "Home",
-                    style: TextStyle(
+                  title: Text(
+                    getTranslated(context, ["menu", "home"]),
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
@@ -398,7 +398,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                             onPressed: (){
                                                               Navigator.pop(context);
                                                             },
-                                                            text: "Close",
+                                                            text: getTranslated(context, ["donationDashboardScreen", "close"]),
                                                             fontSize: 22,
                                                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: kIsWeb ? 12 : 8),
                                                           ),
@@ -449,10 +449,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: ListTile(
                           title: Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: Text(
-                                  "Coins",
-                                  style: TextStyle(
+                                  getTranslated(context, ["donationDashboardScreen", "coins"]),
+                                  style: const TextStyle(
                                     fontSize: 18,
                                   ),
                                 ),
@@ -498,10 +498,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: ListTile(
                           title: Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: Text(
-                                  "Referral code",
-                                  style: TextStyle(
+                                  getTranslated(context, ["donationDashboardScreen", "referralCode"]),
+                                  style: const TextStyle(
                                     fontSize: 18,
                                   ),
                                 ),
@@ -607,6 +607,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         getDonations();
                                       });
                                     },
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
                                     dense: true,
                                     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                                   ),
@@ -811,13 +814,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       const SizedBox(height: 20,),
                                       Widgets().textFormField(
                                         controller: amountController,
-                                        labelText: "Enter amount",
+                                        labelText: getTranslated(context, ["donationDashboardScreen", "label", "amount"]),
                                         keyboardType: TextInputType.number,
                                       ),
                                       const SizedBox(height: 20,),
                                       Widgets().textFormField(
                                         controller: descriptionController,
-                                        labelText: "Enter description",
+                                        labelText: getTranslated(context, ["donationDashboardScreen", "label", "description"]),
                                       ),
                                       const SizedBox(height: 30,),
                                       Row(
@@ -826,7 +829,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             child: Widgets().textButton(
                                               onPressed: ()async{
                                                 if(amountController.text.isEmpty){
-                                                  Widgets().showAlertDialog(alertMessage: "Enter a valid amount", context: context);
+                                                  Widgets().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "validate", "amount"]), context: context);
                                                 }else{
                                                   showDonationProgress = true;
                                                   setState(() {});
@@ -860,7 +863,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                           }else{
                                                             showDonationProgress = false;
                                                             setState(() {});
-                                                            Widgets().showAlertDialog(alertMessage: "Something went wrong.", context: context);
+                                                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "donationError"]), context: context);
                                                           }
                                                         });
                                                       } else
@@ -911,7 +914,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     }
                                                     await getDonations();
                                                   }else{
-                                                    Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+                                                    Widgets().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "donationError"]), context: context);
                                                     showDonationProgress = false;
                                                     setState(() {});
                                                   }

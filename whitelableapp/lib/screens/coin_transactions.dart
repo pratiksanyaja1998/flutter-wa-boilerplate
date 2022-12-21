@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
 import 'package:whitelabelapp/widgets/widgets.dart';
@@ -75,7 +76,9 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text("Referrals"),
+          title: Text(
+            getTranslated(context, ["coinTransactionScreen", "title"]),
+          ),
         ),
         body: showProgress ? const Center(
           child: CircularProgressIndicator(
@@ -93,7 +96,7 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: Widgets().textFormField(
                     controller: searchTextController,
-                    labelText: "search",
+                    labelText: getTranslated(context, ["coinTransactionScreen", "search"]),
                     suffixIcon: Icons.search,
                     onPressedSuffixIcon: (){
                       showProgress = true;
@@ -123,9 +126,9 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Filter by date",
-                          style: TextStyle(
+                        Text(
+                          getTranslated(context, ["coinTransactionScreen", "filterByDate"]),
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -146,7 +149,7 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                             }
                           },
                           child: Text(
-                            searchDate != null ? DateFormat("dd MMM yyyy hh:mm a").format(searchDate!) : "select date",
+                            searchDate != null ? DateFormat("dd MMM yyyy hh:mm a").format(searchDate!) : getTranslated(context, ["coinTransactionScreen", "selectDate"]),
                             style: const TextStyle(
                               fontSize: 18,
                             ),
@@ -199,12 +202,12 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                   ),
                                 ],
                               ),
-                              tabs: const [
+                              tabs: [
                                 Tab(
-                                  text: "Credit",
+                                  text: getTranslated(context, ["coinTransactionScreen", "credit"]),
                                 ),
                                 Tab(
-                                  text: "Debit",
+                                  text: getTranslated(context, ["coinTransactionScreen", "debit"]),
                                 ),
                               ],
                             ),

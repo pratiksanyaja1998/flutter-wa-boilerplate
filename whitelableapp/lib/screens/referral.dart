@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:whitelabelapp/config.dart';
+import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
 import 'package:whitelabelapp/widgets/widgets.dart';
@@ -59,7 +60,9 @@ class _ReferralScreenState extends State<ReferralScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text("Referrals"),
+          title: Text(
+            getTranslated(context, ["referralScreen", "title"]),
+          ),
         ),
         body: showProgress ? const Center(
           child: CircularProgressIndicator(
@@ -215,7 +218,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
                             onPressed: (){
                               Share.share('check out this amazing app ${SharedPreference.getBusinessConfig()!.socialLink["playStore"]} use my referral code ${SharedPreference.getUser()!.referralCode} to get free coins', subject: 'user referral');
                             },
-                            text: "Share",
+                            text: getTranslated(context, ["referralScreen", "share"],),
                             fontSize: 22,
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                           ),

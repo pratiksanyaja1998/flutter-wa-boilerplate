@@ -12,8 +12,8 @@ class ServiceApis {
 
   // static const String _baseUrl = "https://api.whitelabelapp.in";
   // static const String _baseUrl = "http://192.168.1.10:8000";
-  // static const String _baseUrl = "http://192.168.1.15:8000";
-  static const String _baseUrl = "http://192.168.1.15:4000";
+  static const String _baseUrl = "http://192.168.1.15:8000";
+  // static const String _baseUrl = "http://192.168.1.15:4000";
   // static const String _baseUrl = "http://192.168.1.11:9000";
 
   static String get getBaseUrl => _baseUrl;
@@ -605,6 +605,243 @@ class ServiceApis {
       return response;
     }
   }
+
+  Future<http.Response> updateProject({required String projectId, required String projectName, String? projectDescription, List<dynamic>? team})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/project/update/$projectId");
+
+    final body = jsonEncode({
+      "name": projectName,
+      "description": projectDescription ?? "",
+      "team": team ?? [],
+      "manager": SharedPreference.getUser()!.id,
+    });
+
+    http.Response response = await http.Client().patch(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("UPDATE PROJECT RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("UPDATE PROJECT RESPONSE = ${response.statusCode}");
+      print("UPDATE PROJECT RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> updateProjectStatus({required String projectId, required String status,})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/project/update/status/$projectId");
+
+    final body = jsonEncode({
+      "status": status,
+    });
+
+    http.Response response = await http.Client().patch(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("UPDATE PROJECT STATUS RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("UPDATE PROJECT STATUS RESPONSE = ${response.statusCode}");
+      print("UPDATE PROJECT STATUS RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteProject({required String projectId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/project/delete/$projectId");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 204){
+      print("PROJECT DELETE RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("PROJECT DELETE RESPONSE = ${response.statusCode}");
+      print("PROJECT DELETE RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> createTask({required String taskName, String? taskDescription, required int projectId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/create");
+
+    final body = jsonEncode({
+      "name": taskName,
+      "description": taskDescription ?? "",
+      "project": projectId,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 201){
+      print("CREATE TASK RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("CREATE TASK RESPONSE = ${response.statusCode}");
+      print("CREATE TASK RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getTaskList({String? projectId, String? search, String? ids, String? status})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/list?project=${projectId ?? ""}&search=${search ?? ""}&ids=${ids ?? ""}&status=${status ?? ""}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET TASK LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET TASK LIST RESPONSE = ${response.statusCode}");
+      print("GET TASK LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> updateTask({required String taskId, required String taskName, String? taskDescription, required int projectId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/update/$taskId");
+
+    final body = jsonEncode({
+      "name": taskName,
+      "description": taskDescription ?? "",
+      "project": projectId ?? "",
+    });
+
+    http.Response response = await http.Client().patch(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("UPDATE PROJECT RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("UPDATE PROJECT RESPONSE = ${response.statusCode}");
+      print("UPDATE PROJECT RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> updateTaskStatus({required String taskId, required String status,})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/update/status/$taskId");
+
+    final body = jsonEncode({
+      "status": status,
+    });
+
+    http.Response response = await http.Client().patch(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("UPDATE TASK STATUS RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("UPDATE TASK STATUS RESPONSE = ${response.statusCode}");
+      print("UPDATE TASK STATUS RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteTask({required String taskId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/delete/$taskId");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 204){
+      print("TASK DELETE RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("TASK DELETE RESPONSE = ${response.statusCode}");
+      print("TASK DELETE RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> assignTask({required int developerId, required int taskId, String? note})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/assigned_task/create");
+
+    final body = jsonEncode({
+      "note": note ?? "",
+      "developer": developerId,
+      "task": taskId
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 201){
+      print("ASSIGN TASK RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("ASSIGN TASK RESPONSE = ${response.statusCode}");
+      print("ASSIGN TASK RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
 
 
   Future<http.Response> getCoinTransactions({String? searchText, String? date, String? type})async{

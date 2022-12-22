@@ -139,20 +139,10 @@ axios
     // check if firebase_option.dart exist then remove
     if (fs.existsSync("./whitelableapp/lib/firebase_options.dart")) {
       fs.rmSync("./whitelableapp/lib/firebase_options.dart");
-      if (fs.existsSync('./whitelableapp/ios/firebase_app_id_file.json')) {
-        console.log('file exists');
-        fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
-      } else {
-        console.log('file not found!');
-      }
-      // fs.readFile('./whitelableapp/ios/firebase_app_id_file.json', (err, data) => {
-      //   print("---------- file exist ----------");
-      //   if (!err && data) {
-      //     print("---------- file exist ----------");
-      //     fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
-      //   }
-      // })
-      
+    }
+    // check if firebase_app_id_file.json exist then remove
+    if (fs.existsSync("./whitelableapp/ios/firebase_app_id_file.json")) {
+      fs.rmSync("./whitelableapp/ios/firebase_app_id_file.json");
     }
     console.log("--- delete option file and firebase app id file done ---");
 

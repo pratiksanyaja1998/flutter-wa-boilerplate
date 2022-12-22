@@ -51,6 +51,7 @@ class Widgets {
     void Function(String)? onChanged,
     String? Function(String?)? validator,
     TextInputType? keyboardType,
+    int? maxLines,
     bool? obscureText,
     void Function()? onPressedSuffixIcon,
     IconData? suffixIcon,
@@ -70,15 +71,17 @@ class Widgets {
         maxWidth: 370,
       ),
       child: TextFormField(
-        maxLines: 1,
+        maxLines: maxLines ?? 1,
+        // textAlignVertical: TextAlignVertical.top,
         controller: controller,
         obscureText: obscureText ?? false,
-        onChanged: onChanged ?? null,
+        onChanged: onChanged,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: const TextStyle(
             color: Colors.grey
           ),
+          alignLabelWithHint: true,
           suffixIcon: onPressedSuffixIcon != null ? IconButton(
             onPressed: onPressedSuffixIcon,
             icon: obscureText != null ? Icon(obscureText ? Icons.remove_red_eye : CupertinoIcons.eye_slash_fill, color: kThemeColor,) :
@@ -359,6 +362,22 @@ class Widgets {
           trailing: showArrowIcon ? const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,) : null,
         ),
       ),
+    );
+  }
+
+  Widget noProfileContainer({String? name,}){
+    List<Color> colors = [Colors.deepOrange, Colors.purple, Colors.indigo];
+    return Container(
+      decoration: BoxDecoration(
+        color: colors[1],
+      ),
+      child: Center(child: Text(
+        name ?? "",
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      )),
     );
   }
 

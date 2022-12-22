@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/firebase/firebase.dart';
@@ -111,13 +112,13 @@ class _MyAppState extends State<MyApp> {
         ),
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(
-            color: Colors.white,
+            color: Colors.black,
           ),
           actionsIconTheme: IconThemeData(
-            color: Colors.white,
+            color: Colors.black,
           ),
           backgroundColor: kThemeColor,
-          foregroundColor: Colors.white,
+          foregroundColor: Colors.black,
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           splashColor: Colors.black.withOpacity(0.1),

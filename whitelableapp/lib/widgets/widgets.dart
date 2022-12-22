@@ -52,6 +52,7 @@ class Widgets {
     String? Function(String?)? validator,
     TextInputType? keyboardType,
     bool? obscureText,
+    double? maxWidth,
     void Function()? onPressedSuffixIcon,
     IconData? suffixIcon,
   }){
@@ -66,8 +67,8 @@ class Widgets {
           ),
         ],
       ),
-      constraints: const BoxConstraints(
-        maxWidth: 370,
+      constraints: BoxConstraints(
+        maxWidth: maxWidth ?? 370,
       ),
       child: TextFormField(
         maxLines: 1,

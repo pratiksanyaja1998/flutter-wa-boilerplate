@@ -88,13 +88,14 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
           child: Container(
             height: MediaQuery.of(context).size.height,
             constraints: const BoxConstraints(
-              maxWidth: 450,
+              maxWidth: 500,
             ),
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                   child: Widgets().textFormField(
+                    maxWidth: 500,
                     controller: searchTextController,
                     labelText: getTranslated(context, ["coinTransactionScreen", "search"]),
                     suffixIcon: Icons.search,
@@ -111,7 +112,7 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                     constraints: const BoxConstraints(
-                      minWidth: 370,
+                      minWidth: 500,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -257,12 +258,14 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                       const SizedBox(height: 20,),
                                       const Expanded(child: Center()),
                                       Widgets().textFormField(
+                                        maxWidth: 500,
                                         controller: redeemCoinController,
                                         labelText: "Redeem coin amount",
                                         keyboardType: TextInputType.number,
                                       ),
                                       const SizedBox(height: 25,),
                                       Widgets().textFormField(
+                                        maxWidth: 500,
                                         controller: upiIdController,
                                         labelText: "UPI id",
                                       ),
@@ -270,70 +273,75 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                       const SizedBox(height: 30,),
                                       Text("Minimum ${SharedPreference.getBusinessConfig()!.redeemCoin.minCoin} coins required to redeem"),
                                       const SizedBox(height: 10,),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Widgets().textButton(
-                                              onPressed: () async{
-                                                if(redeemCoinController.text.isEmpty){
-                                                  Widgets().showAlertDialog(alertMessage: "coin amount can not be empty", context: context);
-                                                }else if(double.parse(redeemCoinController.text) < SharedPreference.getBusinessConfig()!.redeemCoin.minCoin){
-                                                  Widgets().showAlertDialog(alertMessage: "coin amount should be more than minimum required amount of coin", context: context);
-                                                }else if(double.parse(redeemCoinController.text) > double.parse(SharedPreference.getUser()!.coin)){
-                                                  Widgets().showAlertDialog(alertMessage: "coin amount could not be greater than coins in your wallet", context: context);
-                                                }else if(upiIdController.text.isEmpty){
-                                                  Widgets().showAlertDialog(alertMessage: "UPI id can not be empty", context: context);
-                                                }else{
-                                                  showProgress = true;
-                                                  setState(() {});
-                                                  Navigator.pop(context);
-                                                  var response = await ServiceApis().redeemCoins(coin: double.parse(redeemCoinController.text), upiId: upiIdController.text);
-                                                  if(response.statusCode == 201){
-                                                    showDialog(context: context, builder: (_){
-                                                      return AlertDialog(
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(10),
-                                                        ),
-                                                        content: const Text(
-                                                          "Your request for redeem coin sent successfully we will notify you when further action will be taken.",
-                                                          textAlign: TextAlign.center,
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight: FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        contentPadding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                                                        actionsPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                                                        actions: [
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            children: [
-                                                              Expanded(
-                                                                child: Widgets().textButton(
-                                                                  onPressed: (){
-                                                                    Navigator.pop(context);
-                                                                  },
-                                                                  text: "Ok",
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },);
+                                      Container(
+                                        constraints: BoxConstraints(
+                                          maxWidth: 500,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Widgets().textButton(
+                                                onPressed: () async{
+                                                  if(redeemCoinController.text.isEmpty){
+                                                    Widgets().showAlertDialog(alertMessage: "coin amount can not be empty", context: context);
+                                                  }else if(double.parse(redeemCoinController.text) < SharedPreference.getBusinessConfig()!.redeemCoin.minCoin){
+                                                    Widgets().showAlertDialog(alertMessage: "coin amount should be more than minimum required amount of coin", context: context);
+                                                  }else if(double.parse(redeemCoinController.text) > double.parse(SharedPreference.getUser()!.coin)){
+                                                    Widgets().showAlertDialog(alertMessage: "coin amount could not be greater than coins in your wallet", context: context);
+                                                  }else if(upiIdController.text.isEmpty){
+                                                    Widgets().showAlertDialog(alertMessage: "UPI id can not be empty", context: context);
                                                   }else{
-                                                    Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+                                                    showProgress = true;
+                                                    setState(() {});
+                                                    Navigator.pop(context);
+                                                    var response = await ServiceApis().redeemCoins(coin: double.parse(redeemCoinController.text), upiId: upiIdController.text);
+                                                    if(response.statusCode == 201){
+                                                      showDialog(context: context, builder: (_){
+                                                        return AlertDialog(
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(10),
+                                                          ),
+                                                          content: const Text(
+                                                            "Your request for redeem coin sent successfully we will notify you when further action will be taken.",
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight: FontWeight.w500,
+                                                            ),
+                                                          ),
+                                                          contentPadding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                                                          actionsPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                                          actions: [
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Widgets().textButton(
+                                                                    onPressed: (){
+                                                                      Navigator.pop(context);
+                                                                    },
+                                                                    text: "Ok",
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },);
+                                                    }else{
+                                                      Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+                                                    }
                                                   }
-                                                }
-                                                showProgress = false;
-                                                setState(() {});
-                                              },
-                                              text: "Request",
-                                              fontSize: 22,
-                                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                                  showProgress = false;
+                                                  setState(() {});
+                                                },
+                                                text: "Request",
+                                                fontSize: 22,
+                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),

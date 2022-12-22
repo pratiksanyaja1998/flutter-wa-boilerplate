@@ -237,7 +237,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ) : Container(
             // padding: const EdgeInsets.all(20.0),
             constraints: BoxConstraints(
-              maxWidth: 450,
+              maxWidth: 500,
               minHeight: MediaQuery.of(context).size.height,
             ),
             child: !SharedPreference.isLogin() ? Center(
@@ -786,7 +786,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Positioned(
                   left: 20,
                   right: 20,
-                  bottom: 10,
+                  bottom: 30,
                   child: Widgets().textButton(
                     onPressed: (){
                       showModalBottomSheet(

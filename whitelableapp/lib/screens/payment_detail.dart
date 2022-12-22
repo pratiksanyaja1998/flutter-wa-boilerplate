@@ -73,7 +73,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                 margin: const EdgeInsets.all(20),
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 constraints: const BoxConstraints(
-                  maxWidth: 370,
+                  maxWidth: 450,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -118,8 +118,11 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                 ),
               ),
               if(paymentDetail!["data"]["status"] == "unpaid")
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                Container(
+                  constraints: BoxConstraints(
+                    maxWidth: 450,
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
                     children: [
                       Expanded(

@@ -63,7 +63,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       if(response.statusCode == 200){
         print("otp sent successfully");
       }else{
-        print("otp not send .....");
+        var data = jsonDecode(response.body);
+        Widgets().showError(data: data, context: context);
       }
     }
   }
@@ -254,20 +255,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                         }else{
                                           showProgress = false;
                                           setState(() {});
-                                          print("something went wrong");
-                                          if(data.containsKey("detail")){
-                                            Widgets()
-                                                .showAlertDialog(
-                                              alertMessage: data["detail"],
-                                              context: context,
-                                            );
-                                          }else {
-                                            Widgets()
-                                                .showAlertDialog(
-                                              alertMessage: "Something went wrong",
-                                              context: context,
-                                            );
-                                          }
+                                          Widgets().showError(data: data, context: context);
                                         }
                                         // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
                                       }else{

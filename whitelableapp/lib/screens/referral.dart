@@ -37,7 +37,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
     }else{
       showProgress = false;
       setState(() {});
-      Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+      Widgets().showError(data: data, context: context);
     }
   }
 

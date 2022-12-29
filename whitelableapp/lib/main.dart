@@ -12,6 +12,7 @@ import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/screens/splash.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'package:whitelabelapp/service/shared_preference.dart';
+import 'dart:io' show Platform;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ void main() async{
   await SharedPreference.init();
   await ServiceApis.init();
 
-  if(!kIsWeb) {
+  if(!kIsWeb && !Platform.isWindows) {
     await FirebaseMessagingProject().getFcmToken();
   }
 

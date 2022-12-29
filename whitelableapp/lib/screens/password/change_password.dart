@@ -152,22 +152,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                         );
                                       }else{
                                         var data = jsonDecode(response.body);
-                                        if(data.containsKey("detail")){
-                                          print("---- ${data["detail"]}");
-                                          Widgets().showAlertDialog(
-                                            alertMessage: data["detail"], context: context,
-                                          );
-                                        }else if(data.containsKey("non_field_errors")){
-                                          print("---- ${data["non_field_errors"]}");
-                                          Widgets().showAlertDialog(
-                                            alertMessage: data["non_field_errors"][0], context: context,
-                                          );
-                                        }else{
-                                          print("Change password failed something went wrong");
-                                          Widgets().showAlertDialog(
-                                            alertMessage: "Change password failed", context: context,
-                                          );
-                                        }
+                                        Widgets().showError(data: data, context: context);
                                       }
                                       showProgress = false;
                                       setState(() {});

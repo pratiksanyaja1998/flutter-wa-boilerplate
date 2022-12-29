@@ -348,7 +348,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                                 setState(() {});
                               }
                             }else{
-
+                              var data = jsonDecode(response.body);
+                              Widgets().showError(data: data, context: context);
                             }
                             showProgress = false;
                             setState(() {});

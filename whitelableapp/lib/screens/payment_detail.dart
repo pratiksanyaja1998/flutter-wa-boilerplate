@@ -42,6 +42,8 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
       showProgress = false;
       setState(() {});
     }else{
+      var data = jsonDecode(response.body);
+      Widgets().showError(data: data, context: context);
       showProgress = false;
       setState(() {});
     }

@@ -8,7 +8,7 @@ import 'package:intl_phone_field/phone_number.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/model/user_model.dart';
-import 'package:whitelabelapp/screens/dashboard.dart';
+import 'package:whitelabelapp/screens/dashboards/dashboard.dart';
 import 'package:whitelabelapp/screens/dashboards/manager_dashboard.dart';
 import 'package:whitelabelapp/screens/password/forgot_password.dart';
 import 'package:whitelabelapp/screens/otp_verification_screen.dart';
@@ -248,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               if(SharedPreference.isLogin() && !kIsWeb){
                                                 await ServiceApis().crateFcmToken();
                                               }
-                                              if(SharedPreference.getUser()!.type == "manager"){
+                                              if(SharedPreference.getUser()!.type == "manager" || SharedPreference.getUser()!.type == "merchant"){
                                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ManagerDashboardScreen()));
                                               }else {
                                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -267,7 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     if(SharedPreference.isLogin() && !kIsWeb){
                                                       await ServiceApis().crateFcmToken();
                                                     }
-                                                    if(SharedPreference.getUser()!.type == "manager"){
+                                                    if(SharedPreference.getUser()!.type == "manager" || SharedPreference.getUser()!.type == "merchant"){
                                                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ManagerDashboardScreen()));
                                                     }else {
                                                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
@@ -294,17 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             }
                                           }else{
                                             var data = jsonDecode(response.body);
-                                            if(data.containsKey("detail")){
-                                              print("---- ${data["detail"]}");
-                                              Widgets().showAlertDialog(
-                                                alertMessage: data["detail"], context: context,
-                                              );
-                                            }else{
-                                              print("Log in failed something went wrong");
-                                              Widgets().showAlertDialog(
-                                                alertMessage: "Something went wrong", context: context,
-                                              );
-                                            }
+                                            Widgets().showError(data: data, context: context);
                                             showProgress = false;
                                             setState(() {});
                                           }

@@ -148,7 +148,7 @@ axios
 
     // update firebase_option.dart file for firebase
     cmdStatus = execSync(
-      `cd ./whitelableapp && flutterfire configure -p wa-apps-28f9a`,
+      `cd ./whitelableapp && flutterfire configure -p "${response.data?.data?.firebase_project_id || "wa-apps-28f9a"}"`,
       {
         encoding: "utf-8",
         stdio: "inherit",

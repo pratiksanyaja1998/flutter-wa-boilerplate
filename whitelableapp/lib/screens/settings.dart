@@ -360,10 +360,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     );
                                   }
                                 }else{
-                                  Widgets().showAlertDialog(
-                                    alertMessage: "Something went wrong.",
-                                    context: context,
-                                  );
+                                  var data = jsonDecode(response.body);
+                                  Widgets().showError(data: data, context: context);
                                 }
                               }
                           );

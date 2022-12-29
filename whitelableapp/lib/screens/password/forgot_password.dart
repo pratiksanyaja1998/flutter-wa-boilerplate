@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -204,9 +206,8 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                                       if(response.statusCode == 200){
                                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResetPasswordScreen(userName: userName,)));
                                       }else{
-                                        Widgets().showAlertDialog(
-                                          alertMessage: "Something went wrong", context: context,
-                                        );
+                                        var data = jsonDecode(response.body);
+                                        Widgets().showError(data: data, context: context);
                                       }
                                     }
                                   }else{

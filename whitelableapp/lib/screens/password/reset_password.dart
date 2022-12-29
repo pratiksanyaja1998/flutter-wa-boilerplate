@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   static final _resetPasswordFormKey = GlobalKey<FormState>();
 
   bool showProgress = false;
+  bool isMerchant = false;
 
   TextEditingController otpController1 = TextEditingController();
   TextEditingController otpController2 = TextEditingController();
@@ -149,7 +151,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             obscureText: true,
                             keyboardType: TextInputType.text,
                           ),
-                          const SizedBox(height: 30,),
+                          const SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              const Text("Merchant?"),
+                              Checkbox(
+                                value: isMerchant,
+                                fillColor: MaterialStateProperty.all(kThemeColor),
+                                onChanged: (value){
+                                  isMerchant = !isMerchant;
+                                  setState(() {});
+                                },
+                              ),
+                            ],
+                          ),
                           Row(
                             children: [
                               Expanded(
@@ -182,6 +197,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         setState(() {});
 
                                         var response = await ServiceApis().resetPassword(
+                                          isMerchant: isMerchant,
                                           newPassword: newPasswordController.text,
                                           confirmPassword: confirmPasswordController.text,
                                           userName: widget.userName,
@@ -189,11 +205,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         );
 
                                         if(response.statusCode == 200){
+                                          Navigator.pop(context);
                                           print("Hurrey");
                                           Widgets().showAlertDialog(alertMessage: "Your password has been reset", context: context);
-                                          Navigator.pop(context);
                                         }else{
-                                          Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+                                          var data = jsonDecode(response.body);
+                                          Widgets().showError(data: data, context: context);
                                         }
 
                                         showProgress = false;
@@ -255,7 +272,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         print("---");
                                         startTimer();
                                       }else{
-
+                                        var data = jsonDecode(response.body);
+                                        Widgets().showError(data: data, context: context);
                                       }
                                     }else{
 

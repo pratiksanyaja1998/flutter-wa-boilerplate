@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/model/business_app_config_model.dart';
-import 'package:whitelabelapp/screens/dashboard.dart';
+import 'package:whitelabelapp/screens/dashboards/dashboard.dart';
 import 'package:whitelabelapp/screens/dashboards/manager_dashboard.dart';
 import 'package:whitelabelapp/screens/login.dart';
 import 'package:whitelabelapp/service/api.dart';
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     if(SharedPreference.isLogin()) {
       var profile = await ServiceApis().getUserProfile();
-      if(SharedPreference.getUser()!.type == "manager"){
+      if(SharedPreference.getUser()!.type == "manager" || SharedPreference.getUser()!.type == "merchant"){
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ManagerDashboardScreen()));
       }else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));

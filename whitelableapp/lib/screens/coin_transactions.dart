@@ -48,10 +48,8 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
       showProgress = false;
       setState(() {});
     }else{
-      Widgets().showAlertDialog(
-        alertMessage: "Something went wrong",
-        context: context,
-      );
+      var data = jsonDecode(response.body);
+      Widgets().showError(data: data, context: context);
       showProgress = false;
       setState(() {});
     }
@@ -319,7 +317,8 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                                       );
                                                     },);
                                                   }else{
-                                                    Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+                                                    var data = jsonDecode(response.body);
+                                                    Widgets().showError(data: data, context: context);
                                                   }
                                                 }
                                                 showProgress = false;

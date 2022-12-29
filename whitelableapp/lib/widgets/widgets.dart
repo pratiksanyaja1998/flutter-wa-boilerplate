@@ -1,9 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/localization/language_constants.dart';
+import 'dart:io' show Platform;
 
 class Widgets {
 
@@ -25,7 +27,8 @@ class Widgets {
         backgroundColor: MaterialStateProperty.all(backgroundColor ?? kThemeColor),
         surfaceTintColor: MaterialStateProperty.all(kPrimaryColor),
         foregroundColor: MaterialStateProperty.all(Colors.transparent),
-        padding: MaterialStateProperty.all(padding ?? const EdgeInsets.symmetric(horizontal: 15, vertical: 6)),
+        padding: MaterialStateProperty.all(
+            padding ?? (kIsWeb || Platform.isWindows ? const EdgeInsets.only(left: 20, right: 20, bottom: 15, top: 10) : const EdgeInsets.symmetric(horizontal: 20, vertical: 8))),
         elevation: MaterialStateProperty.all(elevation ?? 4),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
@@ -51,6 +54,7 @@ class Widgets {
     void Function(String)? onChanged,
     String? Function(String?)? validator,
     TextInputType? keyboardType,
+    double? maxWidth,
     int? maxLines,
     bool? obscureText,
     void Function()? onPressedSuffixIcon,
@@ -67,8 +71,8 @@ class Widgets {
           ),
         ],
       ),
-      constraints: const BoxConstraints(
-        maxWidth: 370,
+      constraints: BoxConstraints(
+        maxWidth: maxWidth ?? 370,
       ),
       child: TextFormField(
         maxLines: maxLines ?? 1,
@@ -419,6 +423,55 @@ class Widgets {
         ),
       );
     });
+  }
+
+  void showError({required var data, required BuildContext context}){
+    if(data.containsKey("detail")){
+      print("---- ${data["detail"]}");
+      Widgets().showAlertDialog(
+        alertMessage: data["detail"], context: context,
+      );
+    }else if(data.containsKey("non_field_errors")){
+      Widgets().showAlertDialog(
+        alertMessage: data["non_field_errors"][0], context: context,
+      );
+    }else if(data.containsKey("message")){
+      Widgets().showAlertDialog(
+        alertMessage: data["message"], context: context,
+      );
+    }else{
+      Widgets().showAlertDialog(
+        alertMessage: "$data", context: context,
+      );
+    }
+  }
+
+  void showBottomSheet({required Widget child, required BuildContext context}){
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      builder: (context){
+        return Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom, left: 10, right: 10, top: 10),
+          child: Stack(
+            children: [
+              Center(
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Center(
+                child: child,
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
 }

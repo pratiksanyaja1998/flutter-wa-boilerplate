@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,30 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAs_h3Kw7EHqi6n_r63BhfO_yMrOCB0XVs',
-    appId: '1:282053984724:web:5e7440778c4e4e35e99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    authDomain: 'wa-apps-28f9a.firebaseapp.com',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC4X_Qk-ZhTxK3wezB364jBIY9Xh8bEGCo',
-    appId: '1:282053984724:android:a59b2240c813b0e2e99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
+    apiKey: 'AIzaSyAZ2XaqQUQBd1NSaAG015xinkuwFL9JLhc',
+    appId: '1:1069078049896:android:8014376777d689946b77dd',
+    messagingSenderId: '1069078049896',
+    projectId: 'spyhunter-it-solution',
+    storageBucket: 'spyhunter-it-solution.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAJicLaUThPDnR0Kesa4W6_4TUw4Eqj1Ts',
-    appId: '1:282053984724:ios:6d03885571fc4f98e99641',
-    messagingSenderId: '282053984724',
-    projectId: 'wa-apps-28f9a',
-    storageBucket: 'wa-apps-28f9a.appspot.com',
-    iosClientId: '282053984724-jnuvqjps172fsunvg35gfboagen5kvsq.apps.googleusercontent.com',
-    iosBundleId: 'com.spyhunteritsolution.demoretail',
+    apiKey: 'AIzaSyBc5CPL7NDH9TG8pNjMN46j7zQYhelmZMY',
+    appId: '1:1069078049896:ios:c04f8542916459ce6b77dd',
+    messagingSenderId: '1069078049896',
+    projectId: 'spyhunter-it-solution',
+    storageBucket: 'spyhunter-it-solution.appspot.com',
+    iosClientId: '1069078049896-a296tp7okqqird2ub2v6sd138crldlek.apps.googleusercontent.com',
+    iosBundleId: 'tracker.spyhunteritsolution.in',
   );
 }

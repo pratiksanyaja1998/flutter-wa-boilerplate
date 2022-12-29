@@ -10,9 +10,9 @@ import 'package:whitelabelapp/service/shared_preference.dart';
 
 class ServiceApis {
 
-  // static const String _baseUrl = "https://api.whitelabelapp.in";
+  static const String _baseUrl = "https://api.whitelabelapp.in";
   // static const String _baseUrl = "http://192.168.1.10:8000";
-  static const String _baseUrl = "http://192.168.1.15:8000";
+  // static const String _baseUrl = "http://192.168.1.15:8000";
   // static const String _baseUrl = "http://192.168.1.15:4000";
   // static const String _baseUrl = "http://192.168.1.11:9000";
 
@@ -97,6 +97,7 @@ class ServiceApis {
   })async{
 
     Uri url = Uri.parse("$_baseUrl/user/login");
+    print(url);
 
     final body = jsonEncode({
       "password": password,
@@ -116,7 +117,7 @@ class ServiceApis {
     );
 
     if(response.statusCode == 200){
-      print("USEr LOGIN RESPONSE = ${response.body}");
+      print("USER LOGIN RESPONSE = ${response.body}");
       UserModel userModel = UserModel.fromJson(jsonDecode(response.body));
       SharedPreference.setUser(userModel: userModel);
       return response;
@@ -479,12 +480,18 @@ class ServiceApis {
   }
 
   Future<http.Response> resetPassword({
+    bool isMerchant = false,
     required String newPassword,
     required String confirmPassword,
     required String userName,
     required String otp,
   })async{
-    Uri url = Uri.parse("$_baseUrl/user/reset-password/");
+    Uri url;
+    if(isMerchant){
+      url = Uri.parse("$_baseUrl/user/merchant/reset-password/");
+    }else {
+      url = Uri.parse("$_baseUrl/user/reset-password/");
+    }
 
     final body = jsonEncode({
       "new_password": newPassword,
@@ -534,8 +541,8 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getBusinessStaffList()async{
-    Uri url = Uri.parse("$_baseUrl/user/business/staff/list");
+  Future<http.Response> getBusinessStaffList({String? search})async{
+    Uri url = Uri.parse("$_baseUrl/user/business/staff/list${search != null ? "?search=$search" : ""}");
 
     http.Response response = await http.Client().get(
         url,
@@ -551,6 +558,54 @@ class ServiceApis {
     }else{
       print("GET BUSINESS STAFF LIST RESPONSE = ${response.statusCode}");
       print("GET BUSINESS STAFF LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getAppUserList()async{
+    Uri url = Uri.parse("$_baseUrl/user/business/customer/list");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET APP USER LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET APP USER LIST RESPONSE = ${response.statusCode}");
+      print("GET APP USER LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> changeUsrRole({required int userId, required String type})async{
+    Uri url = Uri.parse("$_baseUrl/user/update/role/$userId");
+
+    var body = jsonEncode({
+      "type": type,
+    });
+
+    http.Response response = await http.Client().patch(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CHANGE USER TYPE RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("CHANGE USER TYPE RESPONSE = ${response.statusCode}");
+      print("CHANGE USER TYPE RESPONSE = ${response.body}");
       return response;
     }
   }
@@ -735,13 +790,34 @@ class ServiceApis {
     }
   }
 
+  Future<http.Response> getTask({required int taskId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/get/$taskId");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET TASK RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET TASK RESPONSE = ${response.statusCode}");
+      print("GET TASK RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
   Future<http.Response> updateTask({required String taskId, required String taskName, String? taskDescription, required int projectId})async{
     Uri url = Uri.parse("$_baseUrl/tasktimertacker/task/update/$taskId");
 
     final body = jsonEncode({
       "name": taskName,
       "description": taskDescription ?? "",
-      "project": projectId ?? "",
+      "project": projectId,
     });
 
     http.Response response = await http.Client().patch(
@@ -841,6 +917,183 @@ class ServiceApis {
       return response;
     }
   }
+
+  Future<http.Response> getManagerTaskList({String? taskId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/assigned_task/manager/list${taskId != null ? "?task_id=$taskId" : ""}");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET MANAGER TASK LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET MANAGER TASK LIST RESPONSE = ${response.statusCode}");
+      print("GET MANAGER TASK LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getDeveloperTaskList({String? projectId, String? search, String? ids, String? status})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/assigned_task/developer/list");
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET DEVELOPER TASK LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET DEVELOPER TASK LIST RESPONSE = ${response.statusCode}");
+      print("GET DEVELOPER TASK LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> changeAssignedTaskDeveloper({required int taskId, required int developerId, String? note})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/assigned_task/change/developer/$taskId");
+
+    final body = jsonEncode({
+      "developer": developerId,
+      "note": note ?? "",
+    });
+
+    http.Response response = await http.Client().patch(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("CHANGE ASSIGN TASK DEVELOPER RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("CHANGE ASSIGN TASK DEVELOPER RESPONSE = ${response.statusCode}");
+      print("CHANGE ASSIGN TASK DEVELOPER RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> deleteAssignedTask({required int assignTaskId})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/assigned_task/delete/$assignTaskId");
+
+    http.Response response = await http.Client().delete(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 204){
+      print("ASSIGN TASK DELETE RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("ASSIGN TASK DELETE RESPONSE = ${response.statusCode}");
+      print("ASSIGN TASK DELETE RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> createTimeLogTask({required int assignTaskId, String? startTime, String? endTime, String? note})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/time_log_task/create");
+    print("=====$url");
+
+    String currentTime = DateTime.now().toIso8601String();
+    final body = jsonEncode({
+      "start_time": startTime ?? currentTime,
+      "end_time": endTime ?? currentTime,
+      "note": note ?? "",
+      "assigned_task": assignTaskId,
+    });
+    print("----$body");
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 201){
+      print("ASSIGN TASK TIME LOG CREATE RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("ASSIGN TASK TIME LOG CREATE RESPONSE = ${response.statusCode}");
+      print("ASSIGN TASK TIME LOG CREATE RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getTimeLogTaskList({int? assignTaskId,})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/time_log_task/list${assignTaskId != null ? "?assigned_task_id=$assignTaskId" : ""}");
+
+    print(url);
+
+    http.Response response = await http.Client().get(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("ASSIGN TASK TIME LOG LIST RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("ASSIGN TASK TIME LOG LIST RESPONSE = ${response.statusCode}");
+      print("ASSIGN TASK TIME LOG LIST RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
+  Future<http.Response> getDeveloperReport({required String startDate, required String endDate})async{
+    Uri url = Uri.parse("$_baseUrl/tasktimertacker/developer/report");
+
+    var body = jsonEncode({
+      "start_date": startDate,
+      "end_date": endDate,
+    });
+
+    http.Response response = await http.Client().post(
+        url,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Token ${SharedPreference.getUser()!.token}"
+        }
+    );
+
+    if(response.statusCode == 200){
+      print("GET DEVELOPER REPORT RESPONSE = ${response.statusCode}");
+      return response;
+    }else{
+      print("GET DEVELOPER REPORT RESPONSE = ${response.statusCode}");
+      print("GET DEVELOPER REPORT RESPONSE = ${response.body}");
+      return response;
+    }
+  }
+
 
 
 

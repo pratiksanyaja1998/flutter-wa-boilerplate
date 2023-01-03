@@ -39,7 +39,7 @@ dependencies:
   intl: ^0.17.0
   flutter_slidable: ^2.0.0
 #  fluttertoast: ^8.1.1
-  wa_flutter_lib: ^0.0.3
+  wa_flutter_lib: ^0.0.4
 
 dev_dependencies:
   flutter_test:

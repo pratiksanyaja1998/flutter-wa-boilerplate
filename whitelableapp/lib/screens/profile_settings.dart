@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/address_field.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
   const ProfileSettingsScreen({Key? key}) : super(key: key);

@@ -1,16 +1,11 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/screens/accommodation/bookings.dart';
 import 'package:whitelabelapp/screens/contact_us.dart';
-import 'package:whitelabelapp/screens/login.dart';
 import 'package:whitelabelapp/screens/settings.dart';
 import 'package:whitelabelapp/screens/terms_and_condition.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class DrawerItem{
   Widget drawer(BuildContext context, void Function(void Function()) setState){
@@ -33,7 +28,7 @@ class DrawerItem{
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => BookingsScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BookingsScreen()));
                 },
                 title: const Text(
                   "Bookings",
@@ -49,7 +44,7 @@ class DrawerItem{
               horizontalTitleGap: 0,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20),
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
               },
               title: Text(
                 getTranslated(context, ["menu", "settings"]),
@@ -66,7 +61,7 @@ class DrawerItem{
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermsAndConditionScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "termPolicy"]),
@@ -82,7 +77,7 @@ class DrawerItem{
               horizontalTitleGap: 0,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20),
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactUsScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContactUsScreen()));
               },
               title: Text(
                 getTranslated(context, ["menu", "contactUs"]),
@@ -101,23 +96,20 @@ class DrawerItem{
                     child: Widgets().textButton(
                       onPressed: (){
                         if(SharedPreference.isLogin()){
-                          Widgets().showConfirmationDialog(
+                          CommonFunctions().showConfirmationDialog(
                             confirmationMessage: getTranslated(context, ["settingScreen", "logoutMessage"]),
                             confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
                             cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
                             context: context,
                             onConfirm: ()async{
                               Navigator.pop(context);
-                              await ServiceApis().userLogOut();
-                              // selectedItem = 0;
+                              await UserServices().userLogOut();
                               setState(() {});
                             },
                           );
                         }else{
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen())).then((value) {
-                            // selectedItem = 0;
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen())).then((value) {
                             setState(() {});
-                            // getAccommodations();
                           });
                         }
                       },

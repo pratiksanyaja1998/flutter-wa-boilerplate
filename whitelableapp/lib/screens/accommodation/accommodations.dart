@@ -1,14 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/drawer.dart';
 import 'package:whitelabelapp/components/home_screen/accommodation_card.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/model/home_screen_models/accommodation_filter_model.dart';
 import 'package:whitelabelapp/screens/accommodation/accommodation_detail.dart';
+import 'package:whitelabelapp/screens/profile_settings.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
 
 class AccommodationScreen extends StatefulWidget {
   const AccommodationScreen({super.key});
@@ -28,8 +29,8 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
 
   bool filterApplied = false;
 
-  DateTime? startDate;
-  DateTime? endDate;
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(const Duration(days: 5));
   bool lowToHigh = false;
   bool highToLow = false;
   double minPrice = 0.0;
@@ -37,7 +38,6 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getAccommodations();
     super.initState();
   }
@@ -45,17 +45,19 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
   Future<void> getAccommodations()async{
     if(SharedPreference.getUser() != null) {
       var response = await ServiceApis().getAccommodationList(
-        startDate: startDate != null ? startDate.toString().split(" ")[0] : null,
-        endDate: endDate != null ? endDate.toString().split(" ")[0] : null,
+        startDate: DateFormat("yyyy-MM-dd").format(startDate),
+        endDate: DateFormat("yyyy-MM-dd").format(endDate),
       );
+      var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
         accommodationList = data;
         showProgress = false;
         setState(() {});
       } else {
         showProgress = false;
         setState(() {});
+        if(!mounted) return;
+        CommonFunctions().showError(data: data, context: context);
       }
     }else{
       showProgress = false;
@@ -63,38 +65,67 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
     }
   }
 
-  Future<void> selectDate({required bool isStartDate})async{
+  Future<dynamic> selectDate({required bool isStartDate, required DateTime start, required DateTime end,})async{
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
+      initialDate: isStartDate ? start : end.isBefore(start) ? start : end,
+      firstDate: isStartDate ? DateTime.now() : start,
       lastDate: DateTime(2100),
     );
     if(pickedDate != null){
-      var utcTime = DateTime.utc(
-        pickedDate.year,
-        pickedDate.month,
-        pickedDate.day,
+      if(!mounted) return;
+      TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
       );
-      if(isStartDate) {
-        startDate = utcTime;
-        print("-------------------------- START DATE ${startDate} ---------------------------");
-      }else{
-        endDate = utcTime;
-        print("-------------------------- END DATE ${startDate} ---------------------------");
+      if(pickedTime != null) {
+        var date = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+        return date;
       }
-      setState((){});
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(getTranslated(context, ["Accommodations"])),
+        actions: [
+          if(SharedPreference.isLogin())
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSettingsScreen())).then((value) {
+                  setState(() {});
+                });
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 6,
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Widgets().networkImageContainer(imageUrl: SharedPreference.getUser()!.photo, width: 40, height: 40),
+                ),
+              ),
+            ),
+        ],
       ),
       drawer: DrawerItem().drawer(context, setState),
       body: Container(
@@ -107,7 +138,6 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
             height: MediaQuery.of(context).size.height,
             child: RefreshIndicator(
               onRefresh: ()async{
-                // Future.delayed(const Duration(seconds: 0), (){});
                 showProgress = true;
                 setState(() {});
                 getAccommodations();
@@ -142,6 +172,8 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => AccommodationDetailScreen(
                                   accommodationList: accommodationList,
                                   index: i,
+                                  startDate: startDate,
+                                  endDate: endDate  ,
                                 )));
                               },
                               child: AccommodationCard(
@@ -184,10 +216,14 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
             ),
             context: context,
             builder: (context){
+              DateTime start = startDate;
+              DateTime end = endDate;
               return StatefulBuilder(
                 builder: (context, setstate) {
                   return AccommodationFilterModel(
                     apply: () async {
+                      startDate = start;
+                      endDate = end;
                       showProgress = true;
                       filterApplied = true;
                       setState(() {});
@@ -197,8 +233,8 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
                     cancel: () async{
                       if(filterApplied){
                         showProgress = true;
-                        startDate = null;
-                        endDate = null;
+                        startDate = DateTime.now();
+                        endDate = DateTime.now().add(const Duration(days: 5));
                         lowToHigh = false;
                         highToLow = false;
                         minPrice = 0.0;
@@ -214,11 +250,19 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
                     },
                     cancelText: filterApplied ? "Clear" : "Cancel",
                     selectStartDate: () async{
-                      await selectDate(isStartDate: true);
+                      var date = await selectDate(isStartDate: true, start: start, end: end);
+                      start = date;
+                      if(end.isBefore(start)){
+                        end = date;
+                      }
+                      printMessage("-------------------------- START DATE $start ---------------------------");
                       setstate((){});
+                      setState(() {});
                     },
                     selectEndDate: () async{
-                      await selectDate(isStartDate: false);
+                      var date = await selectDate(isStartDate: false, start: start, end: end);
+                      end = date;
+                      printMessage("-------------------------- END DATE $startDate ---------------------------");
                       setstate((){});
                     },
                     selectPriceRange: (value) {
@@ -227,8 +271,8 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
                       setState(() {});
                       setstate(() {});
                     },
-                    startDate: startDate,
-                    endDate: endDate,
+                    startDate: start,
+                    endDate: end,
                     lowToHigh: lowToHigh,
                     selectLowToHigh: () {
                       lowToHigh = !lowToHigh;
@@ -248,276 +292,6 @@ class _AccommodationScreenState extends State<AccommodationScreen> {
                   );
                 }
               );
-              // return StatefulBuilder(
-              //     builder: (context, setstate) {
-              //       return Container(
-              //         // height: MediaQuery.of(context).size.height,
-              //         decoration: const BoxDecoration(
-              //           borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              //           color: kPrimaryColor,
-              //         ),
-              //         child: Column(
-              //           children: [
-              //             const SizedBox(height: 20,),
-              //             const Text(
-              //               "Filter Date",
-              //               style: TextStyle(
-              //                 fontSize: 24,
-              //                 fontWeight: FontWeight.bold,
-              //                 color: Colors.black,
-              //               ),
-              //             ),
-              //             const SizedBox(height: 10,),
-              //             Expanded(
-              //               child: SingleChildScrollView(
-              //                 child: Padding(
-              //                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              //                   child: Column(
-              //                     crossAxisAlignment: CrossAxisAlignment.start,
-              //                     children: [
-              //                       const SizedBox(height: 10,),
-              //                       Container(
-              //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //                       decoration: BoxDecoration(
-              //                         color: Colors.white,
-              //                         borderRadius: BorderRadius.circular(8),
-              //                         boxShadow: [
-              //                           BoxShadow(
-              //                             color: Colors.black.withOpacity(0.25),
-              //                             blurRadius: 6,
-              //                           )
-              //                         ],
-              //                       ),
-              //                       child: GestureDetector(
-              //                         onTap: () async {
-              //                           DateTime? pickedDate = await showDatePicker(
-              //                             context: context,
-              //                             initialDate: DateTime.now(),
-              //                             firstDate: DateTime(1950),
-              //                             lastDate: DateTime(2100),
-              //                           );
-              //                           if(pickedDate != null){
-              //                             var utcTime = DateTime.utc(
-              //                               pickedDate.year,
-              //                               pickedDate.month,
-              //                               pickedDate.day,
-              //                             );
-              //                             startDate = utcTime;
-              //                             print("-------------------------- ${startDate} ---------------------------");
-              //                             setState((){});
-              //                             setstate((){});
-              //                           }
-              //                         },
-              //                         child: Row(
-              //                           children: [
-              //                             Expanded(
-              //                               child: Text(
-              //                                 startDate != null ? startDate.toString().split(" ")[0] : "Start date",
-              //                                 style: const TextStyle(
-              //                                   fontSize: 18,
-              //                                 ),
-              //                               ),
-              //                             ),
-              //                             const Icon(
-              //                               Icons.calendar_today_rounded,
-              //                               color: kThemeColor,
-              //                             ),
-              //                           ],
-              //                         ),
-              //                       ),
-              //                     ),
-              //                       const SizedBox(height: 20,),
-              //                       Container(
-              //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //                       decoration: BoxDecoration(
-              //                         color: Colors.white,
-              //                         borderRadius: BorderRadius.circular(8),
-              //                         boxShadow: [
-              //                           BoxShadow(
-              //                             color: Colors.black.withOpacity(0.25),
-              //                             blurRadius: 6,
-              //                           )
-              //                         ],
-              //                       ),
-              //                       child: GestureDetector(
-              //                         onTap: () async {
-              //                           DateTime? pickedDate = await showDatePicker(
-              //                             context: context,
-              //                             initialDate: DateTime.now(),
-              //                             firstDate: DateTime(1950),
-              //                             lastDate: DateTime(2100),
-              //                           );
-              //                           if(pickedDate != null){
-              //                             var utcTime = DateTime.utc(
-              //                               pickedDate.year,
-              //                               pickedDate.month,
-              //                               pickedDate.day,
-              //                             );
-              //                             endDate = utcTime;
-              //                             print("-------------------------- ${endDate} ---------------------------");
-              //                             setState((){});
-              //                             setstate((){});
-              //                           }
-              //                         },
-              //                         child: Row(
-              //                           children: [
-              //                             Expanded(
-              //                               child: Text(
-              //                                 endDate != null ? endDate.toString().split(" ")[0] : "Start date",
-              //                                 style: const TextStyle(
-              //                                   fontSize: 18,
-              //                                 ),
-              //                               ),
-              //                             ),
-              //                             const Icon(Icons.calendar_today_rounded, color: kThemeColor,),
-              //                           ],
-              //                         ),
-              //                       ),
-              //                     ),
-              //                       const SizedBox(height: 30,),
-              //                       const Padding(
-              //                         padding: EdgeInsets.symmetric(horizontal: 8.0),
-              //                         child: Text(
-              //                           "Sort by price",
-              //                           style: TextStyle(
-              //                             fontSize: 18,
-              //                             fontWeight: FontWeight.bold,
-              //                             color: Colors.black,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                       const SizedBox(height: 10,),
-              //                       RangeSlider(
-              //                         values: RangeValues(minPrice, maxPrice),
-              //                         min: 0,
-              //                         max: 200,
-              //                         labels: RangeLabels(minPrice.toString(), maxPrice.toString()),
-              //                         activeColor: kThemeColor,
-              //                         onChanged: (val){
-              //                           maxPrice = double.parse(val.end.toStringAsFixed(2));
-              //                           minPrice = double.parse(val.start.toStringAsFixed(2));
-              //                           setstate((){});
-              //                         },
-              //                       ),
-              //                       Padding(
-              //                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              //                         child: Row(
-              //                           children: [
-              //                             Text("Min: $minPrice"),
-              //                             Expanded(child: Center(),),
-              //                             Text("Max: $maxPrice"),
-              //                           ],
-              //                         ),
-              //                       ),
-              //                       const SizedBox(height: 20,),
-              //                       Container(
-              //                         decoration: BoxDecoration(
-              //                           color: Colors.white,
-              //                           borderRadius: BorderRadius.circular(8),
-              //                           boxShadow: [
-              //                             BoxShadow(
-              //                               color: Colors.black.withOpacity(0.25),
-              //                               blurRadius: 6,
-              //                             )
-              //                           ],
-              //                         ),
-              //                         child: Material(
-              //                           elevation: 0,
-              //                           color: Colors.transparent,
-              //                           child: ListTile(
-              //                             leading: Checkbox(
-              //                               value: highToLow,
-              //                               onChanged: null,
-              //                               fillColor: MaterialStateProperty.all(kThemeColor),
-              //                             ),
-              //                             onTap: (){
-              //                               highToLow = !highToLow;
-              //                               setstate((){});
-              //                             },
-              //                             title: const Text(
-              //                               "high to low",
-              //                               style: TextStyle(
-              //                                 fontSize: 16,
-              //                               ),
-              //                             ),
-              //                             shape: RoundedRectangleBorder(
-              //                               borderRadius: BorderRadius.circular(8),
-              //                             ),
-              //                             dense: true,
-              //                             tileColor: kPrimaryColor,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                       const SizedBox(height: 20,),
-              //                       Container(
-              //                         decoration: BoxDecoration(
-              //                           color: Colors.white,
-              //                           borderRadius: BorderRadius.circular(8),
-              //                           boxShadow: [
-              //                             BoxShadow(
-              //                               color: Colors.black.withOpacity(0.25),
-              //                               blurRadius: 6,
-              //                             ),
-              //                           ],
-              //                         ),
-              //                         child: Material(
-              //                           elevation: 0,
-              //                           color: Colors.transparent,
-              //                           child: ListTile(
-              //                             leading: Checkbox(
-              //                               value: lowToHigh,
-              //                               onChanged: null,
-              //                               fillColor: MaterialStateProperty.all(kThemeColor),
-              //                             ),
-              //                             onTap: (){
-              //                               lowToHigh = !lowToHigh;
-              //                               setstate((){});
-              //                             },
-              //                             title: const Text(
-              //                               "low to high",
-              //                               style: TextStyle(
-              //                                 fontSize: 16,
-              //                               ),
-              //                             ),
-              //                             shape: RoundedRectangleBorder(
-              //                               borderRadius: BorderRadius.circular(8),
-              //                             ),
-              //                             dense: true,
-              //                             tileColor: kPrimaryColor,
-              //                           ),
-              //                         ),
-              //                       ),
-              //                       const SizedBox(height: 20,),
-              //                     ],
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //             Padding(
-              //               padding: const EdgeInsets.symmetric(horizontal: 20.0 , vertical: 20),
-              //               child: Row(
-              //                 children: [
-              //                   Expanded(
-              //                     child: Widgets().textButton(
-              //                       onPressed: () async {
-              //                         showProgress = true;
-              //                         setState(() {});
-              //                         Navigator.pop(context);
-              //                         await getAccommodations(startDate: startDate.toString().split(" ")[0], endDate: endDate.toString().split(" ")[0]);
-              //                       },
-              //                       text: "Apply",
-              //                       fontSize: 20,
-              //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       );
-              //     }
-              // );
             },
           );
         },

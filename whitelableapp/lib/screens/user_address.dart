@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/screens/add_edit_address.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class UserAddress extends StatefulWidget {
   const UserAddress({Key? key}) : super(key: key);
@@ -25,15 +24,14 @@ class _UserAddressState extends State<UserAddress> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getSavedAddresses();
     super.initState();
   }
 
   Future<void> getSavedAddresses()async{
     var response = await ServiceApis().getUserAddressList();
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
       savedAddressList = data;
       showProgress = false;
       if(mounted) {
@@ -41,9 +39,9 @@ class _UserAddressState extends State<UserAddress> {
       }
     } else {
       showProgress = false;
-      if(mounted) {
-        setState(() {});
-      }
+      if(!mounted) return;
+      setState(() {});
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
@@ -95,7 +93,6 @@ class _UserAddressState extends State<UserAddress> {
                                 endActionPane: ActionPane(
                                   motion: const ScrollMotion(),
                                   extentRatio: 0.35,
-                                  // dismissible: DismissiblePane(onDismissed: () {}),
                                   children: [
                                     Container(
                                       margin: const EdgeInsets.only(right: 10, left: 20),
@@ -103,7 +100,6 @@ class _UserAddressState extends State<UserAddress> {
                                       height: 40,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
-                                        // color: Colors.black.withOpacity(0.3),
                                       ),
                                       child: Widgets().textButton(
                                         onPressed: (){
@@ -138,13 +134,8 @@ class _UserAddressState extends State<UserAddress> {
                                             await getSavedAddresses();
                                           }else{
                                             var data = jsonDecode(response.body);
-                                            if(data.containsKey("detail")){
-                                              print("---- ${data["detail"]}");
-                                              Widgets().showAlertDialog(alertMessage: data["detail"], context: context,);
-                                            }else{
-                                              print("something went wrong");
-                                              Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context,);
-                                            }
+                                            if(!mounted) return;
+                                            CommonFunctions().showError(data: data, context: context);
                                             showProgress = false;
                                             setState(() {});
                                           }

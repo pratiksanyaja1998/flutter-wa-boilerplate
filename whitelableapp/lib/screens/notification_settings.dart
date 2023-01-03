@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
   const NotificationSettingsScreen({Key? key}) : super(key: key);
@@ -94,7 +92,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                                 onChanged: (value) async {
                                   showProgress = true;
                                   setState(() {});
-                                  await ServiceApis().userSettingUpdate(
+                                  await UserServices().userSettingUpdate(
                                     userId: SharedPreference.getUser() != null ? SharedPreference.getUser()!.setting.id : 0,
                                     orderUpdateNotification: value!,
                                     promotionNotification: SharedPreference.getUser() != null ? SharedPreference.getUser()!.setting.promotionNotification : false,
@@ -102,7 +100,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                                   var user =  SharedPreference.getUser();
                                   if(user != null){
                                     user.setting.orderUpdateNotification = value;
-                                    print("--------------- ${user.setting.orderUpdateNotification} --------------------");
+                                    printMessage("--------------- ${user.setting.orderUpdateNotification} --------------------");
                                   }
                                   await SharedPreference.setUser(userModel: user);
                                   showProgress = false;
@@ -114,7 +112,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                         ),
                         const SizedBox(height: 15,),
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: kPrimaryColor,
                             borderRadius: BorderRadius.circular(5),
@@ -156,7 +154,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                                 onChanged: (value) async {
                                   showProgress = true;
                                   setState(() {});
-                                  await ServiceApis().userSettingUpdate(
+                                  await UserServices().userSettingUpdate(
                                     userId: SharedPreference.getUser() != null ? SharedPreference.getUser()!.setting.id : 0,
                                     orderUpdateNotification: SharedPreference.getUser() != null ? SharedPreference.getUser()!.setting.orderUpdateNotification : false,
                                     promotionNotification: value!,
@@ -164,7 +162,7 @@ class _NotificationSettingsScreenState extends State<NotificationSettingsScreen>
                                   var user =  SharedPreference.getUser();
                                   if(user != null){
                                     user.setting.promotionNotification = value;
-                                    print("--------------- ${user.setting.promotionNotification} --------------------");
+                                    printMessage("--------------- ${user.setting.promotionNotification} --------------------");
                                   }
                                   await SharedPreference.setUser(userModel: user);
                                   showProgress = false;

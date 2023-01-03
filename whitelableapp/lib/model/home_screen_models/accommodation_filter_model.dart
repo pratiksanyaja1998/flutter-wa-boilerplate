@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class AccommodationFilterModel extends StatefulWidget {
   const AccommodationFilterModel({
@@ -45,14 +45,12 @@ class _AccommodationFilterModelState extends State<AccommodationFilterModel> {
 
   @override
   void didUpdateWidget(covariant AccommodationFilterModel oldWidget) {
-    // TODO: implement didUpdateWidget
     setState(() {});
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     setState(() {
 
     });

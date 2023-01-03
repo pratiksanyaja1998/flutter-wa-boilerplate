@@ -2,8 +2,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class PromotionCard extends StatefulWidget {
   const PromotionCard({
@@ -195,6 +195,7 @@ class _PromotionCardState extends State<PromotionCard> {
 
   Future<void> copyCouponCode()async{
     await Clipboard.setData(ClipboardData(text: widget.couponCode));
+    if(!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,

@@ -5,14 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/drawer.dart';
 import 'package:whitelabelapp/components/notification_card.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/screens/notification_detail.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -29,27 +26,27 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getNotifications();
     super.initState();
   }
 
   Future<void> getNotifications()async{
-    var response = await ServiceApis().getNotificationList();
+    var response = await BusinessServices().getNotificationList();
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
       notificationList = data;
       showProgress = false;
       setState(() {});
     } else {
       showProgress = false;
       setState(() {});
+      if(!mounted) return;
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     setState(() {});
     super.didChangeDependencies();
   }
@@ -83,7 +80,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                   ),
                 ),
-                icon: Icon(Icons.playlist_add_check_outlined, size: 25,),
+                icon: const Icon(Icons.playlist_add_check_outlined, size: 25,),
               ),
             ),
           SizedBox(
@@ -92,7 +89,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               child: IconButton(
                 onPressed: (){
                   if(notificationList.isNotEmpty) {
-                    Widgets().showConfirmationDialog(
+                    CommonFunctions().showConfirmationDialog(
                       confirmationMessage: getTranslated(
                           context, [
                         "notificationScreen",
@@ -109,7 +106,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         showProgress = true;
                         setState(() {});
                         if (selectedNotifications.isNotEmpty) {
-                          await ServiceApis().deleteMultipleNotification(
+                          await UserServices().deleteMultipleNotification(
                               notificationId: selectedNotifications.toString()
                                   .replaceAll("[", "")
                                   .replaceAll("]", ""));
@@ -118,7 +115,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           for (int i = 0; i < notificationList.length; i++) {
                             id = "$id${notificationList[i]["id"]}, ";
                           }
-                          await ServiceApis().deleteMultipleNotification(
+                          await UserServices().deleteMultipleNotification(
                               notificationId: id);
                           getNotifications();
                         }
@@ -234,11 +231,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 }else if(selectedNotifications.contains(i)){
                                   selectedNotifications.remove(i);
                                 }
-                                // if(value == true){
-                                //   selectedNotifications.add(notificationList[i]["id"]);
-                                // }else if(selectedNotifications.contains(notificationList[i]["id"])){
-                                //   selectedNotifications.remove(notificationList[i]["id"]);
-                                // }
                               },
                             ),
                           ),
@@ -259,7 +251,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                           child: Widgets().textButton(
                             onPressed: ()async{
-                              Widgets().showConfirmationDialog(
+                              CommonFunctions().showConfirmationDialog(
                                 confirmationMessage: getTranslated(
                                     context, ["notificationScreen", "deleteMessage"]),
                                 confirmButtonText: getTranslated(
@@ -270,7 +262,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 onConfirm: () async{
                                   showProgress = true;
                                   setState(() {});
-                                  await ServiceApis().deleteNotification(notificationId: notificationList[i]["id"]);
+                                  await UserServices().deleteNotification(notificationId: notificationList[i]["id"]);
                                   await getNotifications();
                                 },
                               );
@@ -295,15 +287,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       description: notificationList[i]["description"],
                     ),
                   ),
-                  // child: NotificationCard(
-                  //   selectAll: selectAll,
-                  //   selected: selected,
-                  //   enabled: SharedPreference.isLogin(),
-                  //   onChanged: (value){
-                  //     selected = value!;
-                  //     setState(() {});
-                  //   },
-                  // ),
                 ),
             ],
           ),

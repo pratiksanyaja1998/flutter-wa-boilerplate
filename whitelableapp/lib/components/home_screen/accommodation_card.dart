@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa/shared_preference.dart';
 import 'package:whitelabelapp/config.dart';
 
 class AccommodationCard extends StatefulWidget {
@@ -14,7 +15,7 @@ class AccommodationCard extends StatefulWidget {
 
   final String name;
   final String description;
-  final String price;
+  final dynamic price;
   final List<dynamic> images;
   final double rating;
 
@@ -29,11 +30,13 @@ class _AccommodationCardState extends State<AccommodationCard> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> prices = widget.price["data"].values.toList();
+    prices.sort((a,b) => a.compareTo(b));
     return Container(
       constraints: const BoxConstraints(
         maxWidth: 370,
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       // padding: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -57,16 +60,6 @@ class _AccommodationCardState extends State<AccommodationCard> {
                   minWidth: 370,
                   minHeight: 230,
                 ),
-                // decoration: BoxDecoration(
-                //   color: kPrimaryColor,
-                //   borderRadius: BorderRadius.circular(15),
-                //   boxShadow: [
-                //     BoxShadow(
-                //         color: Colors.black.withOpacity(0.5),
-                //         blurRadius: 10
-                //     )
-                //   ],
-                // ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(topRight: Radius.circular(8) , topLeft: Radius.circular(8)),
                   child: PageView(
@@ -130,31 +123,6 @@ class _AccommodationCardState extends State<AccommodationCard> {
             ],
           ),
           const SizedBox(height: 15,),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     if(widget.images.length > 1)
-          //       for(int i = 0; i < widget.images.length; i++)
-          //         GestureDetector(
-          //           onTap: (){
-          //             pageController.animateToPage(i,duration: Duration(milliseconds: 600), curve: Curves.ease);
-          //           },
-          //           child: AnimatedContainer(
-          //             width: currentPageIndex == i ? 20.0 : 10,
-          //             height: 5.0,
-          //             margin: EdgeInsets.only(bottom: 15.0, left: 4, right: 4, top: 10),
-          //             decoration: BoxDecoration(
-          //               borderRadius: BorderRadius.circular(4),
-          //               color: currentPageIndex == i ? kThemeColor  : kSecondaryColor,
-          //             ),
-          //             duration: const Duration(
-          //               milliseconds: 500,
-          //             ),
-          //           ),
-          //         ),
-          //
-          //   ],
-          // ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
@@ -180,27 +148,29 @@ class _AccommodationCardState extends State<AccommodationCard> {
                 IntrinsicHeight(
                   child: Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Price",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Start from",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            widget.price,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "${SharedPreference.getBusinessConfig()!.currencySymbol} ${prices.first.toString()}",
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       const Padding(
                         padding: EdgeInsets.only(top: 5.0, bottom: 5),

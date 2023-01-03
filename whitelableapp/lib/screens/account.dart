@@ -1,13 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/drawer.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/model/user_model.dart';
 import 'package:whitelabelapp/screens/profile_settings.dart';
 import 'package:whitelabelapp/screens/user_address.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -22,7 +20,6 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     userModel = SharedPreference.getUser();
     super.initState();
   }
@@ -71,7 +68,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     color: Colors.transparent,
                     child: ListTile(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSettingsScreen())).then((value) {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSettingsScreen())).then((value) {
                           setState(() {});
                         });
                       },
@@ -226,7 +223,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             getTranslated(context, ["walletScreen", "savedAddress"]),
                           ),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserAddress()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const UserAddress()));
                           },
                           dense: true,
                           trailing: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black, size: 20,),

@@ -3,11 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/address_field.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class AddEditAddress extends StatefulWidget {
   const AddEditAddress({
@@ -27,8 +26,6 @@ class AddEditAddress extends StatefulWidget {
 
 class _AddEditAddressState extends State<AddEditAddress> {
 
-  static final _addressFormKey = GlobalKey<FormState>();
-
   bool showProgress = false;
 
   String selectedType = "Home";
@@ -45,7 +42,6 @@ class _AddEditAddressState extends State<AddEditAddress> {
 
   @override
   void initState() {
-    // TODO: implement initState
     if(widget.isEdit){
       selectedType = types.contains(widget.addressList![widget.index!]["type"]) ? widget.addressList![widget.index!]["type"] : "Custom";
       streetController.text = widget.addressList![widget.index!]["street"];
@@ -141,7 +137,7 @@ class _AddEditAddressState extends State<AddEditAddress> {
                                     onChanged: (String? newValue) {
                                       setState(() {
                                         selectedType = newValue!;
-                                        print("--- $selectedType");
+                                        printMessage("--- $selectedType");
                                       });
                                     },
                                     alignment: Alignment.bottomCenter,
@@ -220,19 +216,19 @@ class _AddEditAddressState extends State<AddEditAddress> {
                       child: Widgets().textButton(
                         onPressed: () async {
                           if(selectedType.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["addNewAddressScreen", "alert", "type"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["addNewAddressScreen", "alert", "type"]), context: context,);
                           }else if(streetController.text.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["message", "streetRequire"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["message", "streetRequire"]), context: context,);
                           }else if(areaController.text.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["message", "areaRequire"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["message", "areaRequire"]), context: context,);
                           }else if(cityController.text.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["message", "cityRequire"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["message", "cityRequire"]), context: context,);
                           }else if(stateController.text.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["message", "stateRequire"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["message", "stateRequire"]), context: context,);
                           }else if(countryController.text.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["message", "countryRequire"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["message", "countryRequire"]), context: context,);
                           }else if(postCodeController.text.isEmpty){
-                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["message", "postCodeRequire"]), context: context,);
+                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["message", "postCodeRequire"]), context: context,);
                           }else{
                             if(widget.isEdit){
 
@@ -247,17 +243,12 @@ class _AddEditAddressState extends State<AddEditAddress> {
                                 country: countryController.text,
                               );
 
+                              if(!mounted) return;
                               if(response.statusCode == 201){
                                 Navigator.pop(context);
                               }else{
                                 var data = jsonDecode(response.body);
-                                if(data.containsKey("detail")){
-                                  print("---- ${data["detail"]}");
-                                  Widgets().showAlertDialog(alertMessage: data["detail"], context: context,);
-                                }else{
-                                  print("something went wrong");
-                                  Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context,);
-                                }
+                                CommonFunctions().showError(data: data, context: context);
                               }
 
                             }

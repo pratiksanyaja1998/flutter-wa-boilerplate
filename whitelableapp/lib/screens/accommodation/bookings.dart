@@ -80,9 +80,9 @@ class _BookingsScreenState extends State<BookingsScreen> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: bookingList[i]["id"])));
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                           margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxWidth: 370,
                             minWidth: 370,
                           ),
@@ -99,11 +99,115 @@ class _BookingsScreenState extends State<BookingsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Status : ${bookingList[i]["status"]}"),
-                              const SizedBox(height: 10,),
-                              Text("check in : ${bookingList[i]["check_in"]}"),
-                              const SizedBox(height: 10,),
-                              Text("check out : ${bookingList[i]["check_out"]}"),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Status ",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 25.5,),
+                                  Text(
+                                    ": ${bookingList[i]["status"].toString()[0].toUpperCase()}${bookingList[i]["status"].toString().substring(1)}",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5,),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Check in ",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10,),
+                                  Text(
+                                    ": ${bookingList[i]["check_in"]}",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5,),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Check out ",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    ": ${bookingList[i]["check_out"]}",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              //
+                              // RichText(
+                              //   text: TextSpan(
+                              //     text: "Status ",
+                              //       style: const TextStyle(
+                              //         color: Colors.black,
+                              //       ),
+                              //     children: [
+                              //       TextSpan(
+                              //         text: ": ${bookingList[i]["status"]}",
+                              //         style: const TextStyle(
+                              //           fontSize: 16,
+                              //           fontWeight: FontWeight.bold,
+                              //         ),
+                              //       )
+                              //     ]
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 5,),
+                              // RichText(
+                              //   text: TextSpan(
+                              //       text: "Check in ",
+                              //       style: const TextStyle(
+                              //         color: Colors.black,
+                              //       ),
+                              //       children: [
+                              //         TextSpan(
+                              //           text: ": ${bookingList[i]["check_in"]}",
+                              //           style: const TextStyle(
+                              //             fontSize: 16,
+                              //             fontWeight: FontWeight.bold,
+                              //           ),
+                              //         )
+                              //       ]
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 5,),
+                              // RichText(
+                              //   text: TextSpan(
+                              //       text: "Check out ",
+                              //       style: const TextStyle(
+                              //         color: Colors.black,
+                              //       ),
+                              //       children: [
+                              //         TextSpan(
+                              //           text: ": ${bookingList[i]["check_out"]}",
+                              //           style: const TextStyle(
+                              //             fontSize: 16,
+                              //             fontWeight: FontWeight.bold,
+                              //           ),
+                              //         )
+                              //       ]
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

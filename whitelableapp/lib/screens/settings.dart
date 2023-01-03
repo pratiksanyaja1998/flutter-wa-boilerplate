@@ -2,14 +2,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/main.dart';
-import 'package:whitelabelapp/screens/password/change_password.dart';
 import 'package:whitelabelapp/screens/notification_settings.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -36,8 +32,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   ];
 
   void _changeLanguage(var language) async {
-    Locale _locale = await setLocale(language["languageCode"]);
-    MyApp.setLocale(context, _locale);
+    Locale locale = await setLocale(language["languageCode"]);
+    if(!mounted) return;
+    MyApp.setLocale(context, locale);
   }
 
   @override
@@ -134,7 +131,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                         fontSize: 18,
                                                         color: Colors.green
                                                     ),
-                                                  ) : SizedBox(),
+                                                  ) : const SizedBox(),
                                                 ),
                                               ),
                                               if(i < language.length - 1)
@@ -164,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     if(SharedPreference.getUser() != null)
                       if(SharedPreference.getUser()!.type == "admin")
                         Container(
-                          margin: EdgeInsets.only(bottom: 15),
+                          margin: const EdgeInsets.only(bottom: 15),
                           decoration: BoxDecoration(
                             color: kPrimaryColor,
                             borderRadius: BorderRadius.circular(5),
@@ -213,7 +210,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             getTranslated(context, ["settingScreen", "changePassword"]),
                           ),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassword()));
                           },
                           tileColor: kPrimaryColor,
                           shape: RoundedRectangleBorder(
@@ -244,7 +241,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             getTranslated(context, ["settingScreen", "notificationSettings"]),
                           ),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationSettingsScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationSettingsScreen()));
                           },
                           tileColor: kPrimaryColor,
                           shape: RoundedRectangleBorder(
@@ -278,25 +275,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                           ),
                           onTap: (){
-                            Widgets().showConfirmationDialog(
+                            CommonFunctions().showConfirmationDialog(
                               confirmationMessage: getTranslated(context, ["settingScreen", "deleteAccountMessage"]),
                               confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
                               cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
                               context: context,
                               onConfirm: ()async{
                                 Navigator.pop(context);
-                                var response = await ServiceApis().deleteAccount();
+                                var response = await UserServices().deleteAccount();
+                                var data = jsonDecode(response.body);
+                                if(!mounted) return;
                                 if(response.statusCode == 200){
-                                  var data = jsonDecode(response.body);
                                   if(data["success"]) {
-                                    Widgets().showAlertDialog(
+                                    CommonFunctions().showAlertDialog(
                                       alertMessage: data["message"],
                                       context: context,
                                     );
                                   }
                                 }else{
-                                  Widgets().showAlertDialog(
-                                    alertMessage: "Something went wrong.",
+                                  CommonFunctions().showError(
+                                    data: data,
                                     context: context,
                                   );
                                 }

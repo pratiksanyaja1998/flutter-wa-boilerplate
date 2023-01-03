@@ -1,16 +1,17 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/payment_gateways/cashfree/cashfree.dart';
 import 'package:whitelabelapp/payment_gateways/paytm/paytm.dart';
 import 'package:whitelabelapp/payment_gateways/razor_pay/razor_pay.dart';
 import 'package:whitelabelapp/payment_gateways/stripe/stripe.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
 class AccommodationDetailScreen extends StatefulWidget {
@@ -18,16 +19,25 @@ class AccommodationDetailScreen extends StatefulWidget {
     Key? key,
     required this.accommodationList,
     required this.index,
+    required this.startDate,
+    required this.endDate,
   }) : super(key: key);
 
   final List<dynamic> accommodationList;
   final int index;
+  final DateTime startDate;
+  final DateTime endDate;
 
   @override
   State<AccommodationDetailScreen> createState() => _AccommodationDetailScreenState();
 }
 
 class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
+
+  PageController pageController = PageController(
+    viewportFraction: 0.85,
+  );
+  int currentIndex = 0;
 
   bool showProgress = false;
 
@@ -36,10 +46,8 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +62,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
               constraints: const BoxConstraints(
                 maxWidth: 370,
               ),
-              padding: const EdgeInsets.all(20),
+              // padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   Expanded(
@@ -62,82 +70,74 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            constraints: const BoxConstraints(
-                              minWidth: 370,
-                              maxHeight: 230,
-                              minHeight: 230,
-                              maxWidth: 370,
-                            ),
-                            decoration: BoxDecoration(
-                              color: kThemeColor,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  blurRadius: 8,
-                                )
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(widget.accommodationList[widget.index]["images"][0]["image"],fit: BoxFit.cover,),
-                            ),
-                          ),
-                          const SizedBox(height: 20,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.accommodationList[widget.index]["name"],
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                          height: 1.1
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12,),
-                                      Text(
-                                        "${widget.accommodationList[widget.index]["price_per_night"]} / night",
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${widget.accommodationList[widget.index]["qty_per_day"]} / day",
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                          Stack(
+                            children: [
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  minWidth: 410,
+                                  maxHeight: 270,
+                                  minHeight: 270,
+                                  maxWidth: 410,
                                 ),
-                                const SizedBox(width: 5,),
-                                if(widget.accommodationList[widget.index]["images"].length > 1)
-                                  GestureDetector(
-                                    onTap: ()async{
-                                      await showDialog(
-                                        context: context,
-                                        barrierColor: Colors.black.withOpacity(0.7),
-                                        builder: (context){
+                                child: PageView.builder(
+                                  controller: pageController,
+                                  itemCount: widget.accommodationList[widget.index]["images"].length,
+                                  onPageChanged: (value){
+                                    currentIndex = value;
+                                    setState(() {});
+                                  },
+                                  itemBuilder: (context, index){
+                                    var scale = currentIndex == index ? 1.00 : 0.91;
+                                    return TweenAnimationBuilder(
+                                      duration: const Duration(milliseconds: 500),
+                                      tween: Tween(begin: scale, end: scale),
+                                      curve: Curves.ease,
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                                        constraints: const BoxConstraints(
+                                          minWidth: 370,
+                                          maxHeight: 230,
+                                          minHeight: 230,
+                                          maxWidth: 370,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: kThemeColor,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.3),
+                                              blurRadius: 8,
+                                            )
+                                          ],
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(widget.accommodationList[widget.index]["images"][index]["image"],fit: BoxFit.cover,),
+                                        ),
+                                      ),
+                                      builder: (context, double value, child){
+                                        return Transform.scale(
+                                          scale: value,
+                                          child: child,
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                right: 35,
+                                bottom: 30,
+                                child: GestureDetector(
+                                  onTap: ()async{
+                                    await showDialog(
+                                      context: context,
+                                      barrierColor: Colors.black.withOpacity(0.7),
+                                      builder: (context){
 
-                                          PageController pageController = PageController();
+                                        PageController pageController = PageController();
 
-                                          return StatefulBuilder(
+                                        return StatefulBuilder(
                                             builder: (context, setstate) {
                                               return Stack(
                                                 children: [
@@ -245,74 +245,172 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                 ],
                                               );
                                             }
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-                                            border: Border.all(color: Colors.grey),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black.withOpacity(0.2),
-                                                  blurRadius: 6
-                                              )
-                                            ],
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(5),
-                                            child: Image.network(
-                                              widget.accommodationList[widget.index]["images"][1]["image"],
-                                              width: 70,
-                                              height: 70,
-                                              fit: BoxFit.cover,
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: IntrinsicWidth(
+                                      child: Row(
+                                        children: [
+                                          const Icon(CupertinoIcons.photo_on_rectangle, color: Colors.white, size: 20,),
+                                          const SizedBox(width: 10,),
+                                          Text(
+                                            "${currentIndex+1}/${widget.accommodationList[widget.index]["images"].length}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
                                             ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          bottom: 0,
-                                          right: 0,
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                            decoration: BoxDecoration(
-                                              borderRadius: const BorderRadius.only(bottomRight: Radius.circular(10),),
-                                              color: Colors.black.withOpacity(0.5),
-                                            ),
-                                            child: Text(
-                                              "${widget.accommodationList[widget.index]["images"].length - 1}+",
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 15,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Text(
-                              widget.accommodationList[widget.index]["description"],
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
+                                ),
                               ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.accommodationList[widget.index]["name"],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                ReadMoreText(
+                                  widget.accommodationList[widget.index]["description"],
+                                  trimLines: 4,
+                                  colorClickableText: Colors.blue,
+                                  trimMode: TrimMode.Line,
+                                  trimCollapsedText: 'Show more',
+                                  trimExpandedText: 'Show less',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                  moreStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.blue,
+                                  ),
+                                  lessStyle: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "From : ",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: DateFormat("dd MMM yyyy hh:mm a").format(widget.startDate),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 5,),
+                                RichText(
+                                  text: TextSpan(
+                                    text: "To      : ",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: DateFormat("dd MMM yyyy hh:mm a").format(widget.endDate),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                const Text(
+                                  "Total price",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                Text(
+                                  "${SharedPreference.getBusinessConfig()!.currencySymbol} ${totalPrice()}",
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                const Text(
+                                  "Price distribution",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    // fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                const SizedBox(height: 5,),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      for(int i = 0; i < widget.accommodationList[widget.index]["price_per_night"]["data"].length; i++)
+                                        Container(
+                                          margin: const EdgeInsets.only(right: 10),
+                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(5),
+                                            border: Border.all(color: Colors.black),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                DateFormat("dd-MM-yyyy").format(DateTime.parse(widget.accommodationList[widget.index]["price_per_night"]["data"].keys.toList()[i])),
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              Text(
+                                                "${SharedPreference.getBusinessConfig()!.currencySymbol} ${widget.accommodationList[widget.index]["price_per_night"]["data"].values.toList()[i].toString()}",
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20,),
                   Container(
+                    margin: const EdgeInsets.all(20),
                     constraints: const BoxConstraints(
                       maxWidth: 370,
                     ),
@@ -366,6 +464,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                     firstDate: DateTime(1950),
                                                     lastDate: DateTime(2100),
                                                   );
+                                                  if(!mounted) return;
                                                   TimeOfDay? pickedTime = await showTimePicker(
                                                     context: context,
                                                     initialTime: TimeOfDay.now(),
@@ -422,6 +521,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                     firstDate: DateTime(1950),
                                                     lastDate: DateTime(2100),
                                                   );
+                                                  if(!mounted) return;
                                                   TimeOfDay? pickedTime = await showTimePicker(
                                                     context: context,
                                                     initialTime: TimeOfDay.now(),
@@ -473,6 +573,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                           int id = jsonDecode(response.body)["id"];
                                                           var data = jsonDecode(response.body)["payment"];
                                                           if(!kIsWeb) {
+                                                            if(!mounted) return;
                                                             if (SharedPreference
                                                                 .getBusinessConfig()!
                                                                 .paymentType ==
@@ -495,7 +596,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                                 }else{
                                                                   showProgress = false;
                                                                   setState(() {});
-                                                                  Widgets().showAlertDialog(alertMessage: "Something went wrong.", context: context);
+                                                                  CommonFunctions().showAlertDialog(alertMessage: "Something went wrong.", context: context);
                                                                 }
                                                               });
                                                             } else
@@ -503,7 +604,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                                 .getBusinessConfig()!
                                                                 .paymentType ==
                                                                 "razorpay") {
-                                                              RazorPay(
+                                                              await RazorPay(
                                                                 id: id,
                                                                 context: context,
                                                                 order: data,
@@ -513,11 +614,12 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                               });
                                                             }
                                                           }
+                                                          if(!mounted) return;
                                                           if (SharedPreference
                                                               .getBusinessConfig()!
                                                               .paymentType ==
                                                               "cashfree") {
-                                                            CashFree(
+                                                            await CashFree(
                                                               id: id,
                                                               context: context,
                                                               orderId: data["payment_cashfree_order_id"]
@@ -532,7 +634,7 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                               .getBusinessConfig()!
                                                               .paymentType ==
                                                               "stripe") {
-                                                            StripePg(
+                                                            await StripePg(
                                                               id: id,
                                                               context: context,
                                                               orderId: data["id"]
@@ -547,7 +649,8 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
                                                         }else{
                                                           showProgress = false;
                                                           setState(() {});
-                                                          Widgets().showAlertDialog(alertMessage: "Something went wrong.", context: context);
+                                                          if(!mounted) return;
+                                                          CommonFunctions().showAlertDialog(alertMessage: "Something went wrong.", context: context);
                                                         }
                                                       }
                                                     },
@@ -594,4 +697,14 @@ class _AccommodationDetailScreenState extends State<AccommodationDetailScreen> {
       ),
     );
   }
+
+  String totalPrice(){
+    double total = 0.0;
+    List<dynamic> prices = widget.accommodationList[widget.index]["price_per_night"]["data"].values.toList();
+    for(int i = 0; i < prices.length; i++){
+      total = total + prices[i];
+    }
+    return total.toString();
+  }
+
 }

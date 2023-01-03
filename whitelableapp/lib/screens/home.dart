@@ -4,12 +4,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/drawer.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getHomePageData();
     super.initState();
   }
@@ -74,23 +70,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getProducts({String? ids})async{
-    var response = await ServiceApis().getTopProductList(
+    var response = await BusinessServices().getTopProductList(
       ids: ids
     );
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
       productList = data;
       gettingProducts = false;
       setState(() {});
     } else {
       gettingProducts = false;
       setState(() {});
+      if(!mounted) return;
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _timer.cancel();
     imageSliderController.dispose();
     bannerController.dispose();

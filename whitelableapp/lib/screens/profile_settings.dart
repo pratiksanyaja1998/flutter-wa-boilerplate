@@ -2,18 +2,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/address_field.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/model/user_model.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class ProfileSettingsScreen extends StatefulWidget {
   const ProfileSettingsScreen({Key? key}) : super(key: key);
@@ -30,18 +25,17 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   TextEditingController emailController = TextEditingController();
 
   UserModel? user;
-  var selectedProfilePicture;
+  dynamic selectedProfilePicture;
   File? f;
 
   @override
   void initState() {
-    // TODO: implement initState
-     user = SharedPreference.getUser();
-    if(user != null) {
-      firstNameController.text = user!.firstName;
-      lastNameController.text = user!.lastName;
-      phoneNumberController.text = user!.phone;
-      emailController.text = user!.email;
+    if(SharedPreference.isLogin()) {
+      user = SharedPreference.getUser();
+      firstNameController.text = SharedPreference.getUser()!.firstName;
+      lastNameController.text = SharedPreference.getUser()!.lastName;
+      phoneNumberController.text = SharedPreference.getUser()!.phone;
+      emailController.text = SharedPreference.getUser()!.email;
     }
     super.initState();
   }
@@ -326,7 +320,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       Expanded(
                         child: Widgets().textButton(
                           onPressed: ()async{
-                            var response = await ServiceApis().updateUserProfile(
+                            var response = await UserServices().updateUserProfile(
                               photo: f,
                               firstName: firstNameController.text,
                               lastName: lastNameController.text,
@@ -379,13 +373,15 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
           IOSUiSettings(
             title: 'Cropper',
           ),
-          WebUiSettings(
-            context: context,
-          ),
+          if(mounted)
+            WebUiSettings(
+              context: context,
+            ),
+
         ],
       );
       if(croppedFile != null){
-        print("-=-=-=--=-= ${croppedFile.path}");
+        printMessage("-=-=-=--=-= ${croppedFile.path}");
         f = File(croppedFile.path);
         setState(() {});
       }

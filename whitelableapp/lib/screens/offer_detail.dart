@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/promotion_card.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 
 class OfferDetailScreen extends StatefulWidget {
   const OfferDetailScreen({Key? key, required this.offerDetail}) : super(key: key);
@@ -19,7 +19,6 @@ class _OfferDetailScreenState extends State<OfferDetailScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

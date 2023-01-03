@@ -1,9 +1,8 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:wa_flutter_lib/wa/constants.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class NotificationCard extends StatefulWidget {
   const NotificationCard({
@@ -33,33 +32,31 @@ class _NotificationCardState extends State<NotificationCard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     slide();
     super.initState();
   }
 
   Future<void> slide()async{
-    await Future.delayed(Duration(milliseconds: 0));
+    await Future.delayed(const Duration(milliseconds: 0));
+    if(!mounted) return;
     final slidable = Slidable.of(context);
     if(widget.selectAll != null && widget.selectAll == true){
-      print("START START");
+      printMessage("START START");
       slidable?.openStartActionPane();
     }else{
-      print("CLOSE CLOSE");
+      printMessage("CLOSE CLOSE");
       slidable?.close();
     }
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     slide();
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant NotificationCard oldWidget) {
-    // TODO: implement didUpdateWidget
     slide();
     super.didUpdateWidget(oldWidget);
   }

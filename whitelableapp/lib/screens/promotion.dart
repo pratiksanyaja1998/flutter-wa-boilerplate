@@ -2,13 +2,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/drawer.dart';
 import 'package:whitelabelapp/components/promotion_card.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/screens/offer_detail.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
 
 class PromotionScreen extends StatefulWidget {
   const PromotionScreen({Key? key}) : super(key: key);
@@ -31,9 +29,9 @@ class _PromotionScreenState extends State<PromotionScreen> {
   }
 
   Future<void> getPromotions()async{
-    var response = await ServiceApis().getPromotionList();
+    var response = await BusinessServices().getPromotionList();
+    var data = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
       promotionList = data;
       showProgress = false;
       if(mounted) {
@@ -41,9 +39,9 @@ class _PromotionScreenState extends State<PromotionScreen> {
       }
     } else {
       showProgress = false;
-      if(mounted) {
-        setState(() {});
-      }
+      if(!mounted) return;
+      setState(() {});
+      CommonFunctions().showError(data: data, context: context);
     }
   }
   @override

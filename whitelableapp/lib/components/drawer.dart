@@ -105,6 +105,7 @@ class DrawerItem{
                               Navigator.pop(context);
                               await UserServices().userLogOut();
                               setState(() {});
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
                             },
                           );
                         }else{

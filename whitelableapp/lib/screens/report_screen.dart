@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({Key? key}) : super(key: key);
@@ -29,6 +28,7 @@ class _ReportScreenState extends State<ReportScreen> {
     setState(() {});
     var response = await ServiceApis().getDeveloperReport(startDate: startDate, endDate: endDate);
     var data = jsonDecode(response.body);
+    if(!mounted) return;
     if(response.statusCode == 200){
       reportList = data;
       showProgress = false;
@@ -37,9 +37,9 @@ class _ReportScreenState extends State<ReportScreen> {
       showProgress = false;
       setState(() {});
       try {
-        Widgets().showError(data: data, context: context);
+        CommonFunctions().showError(data: data, context: context);
       }catch(e){
-        Widgets().showAlertDialog(alertMessage: "No record available,", context: context);
+        CommonFunctions().showAlertDialog(alertMessage: "No record available,", context: context);
       }
     }
   }
@@ -77,6 +77,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     lastDate: DateTime.now(),
                   );
                   if(pickedDate != null) {
+                    if(!mounted) return;
                     TimeOfDay? pickedTime = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
@@ -134,6 +135,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     lastDate: DateTime.now(),
                   );
                   if(pickedDate != null){
+                    if(!mounted) return;
                     TimeOfDay? pickedTime = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
@@ -472,7 +474,7 @@ class _ReportScreenState extends State<ReportScreen> {
                         if(startDate != null && endDate != null){
                           getReport(startDate: startDate!.toIso8601String(), endDate: endDate!.toIso8601String());
                         }else{
-                          Widgets().showAlertDialog(alertMessage: "Please select start date and end date to get report.", context: context);
+                          CommonFunctions().showAlertDialog(alertMessage: "Please select start date and end date to get report.", context: context);
                         }
                       },
                       text: "Get report",

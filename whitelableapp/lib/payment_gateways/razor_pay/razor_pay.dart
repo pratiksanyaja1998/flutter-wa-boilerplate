@@ -2,9 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class RazorPay{
 
@@ -15,7 +14,7 @@ class RazorPay{
   });
   BuildContext context;
   int id;
-  var order;
+  dynamic order;
 
   final Razorpay _razorpay = Razorpay();
 
@@ -36,14 +35,15 @@ class RazorPay{
       await Future.delayed(const Duration(milliseconds: 200));
       if (paymentEnd) break;
     }
+    return null;
   }
 
   Razorpay get getInstance => _razorpay;
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async{
-    print("::::::::::::::::::::::: ${response.orderId} ::::::::::::::::::::::");
-    print("::::::::::::::::::::::: ${response.paymentId} ::::::::::::::::::::::");
-    print("::::::::::::::::::::::: ${response.signature} ::::::::::::::::::::::");
+    printMessage("::::::::::::::::::::::: ${response.orderId} ::::::::::::::::::::::");
+    printMessage("::::::::::::::::::::::: ${response.paymentId} ::::::::::::::::::::::");
+    printMessage("::::::::::::::::::::::: ${response.signature} ::::::::::::::::::::::");
 
     var res = await ServiceApis().razorpayCallback(
       id: order["id"].toString(),
@@ -55,9 +55,9 @@ class RazorPay{
     _razorpay.clear();
 
     if(res.statusCode == 200){
-      Widgets().showSuccessModal(context: context,);
+      CommonFunctions().showSuccessModal(context: context,);
     }else{
-      Widgets().showSuccessModal(context: context, success: false);
+      CommonFunctions().showSuccessModal(context: context, success: false);
     }
 
     paymentEnd = true;
@@ -67,21 +67,21 @@ class RazorPay{
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("###################### ${response.code} ##########################");
-    print("###################### ${response.message} ##########################");
+    printMessage("###################### ${response.code} ##########################");
+    printMessage("###################### ${response.message} ##########################");
     _razorpay.clear();
     paymentEnd = true;
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-    print("@@@@@@@@@@@@@@@@@@@@ ${response.walletName} @@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    printMessage("@@@@@@@@@@@@@@@@@@@@ ${response.walletName} @@@@@@@@@@@@@@@@@@@@@@@@@@@");
     _razorpay.clear();
     paymentEnd = true;
   }
 
   Future<void> openGateway({required String orderId, required double amount, required String description})async{
 
-    print("CREATING GATEWAY");
+    printMessage("CREATING GATEWAY");
 
     var options = {
       'key': SharedPreference.getBusinessConfig()!.paymentKey,

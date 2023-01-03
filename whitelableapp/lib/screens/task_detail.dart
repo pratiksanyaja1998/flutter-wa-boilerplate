@@ -3,11 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/model/assign_task_modal.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class TaskDetail extends StatefulWidget {
   const TaskDetail({Key? key, required this.taskId, required this.projectData}) : super(key: key);
@@ -41,7 +40,6 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
 
   @override
   void initState() {
-    // TODO: implement initState
     getTask();
     super.initState();
   }
@@ -50,7 +48,8 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
     await Future.delayed(const Duration(seconds: 0));
     var response = await ServiceApis().getTask(taskId: widget.taskId);
     var data = jsonDecode(response.body);
-    print(data);
+    printMessage(data);
+    if(!mounted) return;
     if (response.statusCode == 200) {
       taskData = data;
       switch(taskData["status"]){
@@ -72,7 +71,7 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
     } else {
       showProgress = false;
       setState(() {});
-      Widgets().showError(data: data, context: context);
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
@@ -89,7 +88,7 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
         centerTitle: true,
         title: Text(
           taskData == null ? "" : taskData["name"],
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -167,7 +166,7 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
                             curve: Curves.easeInOut,
                             duration: const Duration(milliseconds: 600),
                             child: SingleChildScrollView(
-                              physics: showAllDescription ? ScrollPhysics() : NeverScrollableScrollPhysics(),
+                              physics: showAllDescription ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
                               child: Text(
                                 taskData["description"],
                                 maxLines: 10,
@@ -591,23 +590,25 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
                                                     note: assignTaskDescriptionController
                                                         .text,
                                                   );
+                                                  var data = jsonDecode(
+                                                      response.body);
                                                   if (response.statusCode ==
                                                       200) {
                                                     await getTask();
-                                                    Widgets().showAlertDialog(
-                                                        alertMessage: "Task assigned successfuly.",
+                                                    if(!mounted) return;
+                                                    CommonFunctions().showAlertDialog(
+                                                        alertMessage: "Task assigned successfully.",
                                                         context: context);
                                                   } else {
                                                     showProgress = false;
+                                                    if(!mounted) return;
                                                     setState(() {});
-                                                    var data = jsonDecode(
-                                                        response.body);
-                                                    Widgets().showError(
+                                                    CommonFunctions().showError(
                                                         data: data,
                                                         context: context);
                                                   }
                                                 } else {
-                                                  Widgets().showAlertDialog(
+                                                  CommonFunctions().showAlertDialog(
                                                       alertMessage: "Developer must be selected to assign task.",
                                                       context: context);
                                                 }
@@ -624,16 +625,18 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
                                                     204) {
                                                   await getTask();
                                                   showProgress = false;
+                                                  if(!mounted) return;
                                                   setState(() {});
-                                                  Widgets().showAlertDialog(
+                                                  CommonFunctions().showAlertDialog(
                                                       alertMessage: "Assigned task deleted successfully.",
                                                       context: context);
                                                 } else {
                                                   showProgress = false;
-                                                  setState(() {});
                                                   var data = jsonDecode(
                                                       response.body);
-                                                  Widgets().showError(
+                                                  if(!mounted) return;
+                                                  setState(() {});
+                                                  CommonFunctions().showError(
                                                       data: data,
                                                       context: context);
                                                 }
@@ -814,23 +817,12 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
                                               //     )),
                                             ],
                                           ),
-                                          // Padding(
-                                          //   padding: const EdgeInsets.only(left: 6.0,),
-                                          //   child: Text(
-                                          //     "${widget.taskData["assigned_task"][i]["developer"]["email"]}",
-                                          //     maxLines: 1,
-                                          //     style: const TextStyle(
-                                          //       fontSize: 12,
-                                          //     ),
-                                          //   ),
-                                          // ),
                                           Expanded(
                                             child: SingleChildScrollView(
                                               child: Padding(
                                                 padding: const EdgeInsets.only(left: 6.0, top: 5),
                                                 child: Text(
                                                   taskData["assigned_task"][i]["note"],
-                                                  // maxLines: 4,
                                                   style: const TextStyle(
                                                       fontSize: 16,
                                                       fontWeight: FontWeight.w500
@@ -904,17 +896,19 @@ class _TaskDetailState extends State<TaskDetail> with TickerProviderStateMixin{
                     taskId: taskData["id"],
                     note: assignTaskDescriptionController.text,
                   );
+                  var data = jsonDecode(response.body);
                   if(response.statusCode == 201){
                     await getTask();
-                    Widgets().showAlertDialog(alertMessage: "Task assigned successfuly.", context: context);
+                    if(!mounted) return;
+                    CommonFunctions().showAlertDialog(alertMessage: "Task assigned successfully.", context: context);
                   }else{
                     showProgress = false;
+                    if(!mounted) return;
                     setState(() {});
-                    var data = jsonDecode(response.body);
-                    Widgets().showError(data: data, context: context);
+                    CommonFunctions().showError(data: data, context: context);
                   }
                 }else{
-                  Widgets().showAlertDialog(alertMessage: "Developer must be selected to assign task.", context: context);
+                  CommonFunctions().showAlertDialog(alertMessage: "Developer must be selected to assign task.", context: context);
                 }
               },
           );

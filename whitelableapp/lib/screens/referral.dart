@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class ReferralScreen extends StatefulWidget {
   const ReferralScreen({Key? key}) : super(key: key);
@@ -22,7 +21,6 @@ class _ReferralScreenState extends State<ReferralScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getReferralList();
     super.initState();
   }
@@ -30,6 +28,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
   Future<void> getReferralList()async{
     var response = await ServiceApis().getReferralList();
     var data = jsonDecode(response.body);
+    if(!mounted) return;
     if(response.statusCode == 200){
       referralList = data;
       showProgress = false;
@@ -37,7 +36,7 @@ class _ReferralScreenState extends State<ReferralScreen> {
     }else{
       showProgress = false;
       setState(() {});
-      Widgets().showError(data: data, context: context);
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 

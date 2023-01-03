@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class AssignTaskModal{
   void assignUserModal({
@@ -15,7 +15,7 @@ class AssignTaskModal{
     bool isEdit = false,
   }){
     var selectedTeamMember = selectedDeveloper;
-    Widgets().showBottomSheet(
+    CommonFunctions().showBottomSheet(
       context: context,
       child: Container(
         margin: const EdgeInsets.all(15),
@@ -91,14 +91,14 @@ class AssignTaskModal{
                                         selectedTeamMember = projectTeam[int.parse(newValue)];
                                         state(() {});
                                       }else{
-                                        Widgets().showAlertDialog(alertMessage: "This task already assigned to this developer.", context: context);
+                                        CommonFunctions().showAlertDialog(alertMessage: "This task already assigned to this developer.", context: context);
                                       }
                                     }else{
                                       if(!assignedTaskList.map((element) => element["developer"]["id"]).toList().contains(projectTeam[int.parse(newValue)]["id"])) {
                                         selectedTeamMember = projectTeam[int.parse(newValue)];
                                         state(() {});
                                       }else{
-                                        Widgets().showAlertDialog(alertMessage: "This task already assigned to this developer.", context: context);
+                                        CommonFunctions().showAlertDialog(alertMessage: "This task already assigned to this developer.", context: context);
                                       }
                                     }
 

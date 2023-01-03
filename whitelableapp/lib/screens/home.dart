@@ -1,53 +1,38 @@
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/model/business_app_config_model.dart';
 import 'package:whitelabelapp/screens/dashboards/dashboard.dart';
 import 'package:whitelabelapp/screens/dashboards/manager_dashboard.dart';
-import 'package:whitelabelapp/screens/login.dart';
-import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-
-  String displayText = "";
+class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-
-    getBusinessAppConfig();
-    
+    getLoginUser();
     super.initState();
   }
 
-  Future<void> getBusinessAppConfig()async{
+  Future<void> getLoginUser()async{
     await Future.delayed(const Duration(seconds: 0));
-    BusinessAppConfigModel? businessAppConfigModel = SharedPreference.getBusinessConfig();
-    if(businessAppConfigModel != null){
-      displayText = "";
-      var response = await ServiceApis().getAppConfig();
-    }else{
-      displayText = "We are setting up your app...";
-      setState(() {});
-      var response = await ServiceApis().getAppConfig();
-      displayText = "";
-    }
     if(SharedPreference.isLogin()) {
-      var profile = await ServiceApis().getUserProfile();
+      await UserServices().getUserProfile();
+      if(!mounted) return;
       if(SharedPreference.getUser()!.type == "manager" || SharedPreference.getUser()!.type == "merchant"){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ManagerDashboardScreen()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ManagerDashboardScreen()));
       }else {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const DashboardScreen()));
       }
     }else{
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+      if(!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
     }
   }
 
@@ -83,13 +68,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               const SizedBox(height: 10,),
-              if(displayText.isNotEmpty)
-                Text(
-                  displayText,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
             ],
           ),
         ),

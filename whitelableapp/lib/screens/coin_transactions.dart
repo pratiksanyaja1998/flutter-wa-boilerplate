@@ -3,10 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class CoinTransactionScreen extends StatefulWidget {
   const CoinTransactionScreen({Key? key}) : super(key: key);
@@ -30,7 +29,6 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
 
   @override
   void initState() {
-    // TODO: implement initState
     getCoinTransactions();
     super.initState();
   }
@@ -40,6 +38,8 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
       searchText: searchTextController.text,
       date: searchDate != null ? DateFormat("yyyy-MM-dd").format(searchDate!) : null,
     );
+    var data = jsonDecode(response.body);
+    if(!mounted) return;
     if(response.statusCode == 200){
       var data = jsonDecode(response.body);
       coinTransaction = data;
@@ -48,8 +48,7 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
       showProgress = false;
       setState(() {});
     }else{
-      var data = jsonDecode(response.body);
-      Widgets().showError(data: data, context: context);
+      CommonFunctions().showError(data: data, context: context);
       showProgress = false;
       setState(() {});
     }
@@ -271,18 +270,20 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                             child: Widgets().textButton(
                                               onPressed: () async{
                                                 if(redeemCoinController.text.isEmpty){
-                                                  Widgets().showAlertDialog(alertMessage: "coin amount can not be empty", context: context);
+                                                  CommonFunctions().showAlertDialog(alertMessage: "coin amount can not be empty", context: context);
                                                 }else if(double.parse(redeemCoinController.text) < SharedPreference.getBusinessConfig()!.redeemCoin.minCoin){
-                                                  Widgets().showAlertDialog(alertMessage: "coin amount should be more than minimum required amount of coin", context: context);
+                                                  CommonFunctions().showAlertDialog(alertMessage: "coin amount should be more than minimum required amount of coin", context: context);
                                                 }else if(double.parse(redeemCoinController.text) > double.parse(SharedPreference.getUser()!.coin)){
-                                                  Widgets().showAlertDialog(alertMessage: "coin amount could not be greater than coins in your wallet", context: context);
+                                                  CommonFunctions().showAlertDialog(alertMessage: "coin amount could not be greater than coins in your wallet", context: context);
                                                 }else if(upiIdController.text.isEmpty){
-                                                  Widgets().showAlertDialog(alertMessage: "UPI id can not be empty", context: context);
+                                                  CommonFunctions().showAlertDialog(alertMessage: "UPI id can not be empty", context: context);
                                                 }else{
                                                   showProgress = true;
                                                   setState(() {});
                                                   Navigator.pop(context);
                                                   var response = await ServiceApis().redeemCoins(coin: double.parse(redeemCoinController.text), upiId: upiIdController.text);
+                                                  var data = jsonDecode(response.body);
+                                                  if(!mounted) return;
                                                   if(response.statusCode == 201){
                                                     showDialog(context: context, builder: (_){
                                                       return AlertDialog(
@@ -297,8 +298,8 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                                             fontWeight: FontWeight.w500,
                                                           ),
                                                         ),
-                                                        contentPadding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                                                        actionsPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                                        contentPadding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                                                        actionsPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                                                         actions: [
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -317,8 +318,7 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                                                       );
                                                     },);
                                                   }else{
-                                                    var data = jsonDecode(response.body);
-                                                    Widgets().showError(data: data, context: context);
+                                                    CommonFunctions().showError(data: data, context: context);
                                                   }
                                                 }
                                                 showProgress = false;

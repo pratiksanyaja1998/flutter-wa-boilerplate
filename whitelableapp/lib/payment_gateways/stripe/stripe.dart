@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class StripePg{
 
@@ -20,14 +19,14 @@ class StripePg{
   String clientSecret;
 
   Future<void> init()async{
-    print("_____ STRIPE INIT _____");
+    printMessage("_____ STRIPE INIT _____");
     Stripe.publishableKey = SharedPreference.getBusinessConfig()!.paymentKey;
     await openGateway();
   }
   
   Future<void> openGateway()async{
 
-    print("_____ STRIPE GATEWAY OPEN _____");
+    printMessage("_____ STRIPE GATEWAY OPEN _____");
 
     // final paymentMethod = await Stripe.instance.createPaymentMethod(
     //   params: const PaymentMethodParams.card(paymentMethodData: PaymentMethodData()),
@@ -51,13 +50,13 @@ class StripePg{
       await Stripe.instance.presentPaymentSheet().then((value) async {
         var response = await ServiceApis().stripeCallback(id: orderId);
         if(response.statusCode == 200){
-          Widgets().showSuccessModal(context: context);
+          CommonFunctions().showSuccessModal(context: context);
         }else{
-          Widgets().showSuccessModal(context: context, success: false);
+          CommonFunctions().showSuccessModal(context: context, success: false);
         }
       });
     }catch(e){
-      print("__ STRIPE ERROR $e");
+      printMessage("__ STRIPE ERROR $e");
     }
   }
 

@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class AppUserDetailScreen extends StatefulWidget {
   const AppUserDetailScreen({Key? key, required this.userId}) : super(key: key);
@@ -19,11 +19,10 @@ class _AppUserDetailScreenState extends State<AppUserDetailScreen> {
 
   bool showProgress = true;
   List<String> roles = ["client", "developer", "manager"];
-  var userData;
+  dynamic userData;
 
   @override
   void initState() {
-    // TODO: implement initState
     getUser();
     super.initState();
   }
@@ -160,7 +159,7 @@ class _AppUserDetailScreenState extends State<AppUserDetailScreen> {
                       elevation: 1,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: kThemeColor,
                         ),
                       ),
@@ -201,16 +200,18 @@ class _AppUserDetailScreenState extends State<AppUserDetailScreen> {
                                                       showProgress = true;
                                                       setState(() {});
                                                       Navigator.pop(context);
-                                                      var response = await ServiceApis().changeUsrRole(
+                                                      var response = await ServiceApis().changeUserRole(
                                                         userId: userData["id"],
                                                         type: roles[j],
                                                       );
                                                       var data = jsonDecode(response.body);
+                                                      if(!mounted) return;
                                                       if(response.statusCode == 200){
                                                         await getUser();
-                                                        Widgets().showAlertDialog(alertMessage: "Role changed successfully", context: context);
+                                                        if(!mounted) return;
+                                                        CommonFunctions().showAlertDialog(alertMessage: "Role changed successfully", context: context);
                                                       }else{
-                                                        Widgets().showError(data: data, context: context);
+                                                        CommonFunctions().showError(data: data, context: context);
                                                         showProgress = false;
                                                         setState(() {});
                                                       }
@@ -251,9 +252,9 @@ class _AppUserDetailScreenState extends State<AppUserDetailScreen> {
                                       elevation: 0,
                                       color: Colors.transparent,
                                       child: ListTile(
-                                        leading: Text(
+                                        leading: const Text(
                                           "Cancel",
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                           ),

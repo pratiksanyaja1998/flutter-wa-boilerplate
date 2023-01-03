@@ -1,15 +1,13 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/model/assign_task_modal.dart';
 import 'package:whitelabelapp/screens/task_detail.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class ProjectDetailScreen extends StatefulWidget {
   const ProjectDetailScreen({Key? key, required this.projectData, required this.businessUserList}) : super(key: key);
@@ -33,7 +31,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getTaskList();
     super.initState();
   }
@@ -42,7 +39,8 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
     await Future.delayed(const Duration(seconds: 0));
     var response = await ServiceApis().getTaskList(projectId: widget.projectData["id"].toString());
     var data = jsonDecode(response.body);
-    print(data);
+    printMessage(data);
+    if(!mounted) return;
     if (response.statusCode == 200) {
       taskList = data;
       showProgress = false;
@@ -50,7 +48,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
     } else {
       showProgress = false;
       setState(() {});
-      Widgets().showError(data: data, context: context);
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
@@ -896,17 +894,19 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                                             taskId: taskList[i]["id"],
                                                             note: assignTaskDescriptionController.text,
                                                           );
+                                                          var data = jsonDecode(response.body);
                                                           if(response.statusCode == 201){
                                                             await getTaskList();
-                                                            Widgets().showAlertDialog(alertMessage: "Task assigned successfuly.", context: context);
+                                                            if(!mounted) return;
+                                                            CommonFunctions().showAlertDialog(alertMessage: "Task assigned successfuly.", context: context);
                                                           }else{
                                                             showProgress = false;
                                                             setState(() {});
-                                                            var data = jsonDecode(response.body);
-                                                            Widgets().showError(data: data, context: context);
+                                                            if(!mounted) return;
+                                                            CommonFunctions().showError(data: data, context: context);
                                                           }
                                                         }else{
-                                                          Widgets().showAlertDialog(alertMessage: "Developer must be selected to assign task.", context: context);
+                                                          CommonFunctions().showAlertDialog(alertMessage: "Developer must be selected to assign task.", context: context);
                                                         }
                                                       },
                                                     );
@@ -919,7 +919,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                                   case 'Update status':
                                                     break;
                                                   case 'Delete':
-                                                    Widgets().showConfirmationDialog(
+                                                    CommonFunctions().showConfirmationDialog(
                                                       confirmationMessage: "Are you sure to delete this task.",
                                                       confirmButtonText: "Delete",
                                                       cancelButtonText: "Cancel",
@@ -929,14 +929,16 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                                         setState(() {});
                                                         Navigator.pop(context);
                                                         var response = await ServiceApis().deleteTask(taskId: taskList[i]["id"].toString());
+                                                        var data = jsonDecode(response.body);
                                                         if(response.statusCode == 204){
                                                           await getTaskList();
-                                                          Widgets().showAlertDialog(alertMessage: "Task deleted successfuly", context: context);
+                                                          if(!mounted) return;
+                                                          CommonFunctions().showAlertDialog(alertMessage: "Task deleted successfully", context: context);
                                                         }else{
                                                           showProgress = true;
+                                                          if(!mounted) return;
                                                           setState(() {});
-                                                          var data = jsonDecode(response.body);
-                                                          Widgets().showError(data: data, context: context);
+                                                          CommonFunctions().showError(data: data, context: context);
                                                         }
                                                       },
                                                     );
@@ -944,7 +946,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                                   default:
                                                     break;
                                                 }
-                                                print("-- $option --");
+                                                printMessage("-- $option --");
                                               },
                                               icon: Icon(
                                                 Icons.more_horiz,
@@ -1000,13 +1002,14 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                                           showProgress = true;
                                                           setState(() {});
                                                           var response = await ServiceApis().updateTaskStatus(taskId: taskList[i]["id"].toString(), status: status);
+                                                          var data = jsonDecode(response.body);
                                                           if(response.statusCode == 200){
                                                             getTaskList();
                                                           } else {
                                                             showProgress = false;
+                                                            if(!mounted) return;
                                                             setState(() {});
-                                                            var data = jsonDecode(response.body);
-                                                            Widgets().showError(data: data, context: context);
+                                                            CommonFunctions().showError(data: data, context: context);
                                                           }
                                                         }
                                                       },
@@ -1072,14 +1075,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            // const Text(
-                                            //   "Team",
-                                            //   style: TextStyle(
-                                            //     fontWeight: FontWeight.w500,
-                                            //     fontSize: 16,
-                                            //   ),
-                                            // ),
-                                            // const SizedBox(height: 6,),
                                             if(taskList[i].containsKey("assigned_task"))
                                               Row(
                                                 children: [
@@ -1255,121 +1250,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                       ),
                                     ],
                                   ),
-                                  // const Divider(
-                                  //   color: Colors.grey,
-                                  // ),
-                                  // Row(
-                                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                                  //   children: [
-                                  //     Expanded(
-                                  //       child: Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           const Text(
-                                  //             "Team",
-                                  //             style: TextStyle(
-                                  //               fontWeight: FontWeight.w500,
-                                  //               fontSize: 15,
-                                  //             ),
-                                  //           ),
-                                  //           const SizedBox(height: 5,),
-                                  //           if(projectList[i]["team"].isNotEmpty)
-                                  //             Row(
-                                  //               children: [
-                                  //                 Expanded(
-                                  //                   child: SingleChildScrollView(
-                                  //                     scrollDirection: Axis.horizontal,
-                                  //                     child: Stack(
-                                  //                       children: [
-                                  //                         SizedBox(
-                                  //                           height: 40,
-                                  //                           width: (projectList[i]["team"].length * 27)+ 8.0,
-                                  //                         ),
-                                  //                         for(int j = 0; j < projectList[i]["team"].length; j++)
-                                  //                           Positioned(
-                                  //                             left: j * 27,
-                                  //                             child: Container(
-                                  //                               width: 35,
-                                  //                               height: 35,
-                                  //                               decoration: BoxDecoration(
-                                  //                                 borderRadius: BorderRadius.circular(20),
-                                  //                                 border: Border.all(color: Colors.grey),
-                                  //                                 color: kPrimaryColor,
-                                  //                               ),
-                                  //                               child: ClipRRect(
-                                  //                                 borderRadius: BorderRadius.circular(20),
-                                  //                                 child: businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList().isNotEmpty ?
-                                  //                                 (businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList()[0]["photo"].isNotEmpty ?
-                                  //                                 Image.network(
-                                  //                                   businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList()[0]["photo"],
-                                  //                                   width: 40,
-                                  //                                   height: 40,
-                                  //                                   fit: BoxFit.cover,
-                                  //                                   loadingBuilder: (context, child, loadingProgress){
-                                  //                                     if(loadingProgress != null){
-                                  //                                       return const Center(
-                                  //                                         child: CircularProgressIndicator(
-                                  //                                           color: kThemeColor,
-                                  //                                           strokeWidth: 3,
-                                  //                                         ),
-                                  //                                       );
-                                  //                                     }else{
-                                  //                                       return child;
-                                  //                                     }
-                                  //                                   },
-                                  //                                   errorBuilder: (context, obj, st){
-                                  //                                     return Widgets().noProfileContainer(
-                                  //                                       name: businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList()[0]["first_name"][0]+
-                                  //                                           businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList()[0]["last_name"][0],
-                                  //                                     );
-                                  //                                   },
-                                  //                                 ) : Widgets().noProfileContainer(
-                                  //                                   name: businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList()[0]["first_name"][0]+
-                                  //                                       businessUserList.where((element) => element["id"].toString() == projectList[i]["team"][j].toString()).toList()[0]["last_name"][0],
-                                  //                                 )) : Image.asset("assets/images/profile.png"),
-                                  //                               ),
-                                  //                             ),
-                                  //                           ),
-                                  //                       ],
-                                  //                     ),
-                                  //                   ),
-                                  //                 ),
-                                  //               ],
-                                  //             ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //     SizedBox(
-                                  //       height: 68,
-                                  //       child: Column(
-                                  //         mainAxisAlignment: MainAxisAlignment.center,
-                                  //         crossAxisAlignment: CrossAxisAlignment.end,
-                                  //         children: [
-                                  //           const Text(
-                                  //             "Status",
-                                  //             style: TextStyle(
-                                  //               fontWeight: FontWeight.w500,
-                                  //               fontSize: 15,
-                                  //             ),
-                                  //           ),
-                                  //           Text(
-                                  //             projectList[i]["status"] == "active" ?
-                                  //             "Active" : projectList[i]["status"] == "in-progress" ?
-                                  //             "In-progress" : projectList[i]["status"] == "completed" ? "Completed" : "",
-                                  //             style: TextStyle(
-                                  //               fontSize: 20,
-                                  //               height: 1,
-                                  //               fontWeight: FontWeight.bold,
-                                  //               color: projectList[i]["status"] == "active" ?
-                                  //               Colors.green : projectList[i]["status"] == "in-progress" ?
-                                  //               Colors.amber : projectList[i]["status"] == "completed" ? Colors.blue : Colors.black,
-                                  //             ),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
                                 ],
                               ),
                             ),
@@ -1413,7 +1293,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
   }
 
   void editCreateTaskModal({bool isUpdate = false, String? taskId, required int projectId}){
-    Widgets().showBottomSheet(
+    CommonFunctions().showBottomSheet(
       context: context,
       child: StatefulBuilder(builder: (context, addProjectState) {
         return Container(
@@ -1469,7 +1349,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                         child: Widgets().textButton(
                           onPressed: () async{
                             if (taskNameController.text.isEmpty) {
-                              Widgets().showAlertDialog(
+                              CommonFunctions().showAlertDialog(
                                 alertMessage: "Task name can not be empty.",
                                 context: context,
                               );
@@ -1477,7 +1357,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                               showProgress = true;
                               setState(() {});
                               Navigator.pop(context);
-                              var response;
+                              dynamic response;
                               if(isUpdate){
                                 response = await ServiceApis().updateTask(
                                   taskId: taskId ?? "",
@@ -1485,13 +1365,14 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                   taskDescription: taskDescriptionController.text,
                                   projectId: projectId,
                                 );
+                                var data = jsonDecode(response.body);
                                 if (response.statusCode == 200) {
                                   getTaskList();
                                 } else {
                                   showProgress = false;
+                                  if(!mounted) return;
                                   setState(() {});
-                                  var data = jsonDecode(response.body);
-                                  Widgets().showError(data: data, context: context);
+                                  CommonFunctions().showError(data: data, context: context);
                                 }
                               }else {
                                 response = await ServiceApis().createTask(
@@ -1499,13 +1380,14 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                   taskDescription: taskDescriptionController.text,
                                   projectId: projectId,
                                 );
+                                var data = jsonDecode(response.body);
                                 if (response.statusCode == 201) {
                                   getTaskList();
                                 } else {
                                   showProgress = false;
+                                  if(!mounted) return;
                                   setState(() {});
-                                  var data = jsonDecode(response.body);
-                                  Widgets().showError(data: data, context: context);
+                                  CommonFunctions().showError(data: data, context: context);
                                 }
                               }
                             }
@@ -1521,115 +1403,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
         );
       }),
     );
-    // showModalBottomSheet(
-    //   isScrollControlled: true,
-    //   context: context, builder: (_) {
-    //   return Padding(
-    //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-    //     child: Container(
-    //       constraints: const BoxConstraints(
-    //         maxHeight: 330,
-    //       ),
-    //       child: StatefulBuilder(
-    //           builder: (_, addProjectState) {
-    //             return Column(
-    //                 children: [
-    //                   const SizedBox(height: 15,),
-    //                   Text(
-    //                     isUpdate ? "Update Task" : "Add Task",
-    //                     style: const TextStyle(
-    //                       fontWeight: FontWeight.bold,
-    //                       fontSize: 18,
-    //                     ),
-    //                   ),
-    //                   const SizedBox(height: 15,),
-    //                   Expanded(
-    //                     child: SingleChildScrollView(
-    //                       child: Column(
-    //                         crossAxisAlignment: CrossAxisAlignment.start,
-    //                         children: [
-    //                           Padding(
-    //                             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-    //                             child: Widgets().textFormField(
-    //                               controller: taskNameController,
-    //                               labelText: "Enter task name",
-    //                             ),
-    //                           ),
-    //                           Padding(
-    //                             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
-    //                             child: Widgets().textFormField(
-    //                               maxLines: 3,
-    //                               controller: taskDescriptionController,
-    //                               labelText: "Enter task description",
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   ),
-    //                   Padding(
-    //                     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
-    //                     child: Row(
-    //                       children: [
-    //                         Expanded(
-    //                           child: Widgets().textButton(
-    //                             onPressed: () async{
-    //                               if (taskNameController.text.isEmpty) {
-    //                                 Widgets().showAlertDialog(
-    //                                   alertMessage: "Task name can not be empty.",
-    //                                   context: context,
-    //                                 );
-    //                               } else {
-    //                                 showProgress = true;
-    //                                 setState(() {});
-    //                                 Navigator.pop(context);
-    //                                 var response;
-    //                                 if(isUpdate){
-    //                                   response = await ServiceApis().updateTask(
-    //                                     taskId: taskId ?? "",
-    //                                     taskName: taskNameController.text,
-    //                                     taskDescription: taskDescriptionController.text,
-    //                                     projectId: projectId,
-    //                                   );
-    //                                   if (response.statusCode == 200) {
-    //                                     getTaskList();
-    //                                   } else {
-    //                                     showProgress = false;
-    //                                     setState(() {});
-    //                                     var data = jsonDecode(response.body);
-    //                                     Widgets().showError(data: data, context: context);
-    //                                   }
-    //                                 }else {
-    //                                   response = await ServiceApis().createTask(
-    //                                     taskName: taskNameController.text,
-    //                                     taskDescription: taskDescriptionController.text,
-    //                                     projectId: projectId,
-    //                                   );
-    //                                   if (response.statusCode == 201) {
-    //                                     getTaskList();
-    //                                   } else {
-    //                                     showProgress = false;
-    //                                     setState(() {});
-    //                                     var data = jsonDecode(response.body);
-    //                                     Widgets().showError(data: data, context: context);
-    //                                   }
-    //                                 }
-    //                               }
-    //                             },
-    //                             text: isUpdate ? "Update task" : "Create task",
-    //                           ),
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   )
-    //                 ]
-    //             );
-    //           }
-    //       ),
-    //     ),
-    //   );
-    // },
-    // );
   }
 
 }

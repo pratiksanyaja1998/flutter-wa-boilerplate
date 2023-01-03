@@ -3,20 +3,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/screens/app_users_screen.dart';
 import 'package:whitelabelapp/screens/contact_us.dart';
 import 'package:whitelabelapp/screens/dashboards/dashboard.dart';
-import 'package:whitelabelapp/screens/login.dart';
-import 'package:whitelabelapp/screens/profile.dart';
 import 'package:whitelabelapp/screens/profile_settings.dart';
 import 'package:whitelabelapp/screens/project_detail.dart';
 import 'package:whitelabelapp/screens/settings.dart';
 import 'package:whitelabelapp/screens/terms_and_condition.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
 class ManagerDashboardScreen extends StatefulWidget {
@@ -40,7 +36,6 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -65,6 +60,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
     if(SharedPreference.isLogin()) {
       var response = await ServiceApis().getProjectList();
       var data = jsonDecode(response.body);
+      if(!mounted) return;
       if (response.statusCode == 200) {
         projectList = data;
         showProgress = false;
@@ -72,10 +68,11 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
       } else {
         showProgress = false;
         setState(() {});
-        Widgets().showError(data: data, context: context);
+        CommonFunctions().showError(data: data, context: context);
       }
     }else{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      if(!mounted) return;
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
   }
 
@@ -94,10 +91,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xfff8f8f8),
       appBar: AppBar(
-        // backgroundColor: Colors.white,
-        // elevation: 1,
         shadowColor: Colors.black,
         centerTitle: true,
         title: Text(
@@ -110,7 +104,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
           if(SharedPreference.isLogin())
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSettingsScreen())).then((value) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSettingsScreen())).then((value) {
                   setState(() {});
                 });
               },
@@ -199,7 +193,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                     horizontalTitleGap: 0,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AppUsersScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AppUsersScreen()));
                     },
                     title: const Text(
                       "Users",
@@ -216,7 +210,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (contexrt) => DashboardScreen(isFromManagerDashboard: true,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DashboardScreen(isFromManagerDashboard: true,)));
                 },
                 title: const Text(
                   "My tasks",
@@ -232,7 +226,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "settings"]),
@@ -248,7 +242,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermsAndConditionScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "termPolicy"]),
@@ -264,7 +258,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactUsScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContactUsScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "contactUs"]),
@@ -283,7 +277,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                       child: Widgets().textButton(
                         onPressed: (){
                           if(SharedPreference.isLogin()){
-                            Widgets().showConfirmationDialog(
+                            CommonFunctions().showConfirmationDialog(
                               confirmationMessage: getTranslated(context, ["settingScreen", "logoutMessage"]),
                               confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
                               cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
@@ -293,14 +287,15 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                 setState(() {});
                                 Navigator.pop(context);
                                 Navigator.pop(context);
-                                await ServiceApis().userLogOut();
+                                await UserServices().userLogOut();
                                 showProgress = false;
                                 setState(() {});
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                                if(!mounted) return;
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                               },
                             );
                           }else{
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                           }
                         },
                         text: SharedPreference.isLogin() ? getTranslated(context, ["menu", "logout"]) : getTranslated(context, ["menu", "login"]),
@@ -333,7 +328,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
           child: !SharedPreference.isLogin() ? Center(
             child: Widgets().textButton(
               onPressed: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
               },
               text: "Login",
             ),
@@ -341,7 +336,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: projectList.isEmpty ? [
-                SizedBox(height: MediaQuery.of(context).size.height - 100,child: Center(child: Text("Sorry no record available,"))),
+                SizedBox(height: MediaQuery.of(context).size.height - 100,child: const Center(child: Text("Sorry no record available,"))),
               ] : [
                 const SizedBox(height: 20,),
                 for(int i = 0; i < projectList.length; i++)
@@ -442,7 +437,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                                     editCreateProjectModal(teamList: teamList, isUpdate: true, projectId: projectList[i]["id"].toString());
                                                     break;
                                                   case 'Delete':
-                                                    Widgets().showConfirmationDialog(
+                                                    CommonFunctions().showConfirmationDialog(
                                                       confirmationMessage: "Are you sure to delete this project.",
                                                       confirmButtonText: "Delete",
                                                       cancelButtonText: "Cancel",
@@ -452,14 +447,16 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                                         setState(() {});
                                                         Navigator.pop(context);
                                                         var response = await ServiceApis().deleteProject(projectId: projectList[i]["id"].toString());
+                                                        var data = jsonDecode(response.body);
+                                                        if(!mounted) return;
                                                         if(response.statusCode == 204){
                                                           await getProjectList();
-                                                          Widgets().showAlertDialog(alertMessage: "Project deleted successfuly", context: context);
+                                                          if(!mounted) return;
+                                                          CommonFunctions().showAlertDialog(alertMessage: "Project deleted successfully", context: context);
                                                         }else{
                                                           showProgress = true;
                                                           setState(() {});
-                                                          var data = jsonDecode(response.body);
-                                                          Widgets().showError(data: data, context: context);
+                                                          CommonFunctions().showError(data: data, context: context);
                                                         }
                                                       },
                                                     );
@@ -467,7 +464,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                                   default:
                                                     break;
                                                 }
-                                                print("-- $option --");
+                                                printMessage("-- $option --");
                                               },
                                               icon: Icon(
                                                 Icons.more_horiz,
@@ -1052,7 +1049,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                                       setState(() {});
                                                       addProjectState(() {});
                                                     }else{
-                                                      Widgets().showAlertDialog(alertMessage: "Developer already added to team.", context: context);
+                                                      CommonFunctions().showAlertDialog(alertMessage: "Developer already added to team.", context: context);
                                                     }
                                                   }
                                                 },
@@ -1065,12 +1062,6 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                                 backgroundColor: Colors.transparent,
                                                 padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                                               ),
-                                              // Text(
-                                              //   "Add",
-                                              //   style: TextStyle(
-                                              //     fontSize: 16,
-                                              //   ),
-                                              // ),
                                             ],
                                           ),
                                         ),
@@ -1088,7 +1079,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                     child: Widgets().textButton(
                                       onPressed: () async{
                                         if (projectNameController.text.isEmpty) {
-                                          Widgets().showAlertDialog(
+                                          CommonFunctions().showAlertDialog(
                                             alertMessage: "Project name can not be empty.",
                                             context: context,
                                           );
@@ -1096,7 +1087,7 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                           showProgress = true;
                                           setState(() {});
                                           Navigator.pop(context);
-                                          var response;
+                                          dynamic response;
                                           if(isUpdate){
                                             response = await ServiceApis().updateProject(
                                               projectId: projectId ?? "",
@@ -1104,13 +1095,14 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                               projectDescription: projectDescriptionController.text,
                                               team: selectedUserList.map((e) => e["id"].toString()).toList(),
                                             );
+                                            var data = jsonDecode(response.body);
+                                            if(!mounted) return;
                                             if (response.statusCode == 200) {
                                               getProjectList();
                                             } else {
                                               showProgress = false;
                                               setState(() {});
-                                              var data = jsonDecode(response.body);
-                                              Widgets().showError(data: data, context: context);
+                                              CommonFunctions().showError(data: data, context: context);
                                             }
                                           }else {
                                             response = await ServiceApis().createProject(
@@ -1118,13 +1110,14 @@ class _ManagerDashboardScreenState extends State<ManagerDashboardScreen> {
                                               projectDescription: projectDescriptionController.text,
                                               team: selectedUserList.map((e) => e["id"].toString()).toList(),
                                             );
+                                            var data = jsonDecode(response.body);
+                                            if(!mounted) return;
                                             if (response.statusCode == 201) {
                                               getProjectList();
                                             } else {
                                               showProgress = false;
                                               setState(() {});
-                                              var data = jsonDecode(response.body);
-                                              Widgets().showError(data: data, context: context);
+                                              CommonFunctions().showError(data: data, context: context);
                                             }
                                           }
                                         }

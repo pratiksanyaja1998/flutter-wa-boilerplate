@@ -1,13 +1,12 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 import 'dart:io' show Platform;
 
 class DeveloperAssignTaskDetailScreen extends StatefulWidget {
@@ -44,7 +43,6 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
 
   @override
   void initState() {
-    // TODO: implement initState
     getTask();
     super.initState();
   }
@@ -53,7 +51,8 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
     await Future.delayed(const Duration(seconds: 0));
     var response = await ServiceApis().getTask(taskId: widget.assignTaskData["task"]);
     var data = jsonDecode(response.body);
-    print(data);
+    printMessage(data);
+    if(!mounted) return;
     if (response.statusCode == 200) {
       taskData = data;
       switch(taskData["status"]){
@@ -74,7 +73,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
     } else {
       showProgress = false;
       setState(() {});
-      Widgets().showError(data: data, context: context);
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
@@ -82,7 +81,8 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
     await Future.delayed(const Duration(seconds: 0));
     var response = await ServiceApis().getTimeLogTaskList(assignTaskId: widget.assignTaskData["id"]);
     var data = jsonDecode(response.body);
-    print(data);
+    printMessage(data);
+    if(!mounted) return;
     if (response.statusCode == 200) {
       assignTaskLogs = data;
       showProgress = false;
@@ -90,7 +90,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
     } else {
       showProgress = false;
       setState(() {});
-      Widgets().showError(data: data, context: context);
+      CommonFunctions().showError(data: data, context: context);
     }
   }
 
@@ -191,7 +191,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                               curve: Curves.easeInOut,
                               duration: const Duration(milliseconds: 600),
                               child: SingleChildScrollView(
-                                physics: showAllDescription ? ScrollPhysics() : NeverScrollableScrollPhysics(),
+                                physics: showAllDescription ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
                                 child: Text(
                                   taskData["description"],
                                   maxLines: 10,
@@ -838,7 +838,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
         onPressed: (){
           DateTime? startDate;
           DateTime? endDate;
-          Widgets().showBottomSheet(
+          CommonFunctions().showBottomSheet(
             context: context,
             child: StatefulBuilder(builder: (context, setstate) {
               return Container(
@@ -888,6 +888,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                                     lastDate: DateTime.now(),
                                   );
                                   if(pickedDate != null) {
+                                    if(!mounted) return;
                                     TimeOfDay? pickedTime = await showTimePicker(
                                       context: context,
                                       initialTime: TimeOfDay.now(),
@@ -946,6 +947,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                                     lastDate: DateTime.now(),
                                   );
                                   if(pickedDate != null){
+                                    if(!mounted) return;
                                     TimeOfDay? pickedTime = await showTimePicker(
                                       context: context,
                                       initialTime: TimeOfDay.now(),
@@ -1013,7 +1015,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                                     getTask();
                                   }
                                 }else{
-                                  Widgets().showAlertDialog(alertMessage: "Please select start time and end time.", context: context);
+                                  CommonFunctions().showAlertDialog(alertMessage: "Please select start time and end time.", context: context);
                                 }
                               },
                               text: "Create Log",

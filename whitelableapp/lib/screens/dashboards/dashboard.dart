@@ -1,31 +1,18 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/payment_gateways/cashfree/cashfree.dart';
-import 'package:whitelabelapp/payment_gateways/paytm/paytm.dart';
-import 'package:whitelabelapp/payment_gateways/razor_pay/razor_pay.dart';
-import 'package:whitelabelapp/payment_gateways/stripe/stripe.dart';
-import 'package:whitelabelapp/screens/coin_transactions.dart';
 import 'package:whitelabelapp/screens/contact_us.dart';
 import 'package:whitelabelapp/screens/developer_assign_task_detail.dart';
-import 'package:whitelabelapp/screens/payment_detail.dart';
-import 'package:whitelabelapp/screens/login.dart';
 import 'package:whitelabelapp/screens/profile_settings.dart';
-import 'package:whitelabelapp/screens/referral.dart';
 import 'package:whitelabelapp/screens/report_screen.dart';
 import 'package:whitelabelapp/screens/settings.dart';
 import 'package:whitelabelapp/screens/terms_and_condition.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key, this.isFromManagerDashboard = false}) : super(key: key);
@@ -44,7 +31,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -66,15 +52,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Future<void> getDeveloperTaskList()async{
     await Future.delayed(const Duration(seconds: 0));
     if(SharedPreference.isLogin()) {
-      var profile = await ServiceApis().getUserProfile();
+      await UserServices().getUserProfile();
       setState(() {});
-      var response;
+      dynamic response;
       // if(SharedPreference.getUser()!.type == "manager"){
       //   response = await ServiceApis().getManagerTaskList();
       // }else{
         response = await ServiceApis().getDeveloperTaskList();
       // }
       var data = jsonDecode(response.body);
+      if(!mounted) return;
       if (response.statusCode == 200) {
         developerTaskList = data;
         showProgress = false;
@@ -82,10 +69,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       } else {
         showProgress = false;
         setState(() {});
-        Widgets().showError(data: data, context: context);
+        CommonFunctions().showError(data: data, context: context);
       }
     }else{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      if(!mounted) return;
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
   }
 
@@ -102,74 +90,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         actions: [
           if(SharedPreference.isLogin())
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSettingsScreen())).then((value) {
-                  setState(() {});
-                });
-              },
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: SharedPreference.getUser()!.photo == null ? Widgets().noProfileContainer(
-                    name: SharedPreference.getUser()!.firstName[0]+
-                        SharedPreference.getUser()!.lastName[0],
-                  ) : SharedPreference.getUser()!.photo.isNotEmpty ?
-                  Image.network(
-                    SharedPreference.getUser()!.photo,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress){
-                      if(loadingProgress != null){
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: kThemeColor,
-                            strokeWidth: 3,
-                          ),
-                        );
-                      }else{
-                        return child;
-                      }
-                    },
-                    errorBuilder: (context, obj, st){
-                      return Widgets().noProfileContainer(
-                        name: SharedPreference.getUser()!.firstName[0]+
-                            SharedPreference.getUser()!.lastName[0],
-                      );
-                    },
-                  ) : Widgets().noProfileContainer(
-                    name: SharedPreference.getUser()!.firstName[0]+
-                        SharedPreference.getUser()!.lastName[0],
-                  ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSettingsScreen())).then((value) {
+                    setState(() {});
+                  });
+                },
+                child: Widgets().networkImageContainer(
+                  imageUrl: SharedPreference.getUser()!.photo,
+                  width: 40,
+                  height: 40,
                 ),
               ),
             ),
         ],
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        //     child: IconButton(
-        //       onPressed: (){
-        //         Navigator.push(context, MaterialPageRoute(builder: (context) => ReportScreen()));
-        //       },
-        //       icon: Image.asset("assets/images/clipboard.png", height: 30,),
-        //     ),
-        //   ),
-        // ],
       ),
       drawer: Drawer(
         backgroundColor: kPrimaryColor,
@@ -208,7 +144,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReportScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportScreen()));
                 },
                 title: const Text(
                   "Report",
@@ -224,7 +160,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "settings"]),
@@ -240,7 +176,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermsAndConditionScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "termPolicy"]),
@@ -256,7 +192,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 horizontalTitleGap: 0,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactUsScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContactUsScreen()));
                 },
                 title: Text(
                   getTranslated(context, ["menu", "contactUs"]),
@@ -276,7 +212,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Widgets().textButton(
                           onPressed: (){
                             if(SharedPreference.isLogin()){
-                              Widgets().showConfirmationDialog(
+                              CommonFunctions().showConfirmationDialog(
                                 confirmationMessage: getTranslated(context, ["settingScreen", "logoutMessage"]),
                                 confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
                                 cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
@@ -286,14 +222,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   setState(() {});
                                   Navigator.pop(context);
                                   Navigator.pop(context);
-                                  await ServiceApis().userLogOut();
+                                  await UserServices().userLogOut();
                                   showProgress = false;
                                   setState(() {});
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                                  if(!mounted) return;
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                                 },
                               );
                             }else{
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                             }
                           },
                           text: SharedPreference.isLogin() ? getTranslated(context, ["menu", "logout"]) : getTranslated(context, ["menu", "login"]),
@@ -326,7 +263,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: !SharedPreference.isLogin() ? Center(
             child: Widgets().textButton(
               onPressed: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
               },
               text: "Login",
             ),
@@ -341,7 +278,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: developerTaskList.isEmpty ? [
-                  SizedBox(height: MediaQuery.of(context).size.height - 100,child: Center(child: Text("Sorry no record available,"))),
+                  SizedBox(height: MediaQuery.of(context).size.height - 100,child: const Center(child: Text("Sorry no record available,"))),
                 ] : [
                   const SizedBox(height: 20,),
                   for(int i = 0; i < developerTaskList.length; i++)

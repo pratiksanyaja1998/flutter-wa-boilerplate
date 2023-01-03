@@ -1,14 +1,11 @@
 
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
-import 'package:whitelabelapp/model/user_model.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -25,7 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     user = SharedPreference.getUser();
     super.initState();
   }
@@ -44,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: Center(
         child: Container(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxWidth: 450,
           ),
           child: Column(
@@ -417,6 +413,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> takePhoto({required ImageSource source})async{
     var result = await ImagePicker.platform.pickImage(source: source);
     if(result != null){
+      if(!mounted) return;
       CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: result.path,
         aspectRatioPresets: [
@@ -438,7 +435,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       );
       if(croppedFile != null){
-        print("-=-=-=--=-= ${croppedFile.path}");
+        printMessage("-=-=-=--=-= ${croppedFile.path}");
         f = File(croppedFile.path);
         setState(() {});
       }

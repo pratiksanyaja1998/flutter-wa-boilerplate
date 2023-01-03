@@ -8,7 +8,7 @@
         tools:node="remove" />
 
    <application
-        android:label="spyhunter it solution"
+        android:label="SpyHunter IT Solution"
        android:name="${applicationName}"
        android:usesCleartextTraffic="true"
        android:icon="@mipmap/launcher_icon">

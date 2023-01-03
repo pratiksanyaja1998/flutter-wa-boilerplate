@@ -2,11 +2,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/screens/app_user_detail.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class AppUsersScreen extends StatefulWidget {
   const AppUsersScreen({Key? key}) : super(key: key);
@@ -17,8 +15,6 @@ class AppUsersScreen extends StatefulWidget {
 
 class _AppUsersScreenState extends State<AppUsersScreen> {
 
-  // List<dynamic> managerList = [];
-  // List<dynamic> developerList = [];
   List<dynamic> staffList = [];
   List<dynamic> userList = [];
   List<String> roles = ["developer", "manager"];
@@ -30,7 +26,6 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getStaffList();
     getUserList();
     // getDeveloperList();
@@ -312,16 +307,18 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
                                                                               showManagerProgress = true;
                                                                               setState(() {});
                                                                               Navigator.pop(context);
-                                                                              var response = await ServiceApis().changeUsrRole(
+                                                                              var response = await ServiceApis().changeUserRole(
                                                                                 userId: staffList[i]["id"],
                                                                                 type: roles[j],
                                                                               );
                                                                               var data = jsonDecode(response.body);
+                                                                              if(!mounted) return;
                                                                               if(response.statusCode == 200){
                                                                                 await getStaffList();
-                                                                                Widgets().showAlertDialog(alertMessage: "Role changed successfully", context: context);
+                                                                                if(!mounted) return;
+                                                                                CommonFunctions().showAlertDialog(alertMessage: "Role changed successfully", context: context);
                                                                               }else{
-                                                                                Widgets().showError(data: data, context: context);
+                                                                                CommonFunctions().showError(data: data, context: context);
                                                                                 showManagerProgress = false;
                                                                                 setState(() {});
                                                                               }
@@ -436,7 +433,7 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
                               color: kThemeColor,
                             ),
                           ) : SingleChildScrollView(
-                            physics: AlwaysScrollableScrollPhysics(),
+                            physics: const AlwaysScrollableScrollPhysics(),
                             child: Column(
                               children: [
                                 for(int i = 0; i < userList.length; i++)
@@ -530,14 +527,6 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
                                                       ],
                                                     ),
                                                   ),
-                                                  // const SizedBox(height: 3,),
-                                                  // Text(
-                                                  //   businessUserList[i]["phone"],
-                                                  //   style: const TextStyle(
-                                                  //     color: Colors.black,
-                                                  //     fontSize: 14,
-                                                  //   ),
-                                                  // ),
                                                   Text(
                                                     userList[i]["email"],
                                                     maxLines: 1,
@@ -595,16 +584,18 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
                                                                               showDeveloperProgress = true;
                                                                               setState(() {});
                                                                               Navigator.pop(context);
-                                                                              var response = await ServiceApis().changeUsrRole(
+                                                                              var response = await ServiceApis().changeUserRole(
                                                                                 userId: userList[i]["id"],
                                                                                 type: roles[j],
                                                                               );
                                                                               var data = jsonDecode(response.body);
+                                                                              if(!mounted) return;
                                                                               if(response.statusCode == 200){
                                                                                 await getUserList();
-                                                                                Widgets().showAlertDialog(alertMessage: "Role changed successfully", context: context);
+                                                                                if(!mounted) return;
+                                                                                CommonFunctions().showAlertDialog(alertMessage: "Role changed successfully", context: context);
                                                                               }else{
-                                                                                Widgets().showError(data: data, context: context);
+                                                                                CommonFunctions().showError(data: data, context: context);
                                                                                 showDeveloperProgress = false;
                                                                                 setState(() {});
                                                                               }

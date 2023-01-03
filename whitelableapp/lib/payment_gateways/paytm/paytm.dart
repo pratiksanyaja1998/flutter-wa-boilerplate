@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 
 class Paytm{
 
@@ -24,19 +23,19 @@ class Paytm{
       true,
     ).then((value) {
       var result = value.toString();
-      Widgets().showSuccessModal(context: context);
-      print("PAYTM PAYMENT SUCCESS : $result");
+      CommonFunctions().showSuccessModal(context: context);
+      printMessage("PAYTM PAYMENT SUCCESS : $result");
       return true;
     }).catchError((onError) {
-      print("PAYTM PAYMENT ERROR ----: $onError");
+      printMessage("PAYTM PAYMENT ERROR ----: $onError");
       if (onError is PlatformException) {
         var result = "${onError.message!} \n  ${onError.details} \n ${onError.code} \n ${onError.stacktrace}";
-        print("PAYTM PAYMENT ERROR --: $result");
+        printMessage("PAYTM PAYMENT ERROR --: $result");
       } else {
         var result = onError.toString();
-        print("PAYTM PAYMENT ERROR : $result");
+        printMessage("PAYTM PAYMENT ERROR : $result");
       }
-      Widgets().showSuccessModal(context: context, success: false);
+      CommonFunctions().showSuccessModal(context: context, success: false);
       return false;
     });
     return true;

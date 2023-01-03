@@ -4,14 +4,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/payment_gateways/cashfree/cashfree.dart';
 import 'package:whitelabelapp/payment_gateways/paytm/paytm.dart';
 import 'package:whitelabelapp/payment_gateways/razor_pay/razor_pay.dart';
 import 'package:whitelabelapp/payment_gateways/stripe/stripe.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class PaymentDetailScreen extends StatefulWidget {
   const PaymentDetailScreen({Key? key, required this.donationData}) : super(key: key);
@@ -29,19 +28,20 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getPaymentDetail();
     super.initState();
   }
 
   Future<void> getPaymentDetail()async{
     var response = await ServiceApis().getPaymentDetail(paymentId: widget.donationData["payment"].toString());
+    var data = jsonDecode(response.body);
+    if(!mounted) return;
     if(response.statusCode == 200){
-      var data = jsonDecode(response.body);
       paymentDetail = data;
       showProgress = false;
       setState(() {});
     }else{
+      CommonFunctions().showError(data: data, context: context);
       showProgress = false;
       setState(() {});
     }
@@ -119,7 +119,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
               ),
               if(paymentDetail!["data"]["status"] == "unpaid")
                 Container(
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 450,
                   ),
                   margin: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -146,7 +146,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                                   }else{
                                     showProgress = false;
                                     setState(() {});
-                                    Widgets().showAlertDialog(alertMessage: "Something went wrong.", context: context);
+                                    CommonFunctions().showAlertDialog(alertMessage: "Something went wrong.", context: context);
                                   }
                                 });
                               } else
@@ -161,6 +161,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                                 });
                               }
                             }
+                            if(!mounted) return;
                             if (paymentDetail!["data"]["payment_method"]["type"] == "cashfree") {
                               await CashFree(
                                 id: id,
@@ -192,7 +193,7 @@ class _PaymentDetailScreenState extends State<PaymentDetailScreen> {
                   ),
                 ),
             ],
-          ) : Text("Sorry something went wrong"),
+          ) : const Text("Sorry something went wrong"),
         ),
       ),
     );

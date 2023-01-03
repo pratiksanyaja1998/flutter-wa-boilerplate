@@ -9,8 +9,8 @@ import 'package:flutter_cashfree_pg_sdk/api/cfsession/cfsession.dart';
 import 'package:flutter_cashfree_pg_sdk/api/cftheme/cftheme.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class CashFree{
 
@@ -41,16 +41,16 @@ class CashFree{
   CFEnvironment environment = CFEnvironment.SANDBOX;
 
   void verifyPayment(String orderId) {
-    print("Verify Payment");
-    Widgets().showSuccessModal(context: context);
+    printMessage("Verify Payment");
+    CommonFunctions().showSuccessModal(context: context);
     paymentEnd = true;
     // Navigator.push(
     //     context, MaterialPageRoute(builder: (context) => BookingDetailScreen(id: id,)));
   }
 
   void onError(CFErrorResponse errorResponse, String orderid) {
-    print("Error while making payment in CASHFREE");
-    Widgets().showSuccessModal(context: context, success: false);
+    printMessage("Error while making payment in CASH FREE");
+    CommonFunctions().showSuccessModal(context: context, success: false);
     paymentEnd = true;
   }
 
@@ -59,14 +59,14 @@ class CashFree{
       var session = CFSessionBuilder().setEnvironment(environment).setOrderId(orderId).setOrderToken(orderToken).build();
       return session;
     } on CFException catch (e) {
-      print(e.message);
+      printMessage(e.message);
     }
     return null;
   }
 
   Future<void> openGateway()async{
 
-    print("CREATING CASHFREE GATEWAY");
+    printMessage("CREATING CASH FREE GATEWAY");
 
     try {
       var session = createSession();
@@ -84,9 +84,9 @@ class CashFree{
       await cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
 
     } on CFException catch (e) {
-      print(e.message);
+      printMessage(e.message);
     }catch (e){
-      print("ERROR DOING CASHFREE PAYMENT : $e");
+      printMessage("ERROR DOING CASH FREE PAYMENT : $e");
     }
   }
 

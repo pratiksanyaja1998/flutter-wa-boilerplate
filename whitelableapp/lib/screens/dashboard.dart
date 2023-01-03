@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/config.dart';
-import 'package:whitelabelapp/localization/language_constants.dart';
 import 'package:whitelabelapp/payment_gateways/cashfree/cashfree.dart';
 import 'package:whitelabelapp/payment_gateways/paytm/paytm.dart';
 import 'package:whitelabelapp/payment_gateways/razor_pay/razor_pay.dart';
@@ -16,14 +16,11 @@ import 'package:whitelabelapp/payment_gateways/stripe/stripe.dart';
 import 'package:whitelabelapp/screens/coin_transactions.dart';
 import 'package:whitelabelapp/screens/contact_us.dart';
 import 'package:whitelabelapp/screens/payment_detail.dart';
-import 'package:whitelabelapp/screens/login.dart';
 import 'package:whitelabelapp/screens/profile_settings.dart';
 import 'package:whitelabelapp/screens/referral.dart';
 import 'package:whitelabelapp/screens/settings.dart';
 import 'package:whitelabelapp/screens/terms_and_condition.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:whitelabelapp/service/shared_preference.dart';
-import 'package:whitelabelapp/widgets/widgets.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -44,7 +41,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -68,11 +64,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Future<void> getDonations()async{
     await Future.delayed(const Duration(seconds: 0));
     if(SharedPreference.isLogin()) {
-      var profile = await ServiceApis().getUserProfile();
+      await UserServices().getUserProfile();
       showProgress = false;
       setState(() {});
       var response = await ServiceApis().getDonationList();
       var data = jsonDecode(response.body);
+      if(!mounted) return;
       if (response.statusCode == 200) {
         donationList = data;
         showDonationProgress = false;
@@ -80,10 +77,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       } else {
         showDonationProgress = false;
         setState(() {});
-        Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
+        CommonFunctions().showError(data: data, context: context);
       }
     }else{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      if(!mounted) return;
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
   }
 
@@ -141,7 +139,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   horizontalTitleGap: 0,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                   onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SettingsScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
                   },
                   title: Text(
                     getTranslated(context, ["menu", "settings"]),
@@ -157,7 +155,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   horizontalTitleGap: 0,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                   onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsAndConditionScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TermsAndConditionScreen()));
                   },
                   title: Text(
                     getTranslated(context, ["menu", "termPolicy"]),
@@ -173,7 +171,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   horizontalTitleGap: 0,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                   onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ContactUsScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ContactUsScreen()));
                   },
                   title: Text(
                     getTranslated(context, ["menu", "contactUs"]),
@@ -192,7 +190,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Widgets().textButton(
                           onPressed: (){
                             if(SharedPreference.isLogin()){
-                              Widgets().showConfirmationDialog(
+                              CommonFunctions().showConfirmationDialog(
                                 confirmationMessage: getTranslated(context, ["settingScreen", "logoutMessage"]),
                                 confirmButtonText: getTranslated(context, ["settingScreen", "confirm"]),
                                 cancelButtonText: getTranslated(context, ["settingScreen", "cancel"]),
@@ -202,14 +200,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   setState(() {});
                                   Navigator.pop(context);
                                   Navigator.pop(context);
-                                  await ServiceApis().userLogOut();
+                                  await UserServices().userLogOut();
                                   showProgress = false;
                                   setState(() {});
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                                  if(!mounted) return;
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                                 },
                               );
                             }else{
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                             }
                           },
                           text: SharedPreference.isLogin() ? getTranslated(context, ["menu", "logout"]) : getTranslated(context, ["menu", "login"]),
@@ -243,7 +242,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: !SharedPreference.isLogin() ? Center(
               child: Widgets().textButton(
                 onPressed: (){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen()));
                 },
                 text: "Login",
               ),
@@ -270,7 +269,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         color: Colors.transparent,
                         child: ListTile(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSettingsScreen())).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSettingsScreen())).then((value) {
                               setState(() {});
                             });
                           },
@@ -458,7 +457,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ),
                               ),
                               Text(
-                                SharedPreference.getUser()!.coin ?? "",
+                                SharedPreference.getUser()!.coin,
                                 style: const TextStyle(
                                   color: Colors.black,fontWeight: FontWeight.bold,
                                   fontSize: 18,
@@ -469,7 +468,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ],
                           ),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (contxt) => CoinTransactionScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => const CoinTransactionScreen()));
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -518,7 +517,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ],
                           ),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (contxt) => ReferralScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => const ReferralScreen()));
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -620,167 +619,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ),
                     const SizedBox(height: 50,),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 20.0, right: 20,  bottom: 20, top: 15),
-                    //   child: Row(
-                    //     children: [
-                    //       Expanded(
-                    //         child: Widgets().textButton(
-                    //           onPressed: (){
-                    //             showModalBottomSheet(
-                    //                 context: context,
-                    //                 isScrollControlled: true,
-                    //                 builder: (_){
-                    //                   return Padding(
-                    //                     padding: EdgeInsets.only(
-                    //                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    //                     child: Container(
-                    //                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
-                    //                       constraints: const BoxConstraints(
-                    //                         // maxHeight: 300,
-                    //                       ),
-                    //                       child: SingleChildScrollView(
-                    //                         child: Column(
-                    //                           children: [
-                    //                             const Text(
-                    //                               "Donate",
-                    //                               style: TextStyle(
-                    //                                 fontSize: 20,
-                    //                                 fontWeight: FontWeight.bold,
-                    //                               ),
-                    //                             ),
-                    //                             const SizedBox(height: 20,),
-                    //                             Widgets().textFormField(
-                    //                               controller: amountController,
-                    //                               labelText: "Enter amount",
-                    //                               keyboardType: TextInputType.number,
-                    //                             ),
-                    //                             const SizedBox(height: 20,),
-                    //                             Widgets().textFormField(
-                    //                               controller: descriptionController,
-                    //                               labelText: "Enter description",
-                    //                             ),
-                    //                             const SizedBox(height: 30,),
-                    //                             Row(
-                    //                               children: [
-                    //                                 Expanded(
-                    //                                   child: Widgets().textButton(
-                    //                                     onPressed: ()async{
-                    //                                       if(amountController.text.isEmpty){
-                    //                                         Widgets().showAlertDialog(alertMessage: "Enter a valid amount", context: context);
-                    //                                       }else{
-                    //                                         showDonationProgress = true;
-                    //                                         setState(() {});
-                    //                                         Navigator.pop(context);
-                    //                                         var response = await ServiceApis().createDonation(
-                    //                                           amount: double.parse(amountController.text),
-                    //                                           description: descriptionController.text,
-                    //                                         );
-                    //                                         if(response.statusCode == 201){
-                    //                                           int id = jsonDecode(response.body)["id"];
-                    //                                           var data = jsonDecode(response.body)["payment"];
-                    //                                           if(!kIsWeb) {
-                    //                                             if (SharedPreference
-                    //                                                 .getBusinessConfig()!
-                    //                                                 .paymentType ==
-                    //                                                 "paytm") {
-                    //                                               await Paytm()
-                    //                                                   .doPayment(
-                    //                                                 id: id,
-                    //                                                 context: context,
-                    //                                                 orderId: data["id"]
-                    //                                                     .toString(),
-                    //                                                 amount: data["paid_amount"]
-                    //                                                     .toString(),
-                    //                                                 txnToken: data["payment_order_key"]
-                    //                                                     .toString(),
-                    //                                               ).then((value) {
-                    //                                                 if(value == true){
-                    //                                                   showDonationProgress = false;
-                    //                                                   setState(() {});
-                    //                                                 }else{
-                    //                                                   showDonationProgress = false;
-                    //                                                   setState(() {});
-                    //                                                   Widgets().showAlertDialog(alertMessage: "Something went wrong.", context: context);
-                    //                                                 }
-                    //                                               });
-                    //                                             } else
-                    //                                             if (SharedPreference
-                    //                                                 .getBusinessConfig()!
-                    //                                                 .paymentType ==
-                    //                                                 "razorpay") {
-                    //                                               await RazorPay(
-                    //                                                 id: id,
-                    //                                                 context: context,
-                    //                                                 order: data,
-                    //                                               ).init().then((value){
-                    //                                                 showDonationProgress = false;
-                    //                                                 setState(() {});
-                    //                                               });
-                    //                                             }
-                    //                                           }
-                    //                                           if (SharedPreference
-                    //                                               .getBusinessConfig()!
-                    //                                               .paymentType ==
-                    //                                               "cashfree") {
-                    //                                             await CashFree(
-                    //                                               id: id,
-                    //                                               context: context,
-                    //                                               orderId: data["payment_cashfree_order_id"]
-                    //                                                   .toString(),
-                    //                                               orderToken: data["payment_order_key"],
-                    //                                             ).init().then((value){
-                    //                                               showDonationProgress = false;
-                    //                                               setState(() {});
-                    //                                             });
-                    //                                           }else
-                    //                                           if (SharedPreference
-                    //                                               .getBusinessConfig()!
-                    //                                               .paymentType ==
-                    //                                               "stripe") {
-                    //                                             await StripePg(
-                    //                                               id: id,
-                    //                                               context: context,
-                    //                                               orderId: data["id"]
-                    //                                                   .toString(),
-                    //                                               clientSecret: data["payment_key"]
-                    //                                                   .toString(),
-                    //                                             ).init().then((value){
-                    //                                               showDonationProgress = false;
-                    //                                               setState(() {});
-                    //                                             });
-                    //                                           }
-                    //                                           await getDonations();
-                    //                                         }else{
-                    //                                           Widgets().showAlertDialog(alertMessage: "Something went wrong", context: context);
-                    //                                           showDonationProgress = false;
-                    //                                           setState(() {});
-                    //                                         }
-                    //                                       }
-                    //                                     },
-                    //                                     text: "Donate",
-                    //                                     fontSize: 22,
-                    //                                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                    //                                   ),
-                    //                                 ),
-                    //                               ],
-                    //                             ),
-                    //                             const SizedBox(height: 10,),
-                    //                           ],
-                    //                         ),
-                    //                       ),
-                    //                     ),
-                    //                   );
-                    //                 });
-                    //           },
-                    //           fontSize: 22,
-                    //           text: "Donate",
-                    //           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: kIsWeb ? 12 : 8),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
                 Positioned(
@@ -829,7 +667,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             child: Widgets().textButton(
                                               onPressed: ()async{
                                                 if(amountController.text.isEmpty){
-                                                  Widgets().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "validate", "amount"]), context: context);
+                                                  CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "validate", "amount"]), context: context);
                                                 }else{
                                                   showDonationProgress = true;
                                                   setState(() {});
@@ -838,9 +676,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     amount: double.parse(amountController.text),
                                                     description: descriptionController.text,
                                                   );
+                                                  var data = jsonDecode(response.body);
                                                   if(response.statusCode == 201){
                                                     int id = jsonDecode(response.body)["id"];
                                                     var data = jsonDecode(response.body)["payment"];
+                                                    if(!mounted) return;
                                                     if(!kIsWeb) {
                                                       if (SharedPreference
                                                           .getBusinessConfig()!
@@ -863,7 +703,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                           }else{
                                                             showDonationProgress = false;
                                                             setState(() {});
-                                                            Widgets().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "donationError"]), context: context);
+                                                            CommonFunctions().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "donationError"]), context: context);
                                                           }
                                                         });
                                                       } else
@@ -881,6 +721,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                         });
                                                       }
                                                     }
+                                                    if(!mounted) return;
                                                     if (SharedPreference
                                                         .getBusinessConfig()!
                                                         .paymentType ==
@@ -914,7 +755,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     }
                                                     await getDonations();
                                                   }else{
-                                                    Widgets().showAlertDialog(alertMessage: getTranslated(context, ["donationDashboardScreen", "donationError"]), context: context);
+                                                    if(!mounted) return;
+                                                    CommonFunctions().showError(data: data, context: context);
                                                     showDonationProgress = false;
                                                     setState(() {});
                                                   }

@@ -318,7 +318,7 @@ packages:
     source: hosted
     version: "2.2.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
@@ -414,7 +414,7 @@ packages:
     source: hosted
     version: "0.17.0"
   intl_phone_field:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl_phone_field
       sha256: "0d2b35d148ed28a454d50797e6c2fb297f0a295feab84641b02d3dd32294b3f3"
@@ -425,10 +425,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: "5528c2f391ededb7775ec1daa69e65a2d61276f7552de2b5f7b8d34ee9fd4ab7"
+      sha256: "323b7c70073cccf6b9b8d8b334be418a3293cfb612a560dc2737160a37bf61bd"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.5"
+    version: "0.6.6"
   json_annotation:
     dependency: transitive
     description:
@@ -718,7 +718,7 @@ packages:
     source: hosted
     version: "3.2.0"
   shared_preferences:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences
       sha256: "76917b7d4b9526b2ba416808a7eb9fb2863c1a09cf63ec85f1453da240fa818a"
@@ -946,6 +946,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  wa_flutter_lib:
+    dependency: "direct main"
+    description:
+      name: wa_flutter_lib
+      sha256: "563a3edba6bd33ef43225046bc514a89e36626f95ef2f9ecaf433ee4f8deb865"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   webview_flutter:
     dependency: transitive
     description:
@@ -1019,5 +1027,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.4 <4.0.0"
+  dart: ">=2.19.0-345.0.dev <4.0.0"
   flutter: ">=3.0.0"

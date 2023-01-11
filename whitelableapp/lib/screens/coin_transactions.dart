@@ -181,7 +181,7 @@ class _CoinTransactionScreenState extends State<CoinTransactionScreen> with Tick
                             child: TabBar(
                               labelStyle: const TextStyle(
                                 fontSize: 16,
-                                decoration: TextDecoration.underline,
+                                // decoration: TextDecoration.underline,
                               ),
                               indicatorSize: TabBarIndicatorSize.tab,
                               unselectedLabelStyle: const TextStyle(

@@ -26,7 +26,7 @@ void main() async{
     loginRequired: true,
     firebaseToken: FirebaseMessagingProject.fcmToken,
   );
-  SharedPreference.init();
+  await SharedPreference.init();
 
   runApp(const MyApp());
 }

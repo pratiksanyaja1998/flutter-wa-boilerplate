@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "whitelableapp" "\0"
+            VALUE "FileDescription", "Kalpvruksh Foundation" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "whitelableapp" "\0"
+            VALUE "InternalName", "Kalpvruksh Foundation" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "whitelableapp.exe" "\0"
-            VALUE "ProductName", "whitelableapp" "\0"
+            VALUE "ProductName", "Kalpvruksh Foundation" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

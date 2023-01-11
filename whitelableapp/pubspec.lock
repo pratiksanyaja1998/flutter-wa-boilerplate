@@ -950,10 +950,10 @@ packages:
     dependency: "direct main"
     description:
       name: wa_flutter_lib
-      sha256: "35bece7094437a7549fdc062113b46b278c0b3f2eaeb4b7912dcdf83ded05e4c"
+      sha256: "136ed371d327ee4075b8da1c1238520abbd7ba0a17f4d8327249e18bc28a0e65"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.4"
+    version: "0.0.5"
   webview_flutter:
     dependency: transitive
     description:

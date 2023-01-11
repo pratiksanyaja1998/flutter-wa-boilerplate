@@ -68,7 +68,7 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                       indicatorSize: TabBarIndicatorSize.tab,
                       unselectedLabelStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
+                        // decoration: TextDecoration.underline,
                         decorationThickness: 2,
                       ),
                       labelColor: Colors.black,

@@ -1,5 +1,6 @@
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 
 class FirebaseMessagingProject{
 
@@ -7,7 +8,7 @@ class FirebaseMessagingProject{
 
   Future<void> getFcmToken()async{
     fcmToken = await FirebaseMessaging.instance.getToken();
-    print("___ FCM TOKEN = $fcmToken ___");
+    printMessage("___ FCM TOKEN = $fcmToken ___");
   }
 
 

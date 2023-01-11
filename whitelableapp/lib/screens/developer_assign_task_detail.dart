@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wa_flutter_lib/wa_flutter_lib.dart';
+import 'package:whitelabelapp/components/assign_task_card.dart';
+import 'package:whitelabelapp/components/task_card.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/service/api.dart';
 import 'dart:io' show Platform;
@@ -51,7 +53,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
     await Future.delayed(const Duration(seconds: 0));
     var response = await ServiceApis().getTask(taskId: widget.assignTaskData["task"]);
     var data = jsonDecode(response.body);
-    printMessage(data);
+    printMessage("$data");
     if(!mounted) return;
     if (response.statusCode == 200) {
       taskData = data;
@@ -81,7 +83,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
     await Future.delayed(const Duration(seconds: 0));
     var response = await ServiceApis().getTimeLogTaskList(assignTaskId: widget.assignTaskData["id"]);
     var data = jsonDecode(response.body);
-    printMessage(data);
+    printMessage("$data");
     if(!mounted) return;
     if (response.statusCode == 200) {
       assignTaskLogs = data;
@@ -98,8 +100,9 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Assign task detail"
+        centerTitle: true,
+        title: Text(
+          taskData["name"],
         ),
       ),
       body: Center(
@@ -121,436 +124,440 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: taskData == null ? [] : [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 22.0, right: 22, top: 15),
-                    child: Text(
-                      "Task",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                  TaskCard(
+                    task: taskData,
+                    controller: _controller,
+                    animation: _animation,
+                    onExpand: () {
+                      if (_controller.isCompleted) {
+                        _controller.reverse();
+                      } else {
+                        _controller.forward();
+                      }
+                      isExpanded = !isExpanded;
+                      setState(() {});
+                    },
                   ),
-                  AnimatedContainer(
-                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: taskStatusColor!.withOpacity(0.6),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: taskStatusColor!.withOpacity(0.3),
-                          blurRadius: 4,
-                        ),
-                      ],
-                    ),
-                    curve: Curves.easeInOut,
-                    duration: const Duration(milliseconds: 600),
-                    child: Material(
-                      elevation: 0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: ListTile(
-                        onTap: (){
-                          showAllDescription = !showAllDescription;
-                          setState(() {});
-                        },
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                        splashColor: taskStatusColor!.withOpacity(0.1),
-                        hoverColor: taskStatusColor!.withOpacity(0.1),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${taskData["status"][0].toUpperCase()}${taskData["status"].substring(1).toLowerCase()}",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: taskStatusColor!,
-                              ),
-                            ),
-                            const SizedBox(height: 5,),
-                            if(taskData["name"].isNotEmpty)
-                              Text(
-                                taskData["name"],
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-
-                                ),
-                              ),
-                            const SizedBox(height: 5,),
-                            AnimatedContainer(
-                              constraints: BoxConstraints(
-                                maxHeight: showAllDescription ? 100 : 48,
-                              ),
-                              curve: Curves.easeInOut,
-                              duration: const Duration(milliseconds: 600),
-                              child: SingleChildScrollView(
-                                physics: showAllDescription ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
-                                child: Text(
-                                  taskData["description"],
-                                  maxLines: 10,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Divider(
-                              height: 25,
-                              color: Colors.grey,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Developers",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 6,),
-                                      if(taskData["assigned_task"].isNotEmpty)
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: SingleChildScrollView(
-                                                scrollDirection: Axis.horizontal,
-                                                child: Stack(
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 40,
-                                                      width: (taskData["assigned_task"].length * 26)+ 14.0,
-                                                    ),
-                                                    for(int j = 0; j < (taskData["assigned_task"].length > 4 ? 5 : taskData["assigned_task"].length); j++)
-                                                      if(j > 3)
-                                                        Positioned(
-                                                          left: j * 26 + 2,
-                                                          top: 2,
-                                                          child: Container(
-                                                            width: 36,
-                                                            height: 36,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(18),
-                                                              // border: Border.all(color: Colors.grey),
-                                                              color: Colors.indigo,
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  color: Colors.black.withOpacity(0.3),
-                                                                  blurRadius: 4,
-                                                                )
-                                                              ],
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                "${taskData["assigned_task"].length - 4}+",
-                                                                style: const TextStyle(
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: 18,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      else
-                                                        Positioned(
-                                                          left: j * 26 + 2,
-                                                          top: 2,
-                                                          child: Container(
-                                                            margin: const EdgeInsets.only(right: 5),
-                                                            width: 36,
-                                                            height: 36,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(18),
-                                                              // border: Border.all(color: Colors.grey),
-                                                              color: kPrimaryColor,
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  color: Colors.black.withOpacity(0.3),
-                                                                  blurRadius: 4,
-                                                                )
-                                                              ],
-                                                            ),
-                                                            child: ClipRRect(
-                                                              borderRadius: BorderRadius.circular(20),
-                                                              child: taskData["assigned_task"][j]["developer"]["photo"] == null ? Widgets().noProfileContainer(
-                                                                name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
-                                                                    taskData["assigned_task"][j]["developer"]["last_name"][0],
-                                                              ) : taskData["assigned_task"][j]["developer"]["photo"].isNotEmpty ?
-                                                              Image.network(
-                                                                taskData["assigned_task"][j]["developer"]["photo"],
-                                                                width: 40,
-                                                                height: 40,
-                                                                fit: BoxFit.cover,
-                                                                loadingBuilder: (context, child, loadingProgress){
-                                                                  if(loadingProgress != null){
-                                                                    return const Center(
-                                                                      child: CircularProgressIndicator(
-                                                                        color: kThemeColor,
-                                                                        strokeWidth: 3,
-                                                                      ),
-                                                                    );
-                                                                  }else{
-                                                                    return child;
-                                                                  }
-                                                                },
-                                                                errorBuilder: (context, obj, st){
-                                                                  return Widgets().noProfileContainer(
-                                                                    name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
-                                                                        taskData["assigned_task"][j]["developer"]["last_name"][0],
-                                                                  );
-                                                                },
-                                                              ) : Widgets().noProfileContainer(
-                                                                name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
-                                                                    taskData["assigned_task"][j]["developer"]["last_name"][0],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      else
-                                        const Text(
-                                          "No developer assigned to this task.",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      const SizedBox(height: 5,),
-                                    ],
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    if(_controller.isCompleted){
-                                      _controller.reverse();
-                                    }else {
-                                      _controller.forward();
-                                    }
-                                    isExpanded = !isExpanded;
-                                    setState(() {});
-                                  },
-                                  child: RotationTransition(
-                                    turns: _animation,
-                                    child: Icon(
-                                      isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down_rounded,
-                                      color: taskStatusColor!,
-                                      size: 30,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            AnimatedContainer(
-                              constraints: BoxConstraints(
-                                maxHeight: isExpanded ? 320 : 0,
-                              ),
-                              curve: Curves.easeInOut,
-                              duration: const Duration(milliseconds: 600),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        for(int j = 0; j < taskData["assigned_task"].length; j++)
-                                          Container(
-                                            margin: const EdgeInsets.only(top: 8,),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              border: Border.all(
-                                                color: taskStatusColor!.withOpacity(0.6),
-                                              ),
-                                              borderRadius: BorderRadius.circular(10),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: taskStatusColor!.withOpacity(0.3),
-                                                  blurRadius: 4,
-                                                ),
-                                              ],
-                                            ),
-                                            child: Material(
-                                              elevation: 0,
-                                              color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10)
-                                              ),
-                                              child: ListTile(
-                                                onTap: (){
-
-                                                },
-                                                contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                                                splashColor: taskStatusColor!.withOpacity(0.1),
-                                                hoverColor: taskStatusColor!.withOpacity(0.1),
-                                                title: Row(
-                                                  children: [
-                                                    Container(
-                                                      margin: const EdgeInsets.only(right: 5),
-                                                      width: 36,
-                                                      height: 36,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(18),
-                                                        // border: Border.all(color: Colors.grey),
-                                                        color: kPrimaryColor,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            color: Colors.black.withOpacity(0.3),
-                                                            blurRadius: 4,
-                                                          )
-                                                        ],
-                                                      ),
-                                                      child: ClipRRect(
-                                                        borderRadius: BorderRadius.circular(20),
-                                                        child: taskData["assigned_task"][j]["developer"]["photo"] == null ? Widgets().noProfileContainer(
-                                                          name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
-                                                              taskData["assigned_task"][j]["developer"]["last_name"][0],
-                                                        ) : taskData["assigned_task"][j]["developer"]["photo"].isNotEmpty ?
-                                                        Image.network(
-                                                          taskData["assigned_task"][j]["developer"]["photo"],
-                                                          width: 40,
-                                                          height: 40,
-                                                          fit: BoxFit.cover,
-                                                          loadingBuilder: (context, child, loadingProgress){
-                                                            if(loadingProgress != null){
-                                                              return const Center(
-                                                                child: CircularProgressIndicator(
-                                                                  color: kThemeColor,
-                                                                  strokeWidth: 3,
-                                                                ),
-                                                              );
-                                                            }else{
-                                                              return child;
-                                                            }
-                                                          },
-                                                          errorBuilder: (context, obj, st){
-                                                            return Widgets().noProfileContainer(
-                                                              name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
-                                                                  taskData["assigned_task"][j]["developer"]["last_name"][0],
-                                                            );
-                                                          },
-                                                        ) : Widgets().noProfileContainer(
-                                                          name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
-                                                              taskData["assigned_task"][j]["developer"]["last_name"][0],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 5,),
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            "${taskData["assigned_task"][j]["developer"]["first_name"]} ${taskData["assigned_task"][j]["developer"]["last_name"]}",
-                                                            maxLines: 1,
-                                                            overflow: TextOverflow.ellipsis,
-                                                            style: const TextStyle(
-                                                              fontWeight: FontWeight.w500,
-                                                              fontSize: 15,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            taskData["assigned_task"][j]["developer"]["email"],
-                                                            maxLines: 1,
-                                                            overflow: TextOverflow.ellipsis,
-                                                            style: const TextStyle(
-                                                              fontSize: 14,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                tileColor: taskStatusColor!.withOpacity(0.1),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                ),
-                                                dense: true,
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Total time",
-                                        style: TextStyle(
-                                          // fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${(((taskData["total_time_hr"])*60.0)/60.0).floor()} hour ${(((taskData["total_time_hr"])*60.0)%60.0).round()} min",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10,),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        "Estimated time",
-                                        style: TextStyle(
-                                          // fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${(((taskData["estimate_time"])*60.0)/60.0).floor()} hour ${(((taskData["estimate_time"])*60.0)%60.0).round()} min",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        tileColor: taskStatusColor!.withOpacity(0.1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        dense: true,
-                      ),
-                    ),
-                  ),
+                  // AnimatedContainer(
+                  //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     border: Border.all(
+                  //       color: taskStatusColor!.withOpacity(0.6),
+                  //     ),
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: taskStatusColor!.withOpacity(0.3),
+                  //         blurRadius: 4,
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   curve: Curves.easeInOut,
+                  //   duration: const Duration(milliseconds: 600),
+                  //   child: Material(
+                  //     elevation: 0,
+                  //     color: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(10)
+                  //     ),
+                  //     child: ListTile(
+                  //       onTap: (){
+                  //         showAllDescription = !showAllDescription;
+                  //         setState(() {});
+                  //       },
+                  //       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  //       splashColor: taskStatusColor!.withOpacity(0.1),
+                  //       hoverColor: taskStatusColor!.withOpacity(0.1),
+                  //       title: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Text(
+                  //             "${taskData["status"][0].toUpperCase()}${taskData["status"].substring(1).toLowerCase()}",
+                  //             style: TextStyle(
+                  //               fontSize: 24,
+                  //               fontWeight: FontWeight.bold,
+                  //               color: taskStatusColor!,
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 5,),
+                  //           if(taskData["name"].isNotEmpty)
+                  //             Text(
+                  //               taskData["name"],
+                  //               style: const TextStyle(
+                  //                 fontSize: 20,
+                  //                 fontWeight: FontWeight.bold,
+                  //
+                  //               ),
+                  //             ),
+                  //           const SizedBox(height: 5,),
+                  //           AnimatedContainer(
+                  //             constraints: BoxConstraints(
+                  //               maxHeight: showAllDescription ? 100 : 48,
+                  //             ),
+                  //             curve: Curves.easeInOut,
+                  //             duration: const Duration(milliseconds: 600),
+                  //             child: SingleChildScrollView(
+                  //               physics: showAllDescription ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
+                  //               child: Text(
+                  //                 taskData["description"],
+                  //                 maxLines: 10,
+                  //                 overflow: TextOverflow.ellipsis,
+                  //                 style: const TextStyle(
+                  //                   fontSize: 16,
+                  //                   fontWeight: FontWeight.w500,
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           const Divider(
+                  //             height: 25,
+                  //             color: Colors.grey,
+                  //           ),
+                  //           Row(
+                  //             children: [
+                  //               Expanded(
+                  //                 child: Column(
+                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     const Text(
+                  //                       "Developers",
+                  //                       style: TextStyle(
+                  //                         fontWeight: FontWeight.w500,
+                  //                         fontSize: 16,
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(height: 6,),
+                  //                     if(taskData["assigned_task"].isNotEmpty)
+                  //                       Row(
+                  //                         children: [
+                  //                           Expanded(
+                  //                             child: SingleChildScrollView(
+                  //                               scrollDirection: Axis.horizontal,
+                  //                               child: Stack(
+                  //                                 children: [
+                  //                                   SizedBox(
+                  //                                     height: 40,
+                  //                                     width: (taskData["assigned_task"].length * 26)+ 14.0,
+                  //                                   ),
+                  //                                   for(int j = 0; j < (taskData["assigned_task"].length > 4 ? 5 : taskData["assigned_task"].length); j++)
+                  //                                     if(j > 3)
+                  //                                       Positioned(
+                  //                                         left: j * 26 + 2,
+                  //                                         top: 2,
+                  //                                         child: Container(
+                  //                                           width: 36,
+                  //                                           height: 36,
+                  //                                           decoration: BoxDecoration(
+                  //                                             borderRadius: BorderRadius.circular(18),
+                  //                                             // border: Border.all(color: Colors.grey),
+                  //                                             color: Colors.indigo,
+                  //                                             boxShadow: [
+                  //                                               BoxShadow(
+                  //                                                 color: Colors.black.withOpacity(0.3),
+                  //                                                 blurRadius: 4,
+                  //                                               )
+                  //                                             ],
+                  //                                           ),
+                  //                                           child: Center(
+                  //                                             child: Text(
+                  //                                               "${taskData["assigned_task"].length - 4}+",
+                  //                                               style: const TextStyle(
+                  //                                                 color: Colors.white,
+                  //                                                 fontWeight: FontWeight.bold,
+                  //                                                 fontSize: 18,
+                  //                                               ),
+                  //                                             ),
+                  //                                           ),
+                  //                                         ),
+                  //                                       )
+                  //                                     else
+                  //                                       Positioned(
+                  //                                         left: j * 26 + 2,
+                  //                                         top: 2,
+                  //                                         child: Container(
+                  //                                           margin: const EdgeInsets.only(right: 5),
+                  //                                           width: 36,
+                  //                                           height: 36,
+                  //                                           decoration: BoxDecoration(
+                  //                                             borderRadius: BorderRadius.circular(18),
+                  //                                             // border: Border.all(color: Colors.grey),
+                  //                                             color: kPrimaryColor,
+                  //                                             boxShadow: [
+                  //                                               BoxShadow(
+                  //                                                 color: Colors.black.withOpacity(0.3),
+                  //                                                 blurRadius: 4,
+                  //                                               )
+                  //                                             ],
+                  //                                           ),
+                  //                                           child: ClipRRect(
+                  //                                             borderRadius: BorderRadius.circular(20),
+                  //                                             child: taskData["assigned_task"][j]["developer"]["photo"] == null ? Widgets().noProfileContainer(
+                  //                                               name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
+                  //                                                   taskData["assigned_task"][j]["developer"]["last_name"][0],
+                  //                                             ) : taskData["assigned_task"][j]["developer"]["photo"].isNotEmpty ?
+                  //                                             Image.network(
+                  //                                               taskData["assigned_task"][j]["developer"]["photo"],
+                  //                                               width: 40,
+                  //                                               height: 40,
+                  //                                               fit: BoxFit.cover,
+                  //                                               loadingBuilder: (context, child, loadingProgress){
+                  //                                                 if(loadingProgress != null){
+                  //                                                   return const Center(
+                  //                                                     child: CircularProgressIndicator(
+                  //                                                       color: kThemeColor,
+                  //                                                       strokeWidth: 3,
+                  //                                                     ),
+                  //                                                   );
+                  //                                                 }else{
+                  //                                                   return child;
+                  //                                                 }
+                  //                                               },
+                  //                                               errorBuilder: (context, obj, st){
+                  //                                                 return Widgets().noProfileContainer(
+                  //                                                   name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
+                  //                                                       taskData["assigned_task"][j]["developer"]["last_name"][0],
+                  //                                                 );
+                  //                                               },
+                  //                                             ) : Widgets().noProfileContainer(
+                  //                                               name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
+                  //                                                   taskData["assigned_task"][j]["developer"]["last_name"][0],
+                  //                                             ),
+                  //                                           ),
+                  //                                         ),
+                  //                                       ),
+                  //                                 ],
+                  //                               ),
+                  //                             ),
+                  //                           ),
+                  //                         ],
+                  //                       )
+                  //                     else
+                  //                       const Text(
+                  //                         "No developer assigned to this task.",
+                  //                         style: TextStyle(
+                  //                           fontSize: 14,
+                  //                         ),
+                  //                       ),
+                  //                     const SizedBox(height: 5,),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               GestureDetector(
+                  //                 onTap: (){
+                  //                   if(_controller.isCompleted){
+                  //                     _controller.reverse();
+                  //                   }else {
+                  //                     _controller.forward();
+                  //                   }
+                  //                   isExpanded = !isExpanded;
+                  //                   setState(() {});
+                  //                 },
+                  //                 child: RotationTransition(
+                  //                   turns: _animation,
+                  //                   child: Icon(
+                  //                     isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down_rounded,
+                  //                     color: taskStatusColor!,
+                  //                     size: 30,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //           AnimatedContainer(
+                  //             constraints: BoxConstraints(
+                  //               maxHeight: isExpanded ? 320 : 0,
+                  //             ),
+                  //             curve: Curves.easeInOut,
+                  //             duration: const Duration(milliseconds: 600),
+                  //             child: SingleChildScrollView(
+                  //               child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Column(
+                  //                     children: [
+                  //                       for(int j = 0; j < taskData["assigned_task"].length; j++)
+                  //                         Container(
+                  //                           margin: const EdgeInsets.only(top: 8,),
+                  //                           decoration: BoxDecoration(
+                  //                             color: Colors.white,
+                  //                             border: Border.all(
+                  //                               color: taskStatusColor!.withOpacity(0.6),
+                  //                             ),
+                  //                             borderRadius: BorderRadius.circular(10),
+                  //                             boxShadow: [
+                  //                               BoxShadow(
+                  //                                 color: taskStatusColor!.withOpacity(0.3),
+                  //                                 blurRadius: 4,
+                  //                               ),
+                  //                             ],
+                  //                           ),
+                  //                           child: Material(
+                  //                             elevation: 0,
+                  //                             color: Colors.white,
+                  //                             shape: RoundedRectangleBorder(
+                  //                                 borderRadius: BorderRadius.circular(10)
+                  //                             ),
+                  //                             child: ListTile(
+                  //                               onTap: (){
+                  //
+                  //                               },
+                  //                               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  //                               splashColor: taskStatusColor!.withOpacity(0.1),
+                  //                               hoverColor: taskStatusColor!.withOpacity(0.1),
+                  //                               title: Row(
+                  //                                 children: [
+                  //                                   Container(
+                  //                                     margin: const EdgeInsets.only(right: 5),
+                  //                                     width: 36,
+                  //                                     height: 36,
+                  //                                     decoration: BoxDecoration(
+                  //                                       borderRadius: BorderRadius.circular(18),
+                  //                                       // border: Border.all(color: Colors.grey),
+                  //                                       color: kPrimaryColor,
+                  //                                       boxShadow: [
+                  //                                         BoxShadow(
+                  //                                           color: Colors.black.withOpacity(0.3),
+                  //                                           blurRadius: 4,
+                  //                                         )
+                  //                                       ],
+                  //                                     ),
+                  //                                     child: ClipRRect(
+                  //                                       borderRadius: BorderRadius.circular(20),
+                  //                                       child: taskData["assigned_task"][j]["developer"]["photo"] == null ? Widgets().noProfileContainer(
+                  //                                         name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
+                  //                                             taskData["assigned_task"][j]["developer"]["last_name"][0],
+                  //                                       ) : taskData["assigned_task"][j]["developer"]["photo"].isNotEmpty ?
+                  //                                       Image.network(
+                  //                                         taskData["assigned_task"][j]["developer"]["photo"],
+                  //                                         width: 40,
+                  //                                         height: 40,
+                  //                                         fit: BoxFit.cover,
+                  //                                         loadingBuilder: (context, child, loadingProgress){
+                  //                                           if(loadingProgress != null){
+                  //                                             return const Center(
+                  //                                               child: CircularProgressIndicator(
+                  //                                                 color: kThemeColor,
+                  //                                                 strokeWidth: 3,
+                  //                                               ),
+                  //                                             );
+                  //                                           }else{
+                  //                                             return child;
+                  //                                           }
+                  //                                         },
+                  //                                         errorBuilder: (context, obj, st){
+                  //                                           return Widgets().noProfileContainer(
+                  //                                             name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
+                  //                                                 taskData["assigned_task"][j]["developer"]["last_name"][0],
+                  //                                           );
+                  //                                         },
+                  //                                       ) : Widgets().noProfileContainer(
+                  //                                         name: taskData["assigned_task"][j]["developer"]["first_name"][0]+
+                  //                                             taskData["assigned_task"][j]["developer"]["last_name"][0],
+                  //                                       ),
+                  //                                     ),
+                  //                                   ),
+                  //                                   const SizedBox(width: 5,),
+                  //                                   Expanded(
+                  //                                     child: Column(
+                  //                                       crossAxisAlignment: CrossAxisAlignment.start,
+                  //                                       children: [
+                  //                                         Text(
+                  //                                           "${taskData["assigned_task"][j]["developer"]["first_name"]} ${taskData["assigned_task"][j]["developer"]["last_name"]}",
+                  //                                           maxLines: 1,
+                  //                                           overflow: TextOverflow.ellipsis,
+                  //                                           style: const TextStyle(
+                  //                                             fontWeight: FontWeight.w500,
+                  //                                             fontSize: 15,
+                  //                                           ),
+                  //                                         ),
+                  //                                         Text(
+                  //                                           taskData["assigned_task"][j]["developer"]["email"],
+                  //                                           maxLines: 1,
+                  //                                           overflow: TextOverflow.ellipsis,
+                  //                                           style: const TextStyle(
+                  //                                             fontSize: 14,
+                  //                                           ),
+                  //                                         ),
+                  //                                       ],
+                  //                                     ),
+                  //                                   ),
+                  //                                 ],
+                  //                               ),
+                  //                               tileColor: taskStatusColor!.withOpacity(0.1),
+                  //                               shape: RoundedRectangleBorder(
+                  //                                 borderRadius: BorderRadius.circular(10),
+                  //                               ),
+                  //                               dense: true,
+                  //                             ),
+                  //                           ),
+                  //                         ),
+                  //                     ],
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           const SizedBox(height: 10,),
+                  //           Row(
+                  //             children: [
+                  //               Expanded(
+                  //                 child: Column(
+                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     const Text(
+                  //                       "Total time",
+                  //                       style: TextStyle(
+                  //                         // fontSize: 16,
+                  //                         fontWeight: FontWeight.w500,
+                  //                       ),
+                  //                     ),
+                  //                     Text(
+                  //                       "${(((taskData["total_time_hr"])*60.0)/60.0).floor()} hour ${(((taskData["total_time_hr"])*60.0)%60.0).round()} min",
+                  //                       style: const TextStyle(
+                  //                         fontSize: 14,
+                  //                         fontWeight: FontWeight.w500,
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //               const SizedBox(width: 10,),
+                  //               Expanded(
+                  //                 child: Column(
+                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     const Text(
+                  //                       "Estimated time",
+                  //                       style: TextStyle(
+                  //                         // fontSize: 16,
+                  //                         fontWeight: FontWeight.w500,
+                  //                       ),
+                  //                     ),
+                  //                     Text(
+                  //                       "${(((taskData["estimate_time"])*60.0)/60.0).floor()} hour ${(((taskData["estimate_time"])*60.0)%60.0).round()} min",
+                  //                       style: const TextStyle(
+                  //                         fontSize: 16,
+                  //                         fontWeight: FontWeight.w500,
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       tileColor: taskStatusColor!.withOpacity(0.1),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //       ),
+                  //       dense: true,
+                  //     ),
+                  //   ),
+                  // ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 22.0, right: 22, bottom: 10),
+                    padding: EdgeInsets.only(left: 27.0, right: 27, bottom: 10),
                     child: Text(
                       "Assigned to you",
                       style: TextStyle(
@@ -559,119 +566,120 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20,),
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: kThemeColor.withOpacity(0.7),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: kThemeColor.withOpacity(0.3),
-                          blurRadius: 4,
-                        ),
-                      ],
-                    ),
-                    child: Material(
-                      elevation: 0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)
-                      ),
-                      child: ListTile(
-                        onTap: (){
-
-                        },
-                        contentPadding: const EdgeInsets.only(left: 0, right: 16, top: 10, bottom: 10),
-                        splashColor: kThemeColor.withOpacity(0.1),
-                        hoverColor: kThemeColor.withOpacity(0.1),
-                        title: Row(
-                          children: [
-                            Container(
-                              width: 7,
-                              height: 100,
-                              decoration: const BoxDecoration(
-                                color: kThemeColor,
-                                borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
-                              ),
-                            ),
-                            const SizedBox(width: 16,),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if(widget.assignTaskData["note"].isNotEmpty)
-                                    Text(
-                                      widget.assignTaskData["note"],
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        // fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  Text(
-                                    DateFormat("dd MM yyyy hh:mm a").format(DateTime.parse(widget.assignTaskData["created_at"])),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                      height: 2,
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                  const Divider(
-                                    color: Colors.grey,
-                                  ),
-                                  const SizedBox(height: 5,),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 32,
-                                        height: 32,
-                                        child: Image.asset("assets/images/working_hours_person.png"),
-                                      ),
-                                      const SizedBox(width: 10,),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              "Total time",
-                                              style: TextStyle(
-                                                // fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            Text(
-                                              "${(double.parse(widget.assignTaskData["total_time_hr"].toString())).abs().floor()} hour ${((double.parse(widget.assignTaskData["total_time_hr"].toString())*60.0)%60.0).abs().round()} min",
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        tileColor: kThemeColor.withOpacity(0.06),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        dense: true,
-                      ),
-                    ),
-                  ),
+                  AssignTaskCard(assignTaskData: widget.assignTaskData,),
+                  // Container(
+                  //   margin: const EdgeInsets.only(left: 25, right: 25, bottom: 15,),
+                  //   decoration: BoxDecoration(
+                  //     color: kPrimaryColor,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     border: Border.all(
+                  //       color: kThemeColor,
+                  //     ),
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: kThemeColor.withOpacity(0.3),
+                  //         blurRadius: 4,
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: Material(
+                  //     elevation: 0,
+                  //     color: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(10)
+                  //     ),
+                  //     child: ListTile(
+                  //       onTap: (){
+                  //
+                  //       },
+                  //       contentPadding: const EdgeInsets.only(left: 0, right: 16, top: 10, bottom: 10),
+                  //       splashColor: kThemeColor.withOpacity(0.1),
+                  //       hoverColor: kThemeColor.withOpacity(0.1),
+                  //       title: Row(
+                  //         children: [
+                  //           Container(
+                  //             width: 7,
+                  //             height: 100,
+                  //             decoration: const BoxDecoration(
+                  //               color: kThemeColor,
+                  //               borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                  //             ),
+                  //           ),
+                  //           const SizedBox(width: 16,),
+                  //           Expanded(
+                  //             child: Column(
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 if(widget.assignTaskData["note"].isNotEmpty)
+                  //                   Text(
+                  //                     widget.assignTaskData["note"],
+                  //                     maxLines: 2,
+                  //                     overflow: TextOverflow.ellipsis,
+                  //                     style: const TextStyle(
+                  //                       fontSize: 18,
+                  //                       // fontWeight: FontWeight.w400,
+                  //                     ),
+                  //                   ),
+                  //                 Text(
+                  //                   DateFormat("dd MM yyyy hh:mm a").format(DateTime.parse(widget.assignTaskData["created_at"])),
+                  //                   style: const TextStyle(
+                  //                     fontWeight: FontWeight.w500,
+                  //                     fontSize: 15,
+                  //                     height: 2,
+                  //                     fontStyle: FontStyle.italic,
+                  //                   ),
+                  //                 ),
+                  //                 const Divider(
+                  //                   color: Colors.grey,
+                  //                 ),
+                  //                 const SizedBox(height: 5,),
+                  //                 Row(
+                  //                   children: [
+                  //                     SizedBox(
+                  //                       width: 32,
+                  //                       height: 32,
+                  //                       child: Image.asset("assets/images/working_hours_person.png"),
+                  //                     ),
+                  //                     const SizedBox(width: 10,),
+                  //                     Expanded(
+                  //                       child: Column(
+                  //                         mainAxisAlignment: MainAxisAlignment.center,
+                  //                         crossAxisAlignment: CrossAxisAlignment.start,
+                  //                         children: [
+                  //                           const Text(
+                  //                             "Total time",
+                  //                             style: TextStyle(
+                  //                               // fontSize: 16,
+                  //                               fontWeight: FontWeight.w500,
+                  //                             ),
+                  //                           ),
+                  //                           Text(
+                  //                             "${(double.parse(widget.assignTaskData["total_time_hr"].toString())).abs().floor()} hour ${((double.parse(widget.assignTaskData["total_time_hr"].toString())*60.0)%60.0).abs().round()} min",
+                  //                             style: const TextStyle(
+                  //                               fontSize: 16,
+                  //                               fontWeight: FontWeight.w500,
+                  //                             ),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       tileColor: kThemeColor.withOpacity(0.06),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //       ),
+                  //       dense: true,
+                  //     ),
+                  //   ),
+                  // ),
                   const Padding(
-                    padding: EdgeInsets.only(left: 22.0, right: 22, bottom: 18),
+                    padding: EdgeInsets.only(left: 27.0, right: 27, bottom: 12),
                     child: Text(
                       "Task logs",
                       style: TextStyle(
@@ -683,12 +691,12 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                   if(assignTaskLogs.isNotEmpty)
                     for(int i = 0; i < assignTaskLogs.length; i++)
                       Container(
-                        margin: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                        margin: const EdgeInsets.only(left: 25, right: 25, bottom: 15),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: taskStatusColor!.withOpacity(0.6),
+                            color: taskStatusColor!,
                           ),
                           boxShadow: [
                             BoxShadow(
@@ -818,7 +826,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
                       )
                   else
                     Container(
-                      margin: const EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(25),
                       height: 20,
                       child: const Center(
                         child: Text(

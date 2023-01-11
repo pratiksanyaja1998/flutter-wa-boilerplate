@@ -59,7 +59,7 @@ class CashFree{
       var session = CFSessionBuilder().setEnvironment(environment).setOrderId(orderId).setOrderToken(orderToken).build();
       return session;
     } on CFException catch (e) {
-      printMessage(e.message);
+      printMessage(e.message.toString());
     }
     return null;
   }
@@ -84,7 +84,7 @@ class CashFree{
       await cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
 
     } on CFException catch (e) {
-      printMessage(e.message);
+      printMessage(e.message.toString());
     }catch (e){
       printMessage("ERROR DOING CASH FREE PAYMENT : $e");
     }

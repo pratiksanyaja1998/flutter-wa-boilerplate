@@ -19,15 +19,17 @@ void main() async{
   initWA(
     screen: const HomeScreen(),
     domain: kDomain,
-    apiUrl: "http://192.168.1.15:8000",
+    apiUrl: "https://api.whitelabelapp.in",
     theme: kThemeColor,
     primary: kPrimaryColor,
     secondary: kSecondaryColor,
     loginRequired: true,
     firebaseToken: FirebaseMessagingProject.fcmToken,
   );
-  SharedPreference.init();
-
+  await SharedPreference.init();
+  if(SharedPreference.isLogin()) {
+    UserServices().getUserProfile();
+  }
   runApp(const MyApp());
 }
 
@@ -50,7 +52,7 @@ class MyApp extends StatefulWidget {
   }
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -74,7 +76,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     precacheImage(const AssetImage("assets/images/logo.png"), context);
     return MaterialApp(
       locale: _locale,

@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/address_field.dart';
 import 'package:whitelabelapp/config.dart';
@@ -27,7 +26,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   TextEditingController emailController = TextEditingController();
 
   UserModel? user;
-  var selectedProfilePicture;
+  dynamic selectedProfilePicture;
   File? f;
 
   @override
@@ -364,7 +363,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   }
 
   Future<void> takePhoto({required ImageSource source})async{
-    var result = await ImagePicker.platform.pickImage(source: source);
+    var result = await ImagePicker().pickImage(source: source);
     if(result != null){
       if(!mounted) return;
       CroppedFile? croppedFile = await ImageCropper().cropImage(

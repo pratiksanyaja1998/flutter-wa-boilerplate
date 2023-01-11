@@ -17,7 +17,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   UserModel? user;
-  var selectedProfilePicture;
+  dynamic selectedProfilePicture;
   File? f;
 
   @override
@@ -411,7 +411,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> takePhoto({required ImageSource source})async{
-    var result = await ImagePicker.platform.pickImage(source: source);
+    var result = await ImagePicker().pickImage(source: source);
     if(result != null){
       if(!mounted) return;
       CroppedFile? croppedFile = await ImageCropper().cropImage(

@@ -1,16 +1,16 @@
 
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 
 class ServiceApis {
 
-  Future<http.Response> getUserDetail({required String userId})async{
+  Future<Response> getUserDetail({required String userId})async{
 
     Uri url = Uri.parse("$baseUrl/user/details/$userId");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
       url,
       headers: {
         "Accept": "application/json",
@@ -29,7 +29,7 @@ class ServiceApis {
 
   }
 
-  Future<http.Response> razorpayCallback({
+  Future<Response> razorpayCallback({
     required String id,
     required String paymentId,
     required String orderId,
@@ -43,7 +43,7 @@ class ServiceApis {
       "razorpay_signature": signature
     };
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
       url,
       body: body,
     );
@@ -58,12 +58,12 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> stripeCallback({
+  Future<Response> stripeCallback({
     required String id,
   })async{
     Uri url = Uri.parse("$baseUrl/payment/stripe/callback/$id");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -81,10 +81,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getPaymentDetail({required String paymentId})async{
+  Future<Response> getPaymentDetail({required String paymentId})async{
     Uri url = Uri.parse("$baseUrl/payment/details/$paymentId");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -102,10 +102,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getBusinessStaffList({String? search})async{
+  Future<Response> getBusinessStaffList({String? search})async{
     Uri url = Uri.parse("$baseUrl/user/business/staff/list${search != null ? "?search=$search" : ""}");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -123,10 +123,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getAppUserList()async{
+  Future<Response> getAppUserList()async{
     Uri url = Uri.parse("$baseUrl/user/business/customer/list");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -144,14 +144,14 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> changeUserRole({required int userId, required String type})async{
-    Uri url = Uri.parse("baseUrl/user/update/role/$userId");
+  Future<Response> changeUserRole({required int userId, required String type})async{
+    Uri url = Uri.parse("$baseUrl/user/update/role/$userId");
 
     var body = jsonEncode({
       "type": type,
     });
 
-    http.Response response = await http.Client().patch(
+    Response response = await Client().patch(
         url,
         body: body,
         headers: {
@@ -171,10 +171,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getProjectList()async{
+  Future<Response> getProjectList()async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/project/list");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -192,17 +192,18 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> createProject({required String projectName, String? projectDescription, List<dynamic>? team})async{
+  Future<Response> createProject({required String projectName, String? projectDescription, List<dynamic>? team, required int managerId, double? estimatedTime})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/project/create");
 
     final body = jsonEncode({
+      "estimate_time": estimatedTime ?? 0.0,
       "name": projectName,
       "description": projectDescription ?? "",
       "team": team ?? [],
-      "manager": SharedPreference.getUser()!.id,
+      "manager": managerId,
     });
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
         url,
         body: body,
         headers: {
@@ -222,17 +223,18 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> updateProject({required String projectId, required String projectName, String? projectDescription, List<dynamic>? team})async{
+  Future<Response> updateProject({required int managerId, required String projectId, required String projectName, String? projectDescription, List<dynamic>? team, double? estimatedTime})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/project/update/$projectId");
 
     final body = jsonEncode({
+      "estimate_time": estimatedTime ?? 0.0,
       "name": projectName,
       "description": projectDescription ?? "",
       "team": team ?? [],
-      "manager": SharedPreference.getUser()!.id,
+      "manager": managerId,
     });
 
-    http.Response response = await http.Client().patch(
+    Response response = await Client().patch(
         url,
         body: body,
         headers: {
@@ -252,14 +254,14 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> updateProjectStatus({required String projectId, required String status,})async{
+  Future<Response> updateProjectStatus({required String projectId, required String status,})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/project/update/status/$projectId");
 
     final body = jsonEncode({
       "status": status,
     });
 
-    http.Response response = await http.Client().patch(
+    Response response = await Client().patch(
         url,
         body: body,
         headers: {
@@ -279,10 +281,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> deleteProject({required String projectId})async{
+  Future<Response> deleteProject({required String projectId})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/project/delete/$projectId");
 
-    http.Response response = await http.Client().delete(
+    Response response = await Client().delete(
         url,
         headers: {
           "Accept": "application/json",
@@ -301,16 +303,17 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> createTask({required String taskName, String? taskDescription, required int projectId})async{
+  Future<Response> createTask({required String taskName, String? taskDescription, required int projectId, double? estimatedTime})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/task/create");
 
     final body = jsonEncode({
+      "estimate_time": estimatedTime ?? 0.0,
       "name": taskName,
       "description": taskDescription ?? "",
       "project": projectId,
     });
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
         url,
         body: body,
         headers: {
@@ -330,10 +333,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getTaskList({String? projectId, String? search, String? ids, String? status})async{
+  Future<Response> getTaskList({String? projectId, String? search, String? ids, String? status})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/task/list?project=${projectId ?? ""}&search=${search ?? ""}&ids=${ids ?? ""}&status=${status ?? ""}");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -351,10 +354,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getTask({required int taskId})async{
+  Future<Response> getTask({required int taskId})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/task/get/$taskId");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -372,16 +375,17 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> updateTask({required String taskId, required String taskName, String? taskDescription, required int projectId})async{
+  Future<Response> updateTask({required String taskId, required String taskName, String? taskDescription, required int projectId, double? estimatedTime})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/task/update/$taskId");
 
     final body = jsonEncode({
+      "estimate_time": estimatedTime ?? 0.0,
       "name": taskName,
       "description": taskDescription ?? "",
       "project": projectId,
     });
 
-    http.Response response = await http.Client().patch(
+    Response response = await Client().patch(
         url,
         body: body,
         headers: {
@@ -401,14 +405,14 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> updateTaskStatus({required String taskId, required String status,})async{
+  Future<Response> updateTaskStatus({required String taskId, required String status,})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/task/update/status/$taskId");
 
     final body = jsonEncode({
       "status": status,
     });
 
-    http.Response response = await http.Client().patch(
+    Response response = await Client().patch(
         url,
         body: body,
         headers: {
@@ -428,10 +432,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> deleteTask({required String taskId})async{
+  Future<Response> deleteTask({required String taskId})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/task/delete/$taskId");
 
-    http.Response response = await http.Client().delete(
+    Response response = await Client().delete(
         url,
         headers: {
           "Accept": "application/json",
@@ -450,7 +454,7 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> assignTask({required int developerId, required int taskId, String? note})async{
+  Future<Response> assignTask({required int developerId, required int taskId, String? note})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/assigned_task/create");
 
     final body = jsonEncode({
@@ -459,7 +463,7 @@ class ServiceApis {
       "task": taskId
     });
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
         url,
         body: body,
         headers: {
@@ -479,10 +483,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getManagerTaskList({String? taskId})async{
+  Future<Response> getManagerTaskList({String? taskId})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/assigned_task/manager/list${taskId != null ? "?task_id=$taskId" : ""}");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -500,10 +504,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getDeveloperTaskList({String? projectId, String? search, String? ids, String? status})async{
+  Future<Response> getDeveloperTaskList({String? projectId, String? search, String? ids, String? status})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/assigned_task/developer/list");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -521,7 +525,7 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> changeAssignedTaskDeveloper({required int taskId, required int developerId, String? note})async{
+  Future<Response> changeAssignedTaskDeveloper({required int taskId, required int developerId, String? note})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/assigned_task/change/developer/$taskId");
 
     final body = jsonEncode({
@@ -529,7 +533,7 @@ class ServiceApis {
       "note": note ?? "",
     });
 
-    http.Response response = await http.Client().patch(
+    Response response = await Client().patch(
         url,
         body: body,
         headers: {
@@ -549,10 +553,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> deleteAssignedTask({required int assignTaskId})async{
+  Future<Response> deleteAssignedTask({required int assignTaskId})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/assigned_task/delete/$assignTaskId");
 
-    http.Response response = await http.Client().delete(
+    Response response = await Client().delete(
         url,
         headers: {
           "Accept": "application/json",
@@ -571,7 +575,7 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> createTimeLogTask({required int assignTaskId, String? startTime, String? endTime, String? note})async{
+  Future<Response> createTimeLogTask({required int assignTaskId, String? startTime, String? endTime, String? note})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/time_log_task/create");
 
     String currentTime = DateTime.now().toIso8601String();
@@ -583,7 +587,7 @@ class ServiceApis {
     });
     printMessage("----$body");
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
         url,
         body: body,
         headers: {
@@ -603,10 +607,10 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getTimeLogTaskList({int? assignTaskId,})async{
+  Future<Response> getTimeLogTaskList({int? assignTaskId,})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/time_log_task/list${assignTaskId != null ? "?assigned_task_id=$assignTaskId" : ""}");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -624,7 +628,7 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> getDeveloperReport({required String startDate, required String endDate})async{
+  Future<Response> getDeveloperReport({required String startDate, required String endDate})async{
     Uri url = Uri.parse("$baseUrl/tasktimertacker/developer/report");
 
     var body = jsonEncode({
@@ -632,7 +636,7 @@ class ServiceApis {
       "end_date": endDate,
     });
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
         url,
         body: body,
         headers: {
@@ -653,10 +657,10 @@ class ServiceApis {
   }
 
 
-  Future<http.Response> getCoinTransactions({String? searchText, String? date, String? type})async{
+  Future<Response> getCoinTransactions({String? searchText, String? date, String? type})async{
     Uri url = Uri.parse("$baseUrl/coin/transactions/list?${searchText != null ? "search=$searchText" : ""}${date != null ? "&created_at=$date" : ""}${type != null ? "&type=$type" :  ""}");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",
@@ -674,7 +678,7 @@ class ServiceApis {
     }
   }
 
-  Future<http.Response> redeemCoins({required double coin, required String upiId})async{
+  Future<Response> redeemCoins({required double coin, required String upiId})async{
     Uri url = Uri.parse("$baseUrl/coin/redeem/create");
 
     final body = jsonEncode({
@@ -682,7 +686,7 @@ class ServiceApis {
       "upi_id": upiId,
     });
 
-    http.Response response = await http.Client().post(
+    Response response = await Client().post(
         url,
         body: body,
         headers: {
@@ -703,10 +707,10 @@ class ServiceApis {
   }
 
 
-  Future<http.Response> getReferralList()async{
+  Future<Response> getReferralList()async{
     Uri url = Uri.parse("$baseUrl/user/referral/list");
 
-    http.Response response = await http.Client().get(
+    Response response = await Client().get(
         url,
         headers: {
           "Accept": "application/json",

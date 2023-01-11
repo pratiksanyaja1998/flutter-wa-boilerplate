@@ -1,5 +1,6 @@
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/firebase_options.dart';
 
 class FirebaseProject {
@@ -10,7 +11,7 @@ class FirebaseProject {
         options: DefaultFirebaseOptions.currentPlatform,
       );
     }catch(e){
-      print("__________ $e ____________");
+      printMessage("__________ $e ____________");
     }
   }
 

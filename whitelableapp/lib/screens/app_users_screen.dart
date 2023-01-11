@@ -37,6 +37,7 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
     if(SharedPreference.isLogin()) {
       var response = await ServiceApis().getBusinessStaffList();
       var data = jsonDecode(response.body);
+      if(!mounted) return;
       if (response.statusCode == 200) {
         staffList = data;
         // managerList = data.where((element) => element["type"] == "manager").toList();
@@ -44,6 +45,8 @@ class _AppUsersScreenState extends State<AppUsersScreen> {
         showManagerProgress = false;
         // showDeveloperProgress = false;
         setState(() {});
+      }else{
+        CommonFunctions().showError(data: data, context: context);
       }
     }
   }

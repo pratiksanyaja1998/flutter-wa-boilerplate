@@ -22,9 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getLoginUser()async{
     await Future.delayed(const Duration(seconds: 0));
+    if(!mounted) return;
     if(SharedPreference.isLogin()) {
-      await UserServices().getUserProfile();
-      if(!mounted) return;
       if(SharedPreference.getUser()!.type == "manager" || SharedPreference.getUser()!.type == "merchant"){
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ManagerDashboardScreen()));
       }else {

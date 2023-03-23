@@ -10,7 +10,6 @@ import 'package:whitelabelapp/screens/developer_assign_task_detail.dart';
 import 'package:whitelabelapp/screens/profile_settings.dart';
 import 'package:whitelabelapp/screens/report_screen.dart';
 import 'package:whitelabelapp/screens/settings.dart';
-import 'package:whitelabelapp/screens/terms_and_condition.dart';
 import 'package:whitelabelapp/service/api.dart';
 
 class DashboardScreen extends StatefulWidget {

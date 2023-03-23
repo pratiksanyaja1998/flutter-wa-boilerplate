@@ -509,7 +509,7 @@ class _TaskCardState extends State<TaskCard> {
                                               ),
                                             ],
                                           ),
-                                          tileColor: taskStatusColor!.withOpacity(0.1),
+                                          tileColor: taskStatusColor.withOpacity(0.1),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(10),
                                           ),

@@ -7,14 +7,11 @@ import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/project_card.dart';
 import 'package:whitelabelapp/config.dart';
 import 'package:whitelabelapp/screens/app_users_screen.dart';
-import 'package:whitelabelapp/screens/contact_us.dart';
 import 'package:whitelabelapp/screens/dashboards/dashboard.dart';
 import 'package:whitelabelapp/screens/profile_settings.dart';
 import 'package:whitelabelapp/screens/project_detail.dart';
 import 'package:whitelabelapp/screens/settings.dart';
-import 'package:whitelabelapp/screens/terms_and_condition.dart';
 import 'package:whitelabelapp/service/api.dart';
-import 'package:intl/intl.dart';
 
 class ManagerDashboardScreen extends StatefulWidget {
   const ManagerDashboardScreen({Key? key}) : super(key: key);

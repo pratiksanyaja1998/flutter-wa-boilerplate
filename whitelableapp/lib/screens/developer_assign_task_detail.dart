@@ -102,7 +102,7 @@ class _DeveloperAssignTaskDetailScreenState extends State<DeveloperAssignTaskDet
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          taskData["name"],
+          taskData != null ? taskData["name"] : "",
         ),
       ),
       body: Center(

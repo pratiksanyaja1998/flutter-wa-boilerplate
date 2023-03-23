@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:wa_flutter_lib/wa_flutter_lib.dart';
 import 'package:whitelabelapp/components/project_card.dart';
 import 'package:whitelabelapp/components/task_card.dart';
